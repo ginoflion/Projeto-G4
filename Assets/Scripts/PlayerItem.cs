@@ -1,9 +1,43 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerItem : MonoBehaviour
 {
     public Transform handTransform;
     private GameObject currentItem;
+    
+    public InputActionReference useAction;
+    
+    void OnEnable()
+    {
+        if (useAction != null) useAction.action.Enable();
+    }
+
+    void OnDisable()
+    {
+        if (useAction != null) useAction.action.Disable();
+    }
+
+    void Update()
+    {
+        if (useAction != null && useAction.action.WasPressedThisFrame())
+        {
+            UseCurrentItem();
+        }
+    }
+    private void UseCurrentItem()
+    {
+        if (HasItem())
+        {
+            Debug.Log(currentItem);
+            IUsable usableItem = currentItem.GetComponent<IUsable>();
+            
+            if (usableItem != null)
+            {
+                usableItem.Use();
+            }
+        }
+    }
 
     public bool HasItem()
     {
