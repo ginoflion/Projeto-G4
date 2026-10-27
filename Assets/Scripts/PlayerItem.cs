@@ -76,7 +76,14 @@ public class PlayerItem : MonoBehaviour
 
     public string GetItemName()
     {
-        Interactable interactable = currentItem.GetComponent<Interactable>();
-        return interactable.itemName != null ? interactable.itemName : "";
+        if (currentItem != null)
+        { 
+            Interactable interactable = currentItem.GetComponent<Interactable>();
+            return interactable.itemName != null ? interactable.itemName : "";
+        }
+        else
+        {
+            return "";
+        }
     }
 }

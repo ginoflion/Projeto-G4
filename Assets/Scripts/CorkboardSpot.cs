@@ -4,15 +4,17 @@ public class CorkboardSpot : Interactable
 {
     public GameObject outlineVisual;
     private GameObject placedPaper;
+    private PlayerItem playerHand;
 
     void Start()
     {
         if (outlineVisual != null) outlineVisual.SetActive(false);
+        playerHand = FindObjectOfType<PlayerItem>();
     }
     
     public override void OnHoverEnter()
     {
-        if (placedPaper == null && outlineVisual != null)
+        if (placedPaper == null && outlineVisual != null && playerHand != null && playerHand.GetItemName() == "Paper")
         {
             outlineVisual.SetActive(true);
         }
@@ -20,7 +22,7 @@ public class CorkboardSpot : Interactable
 
     public override void OnHoverExit()
     {
-        if (outlineVisual != null) outlineVisual.SetActive(false);
+        if (outlineVisual != null ) outlineVisual.SetActive(false);
     }
 
     public override void Interact(PlayerItem playerHand)

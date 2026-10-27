@@ -2241,6 +2241,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0.14}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1002806038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1002806039}
+  m_Layer: 2
+  m_Name: HandPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1002806039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002806038}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.696817, y: -0.11656783, z: 0.11635654, w: 0.69808257}
+  m_LocalPosition: {x: 0.6587317, y: -0.59916604, z: 1.3883274}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1867198918}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1023043044
 GameObject:
   m_ObjectHideFlags: 0
@@ -2941,7 +2972,7 @@ GameObject:
   - component: {fileID: 1395494808}
   - component: {fileID: 1395494813}
   m_Layer: 3
-  m_Name: Cylinder
+  m_Name: UV Lantern
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4191,8 +4222,9 @@ GameObject:
   - component: {fileID: 1783021855}
   - component: {fileID: 1783021854}
   - component: {fileID: 1783021853}
+  - component: {fileID: 1783021859}
   m_Layer: 3
-  m_Name: Cube (10)
+  m_Name: Paper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4327,6 +4359,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1783021859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783021852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5dd9c675bd6754396634681363612d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalPosition: {x: 0, y: 0, z: 0}
+  normalRotation: {x: 0, y: 0, z: 0}
+  zoomedPosition: {x: 0, y: 0, z: 0.4}
+  zoomedRotation: {x: 90, y: 0, z: 0}
 --- !u!1 &1802335110
 GameObject:
   m_ObjectHideFlags: 0
@@ -4557,17 +4605,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6817638361354391145, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
+      propertyPath: whatIsGround.m_Bits
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 6817638361354391147, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
       propertyPath: m_Name
       value: Super First Person Controller
+      objectReference: {fileID: 0}
+    - target: {fileID: 6826115578934484502, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364897193903102009, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
+      propertyPath: m_Name
+      value: HandVisual
       objectReference: {fileID: 0}
     - target: {fileID: 8529606668823448187, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
       propertyPath: useAction
       value: 
       objectReference: {fileID: 1269674185}
+    - target: {fileID: 8529606668823448187, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
+      propertyPath: handTransform
+      value: 
+      objectReference: {fileID: 1002806039}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6817638360860843947, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 1002806039}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
 --- !u!1 &1836589365
@@ -4901,6 +4968,11 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!4 &1867198918 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6817638360860843947, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
+  m_PrefabInstance: {fileID: 1830414274}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2116698649
 GameObject:
   m_ObjectHideFlags: 0
