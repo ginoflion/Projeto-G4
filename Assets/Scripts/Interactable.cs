@@ -8,4 +8,14 @@ public class Interactable : MonoBehaviour
     {
         playerHand.PickUpItem(this.gameObject);
     }
+
+    public virtual void OnHoverEnter()
+    {
+        
+    }
+
+    public virtual void OnHoverExit()
+    {
+        
+    }
 }

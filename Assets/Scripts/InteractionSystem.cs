@@ -9,6 +9,7 @@ public class InteractionSystem : MonoBehaviour
 
     private PlayerItem playerItem;
     public InputActionReference interactAction;
+    private Interactable currentHoveredObject;
 
     void Awake()
     {
@@ -27,23 +28,40 @@ public class InteractionSystem : MonoBehaviour
 
     void Update()
     {
+        HandleHover();
         if (interactAction.action.WasPressedThisFrame())
         {
-            TryInteract();
+            if (currentHoveredObject != null)
+            {
+                currentHoveredObject.Interact(playerItem);
+            }
         }
     }
 
-    private void TryInteract()
+    private void HandleHover()
     {
         Ray ray = new Ray(playerCamera.position, playerCamera.forward);
         RaycastHit hit;
+        
+        Debug.DrawRay(ray.origin, ray.direction * interactionDistance, Color.red, 2f); 
 
         if (Physics.Raycast(ray, out hit, interactionDistance, interactableLayer))
         {
             Interactable interactable = hit.collider.GetComponent<Interactable>();
-            if (interactable != null)
+
+            if (interactable != currentHoveredObject)
             {
-                interactable.Interact(playerItem);
+                if (currentHoveredObject != null) currentHoveredObject.OnHoverExit();
+                currentHoveredObject = interactable;
+                if (currentHoveredObject != null) currentHoveredObject.OnHoverEnter();
+            }
+        }
+        else
+        {
+            if (currentHoveredObject != null)
+            {
+                currentHoveredObject.OnHoverExit();
+                currentHoveredObject = null;
             }
         }
     }

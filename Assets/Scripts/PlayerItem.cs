@@ -73,4 +73,10 @@ public class PlayerItem : MonoBehaviour
         currentItem = null;
         return itemToDrop;
     }
+
+    public string GetItemName()
+    {
+        Interactable interactable = currentItem.GetComponent<Interactable>();
+        return interactable.itemName != null ? interactable.itemName : "";
+    }
 }
