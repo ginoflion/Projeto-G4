@@ -49,6 +49,11 @@ public class Door : Interactable
             DayManager.Instance.AdvanceDay();
         }
 
+        if (CartasManager.Instance != null)
+        {
+            CartasManager.Instance.SpawnarCarta(); 
+        }
+
         if (spawn != null && playerItem != null)
         {
             CharacterController cc = playerItem.GetComponent<CharacterController>();

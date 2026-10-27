@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class CartasManager : MonoBehaviour
 {
-    // Estrutura para os dias com escolhas (Dia 2 em diante)
+    public static CartasManager Instance { get; private set; }
+
     [System.Serializable]
     public struct DiaComEscolha
     {
@@ -18,26 +19,45 @@ public class CartasManager : MonoBehaviour
     }
 
     [Header("Configuração - Dia 1 (Fixo)")]
-    [Tooltip("O único prefab que spawna sempre no Dia 1.")]
     [SerializeField] private GameObject prefabDia1;
 
     [Header("Configuração - Outros Dias (Dia 2 em diante)")]
-    [Tooltip("Lista de dias com escolhas. O índice 0 aqui corresponde ao Dia 2, o índice 1 ao Dia 3, e assim sucessivamente.")]
     [SerializeField] private List<DiaComEscolha> listaDiasComEscolha = new List<DiaComEscolha>();
 
     [Header("Destino")]
-    [Tooltip("O Transform onde a carta será spawnada.")]
     [SerializeField] private Transform localDeSpawn;
 
     [Header("Debug / Visualização no Inspetor")]
-    [Tooltip("Mostra a última escolha recebida pelo sistema.")]
-    [SerializeField] private string ultimaEscolha = "Nenhuma";
+    [SerializeField] private string ultimaEscolhaRecebida = "certa"; // Podes definir uma predefinição
 
-    public void SpawnarCarta(string escolha)
+    private void Awake()
     {
-        // Guarda a string no campo para consegui-la ver no Inspetor
-        ultimaEscolha = escolha;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
 
+    private void Start()
+    {
+        // Spawna o objeto do Dia 1 logo no início do jogo
+        SpawnarCarta(ultimaEscolhaRecebida);
+    }
+
+    // Outros scripts (como sistemas de escolha) podem chamar esta função para atualizar a escolha guardada
+    public void DefinirEscolha(string escolha)
+    {
+        ultimaEscolhaRecebida = escolha;
+    }
+
+    // A porta apenas chama esta função ao avançar o dia
+    public void SpawnarCarta()
+    {
         if (localDeSpawn == null)
         {
             Debug.LogError("O local de spawn não foi atribuído no Inspetor!", this);
@@ -55,13 +75,10 @@ public class CartasManager : MonoBehaviour
 
         if (diaAtual == 1)
         {
-            // Dia 1: Usa sempre o objeto fixo, independentemente da escolha
             prefabParaSpawnar = prefabDia1;
         }
         else
         {
-            // Dia 2 em diante: Converte o dia atual para o índice da lista 
-            // (Dia 2 = Índice 0 da lista, Dia 3 = Índice 1, etc.)
             int indiceLista = diaAtual - 2;
 
             if (indiceLista < 0 || indiceLista >= listaDiasComEscolha.Count)
@@ -72,31 +89,37 @@ public class CartasManager : MonoBehaviour
 
             DiaComEscolha dadosDoDia = listaDiasComEscolha[indiceLista];
 
-            // Verifica se a escolha foi "certa" ou "errada"
-            if (escolha.ToLower() == "certa")
+            // Verifica a string guardada para decidir se é Certa ou Errada
+            if (ultimaEscolhaRecebida.ToLower() == "certa")
             {
                 prefabParaSpawnar = dadosDoDia.cartaCertaPrefab;
             }
-            else if (escolha.ToLower() == "errada")
+            else if (ultimaEscolhaRecebida.ToLower() == "errada")
             {
                 prefabParaSpawnar = dadosDoDia.cartaErradaPrefab;
             }
             else
             {
-                Debug.LogWarning($"Escolha inválida recebida: '{escolha}'. Use 'certa' ou 'errada'.", this);
+                Debug.LogWarning($"Escolha inválida registada: '{ultimaEscolhaRecebida}'. Use 'certa' ou 'errada'.", this);
                 return;
             }
         }
 
-        // Faz o Instantiate se o prefab existir
         if (prefabParaSpawnar != null)
         {
             Instantiate(prefabParaSpawnar, localDeSpawn.position, localDeSpawn.rotation, localDeSpawn);
-            Debug.Log(diaAtual == 1 ? "Spawnou o objeto fixo do Dia 1." : $"Spawnou a carta para o Dia {diaAtual} ({escolha}).");
+            Debug.Log(diaAtual == 1 ? "Spawnou o objeto fixo do Dia 1." : $"Spawnou a carta para o Dia {diaAtual} com resultado: {ultimaEscolhaRecebida}");
         }
         else
         {
             Debug.LogError($"O prefab a spawnar para o Dia {diaAtual} é nulo!", this);
         }
+    }
+
+    // Sobrecarga caso queiras passar a escolha diretamente no momento do spawn
+    public void SpawnarCarta(string escolha)
+    {
+        DefinirEscolha(escolha);
+        SpawnarCarta();
     }
 }
