@@ -14,7 +14,7 @@ public class CorkboardSpot : Interactable
     
     public override void OnHoverEnter()
     {
-        if (placedPaper == null && outlineVisual != null && playerHand != null && playerHand.GetItemName() == "Paper")
+        if (placedPaper == null && outlineVisual != null && playerHand != null && (playerHand.GetItemName() == "Paper" || playerHand.GetItemName() == "Answer"))
         {
             outlineVisual.SetActive(true);
         }
@@ -27,7 +27,7 @@ public class CorkboardSpot : Interactable
 
     public override void Interact(PlayerItem playerHand)
     {
-        if (playerHand.HasItem() && playerHand.GetItemName() == "Paper" && placedPaper == null)
+        if (playerHand.HasItem() && (playerHand.GetItemName() == "Paper" || playerHand.GetItemName() == "Answer") && placedPaper == null)
         {
             placedPaper = playerHand.DropItem(); 
             
