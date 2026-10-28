@@ -170,9 +170,15 @@ public class FaxMachine : Interactable
         AnswerManager.Instance.SetDayResult(daySuccess);
 
         if (daySuccess)
+        {
+            CartasManager.Instance.DefinirEscolha("certa");
             Debug.Log("Sucesso! Respostas corretas e transmissão enviada para a estação certa.");
+        }
         else
+        {
+            CartasManager.Instance.DefinirEscolha("errada");
             Debug.Log("Falha na transmissão. Consulta os logs acima para ver o que estava incorreto.");
+        }
 
         ReturnPaper();
         ExitFaxView();
