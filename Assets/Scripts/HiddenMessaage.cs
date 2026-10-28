@@ -16,7 +16,7 @@ public class HiddenMessaage : MonoBehaviour
         corOriginal.a = 0f;
         textoSecreto.color = corOriginal;
 
-        lanterna = FindObjectOfType<UVLantern>();
+        lanterna = FindObjectsByType<UVLantern>(FindObjectsSortMode.None)[0];
     }
     
     void Update()

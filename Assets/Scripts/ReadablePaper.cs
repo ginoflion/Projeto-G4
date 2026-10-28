@@ -15,8 +15,8 @@ public class ReadablePaper : MonoBehaviour, IUsable
     
     void Start()
     {
-        playerController = FindObjectOfType<SUPERCharacterAIO>();
-        interactionSystem = FindObjectOfType<InteractionSystem>();
+        playerController = FindObjectsByType<SUPERCharacterAIO>(FindObjectsSortMode.None)[0];
+        interactionSystem = FindObjectsByType<InteractionSystem>(FindObjectsSortMode.None)[0];
     }
     
     public void Use()

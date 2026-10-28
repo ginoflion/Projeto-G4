@@ -9,7 +9,7 @@ public class CorkboardSpot : Interactable
     void Start()
     {
         if (outlineVisual != null) outlineVisual.SetActive(false);
-        playerHand = FindObjectOfType<PlayerItem>();
+        playerHand = FindObjectsByType<PlayerItem>(FindObjectsSortMode.None)[0];
     }
     
     public override void OnHoverEnter()

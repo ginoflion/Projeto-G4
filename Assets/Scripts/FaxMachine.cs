@@ -10,9 +10,8 @@ public class FaxMachine : Interactable
     public float animationDuration = 2.5f;
     public TextMeshPro screenText;
     public string[] stationNames = { "Estação Norte", "Porto", "Central Elétrica", "Arquivo", "Polícia", "Câmara" };
-    public int correctStationIndex = 4;
     public Camera playerCamera;
-    public Transform faxCameraPosition;
+    public Transform faxCameraPosition; 
     public SUPERCharacterAIO playerController;
     public InteractionSystem interactionSystem;
     public LayerMask buttonLayer; 
@@ -43,7 +42,6 @@ public class FaxMachine : Interactable
         }
         else if (playerHand.HasItem())
         {
-            Debug.Log("A máquina só aceita a folha de resposta final.");
         }
     }
 
@@ -126,11 +124,55 @@ public class FaxMachine : Interactable
         Debug.Log("A transmitir para: " + stationNames[currentIndex]);
         itemName = "A transmitir...";
         yield return new WaitForSeconds(animationDuration);
+        DayData currentDay = AnswerManager.Instance.GetCurrentDayData();
+        bool isStationCorrect = false;
+        bool areAnswersCorrect = true;
 
-        if (currentIndex == correctStationIndex)
-            Debug.Log("Sucesso! Transmissão enviada para a estação correta.");
+        if (currentDay != null)
+        {
+            isStationCorrect = (currentIndex == currentDay.correctFaxStationIndex);
+            if (!isStationCorrect)
+            {
+                Debug.Log($"[Erro no Fax] Destino incorreto! Mandaste para '{stationNames[currentIndex]}', mas o destino correto era outro.");
+            }
+
+            PhysicalPaperInput paperInput = insertedPaper.GetComponent<PhysicalPaperInput>();
+            if (paperInput != null)
+            {
+                if (paperInput.simbolos.Count != currentDay.paperAnswers.Count)
+                {
+                    areAnswersCorrect = false;
+                    Debug.Log($"[Erro no Fax] O número de palavras escritas não coincide com o puzzle (Escritas: {paperInput.simbolos.Count}, Esperadas: {currentDay.paperAnswers.Count}).");
+                }
+                else
+                {
+                    for (int i = 0; i < currentDay.paperAnswers.Count; i++)
+                    {
+                        string playerInputWritten = paperInput.simbolos[i].currentInput.Trim().ToLower();
+                        string expectedAnswer = currentDay.paperAnswers[i].Trim().ToLower();
+
+                        if (playerInputWritten != expectedAnswer)
+                        {
+                            areAnswersCorrect = false;
+                            Debug.Log($"[Erro no Fax] Símbolo #{i + 1} incorreto. Escreveste '{playerInputWritten}', mas a resposta esperada era '{expectedAnswer}'.");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                areAnswersCorrect = false;
+                Debug.Log("[Erro no Fax] O papel inserido não tem o componente PhysicalPaperInput anexado.");
+            }
+        }
+
+        bool daySuccess = isStationCorrect && areAnswersCorrect;
+        AnswerManager.Instance.SetDayResult(daySuccess);
+
+        if (daySuccess)
+            Debug.Log("Sucesso! Respostas corretas e transmissão enviada para a estação certa.");
         else
-            Debug.Log("Erro! A transmissão foi para a estação errada.");
+            Debug.Log("Falha na transmissão. Consulta os logs acima para ver o que estava incorreto.");
 
         ReturnPaper();
         ExitFaxView();
