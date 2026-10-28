@@ -64,16 +64,12 @@ public class RadioController : MonoBehaviour
         float currentFreq = GetCurrentFrequencyFloat();
         Debug.Log("Frequência FM atual: " + currentFreq.ToString("F2") + " MHz");
 
-        // Opcional: Podes verificar logo aqui se o jogador acertou na frequência do dia atual
         if (IsCurrentFrequencyCorrect())
         {
             Debug.Log("<color=green>Acertaste na frequência correta de hoje!</color>");
         }
     }
 
-    /// <summary>
-    /// Verifica se a frequência atualmente introduzida no rádio é a correta para o dia atual.
-    /// </summary>
     public bool IsCurrentFrequencyCorrect()
     {
         int diaAtual = 1;
@@ -84,7 +80,6 @@ public class RadioController : MonoBehaviour
 
         int frequenciaAtual = GetCurrentFrequencyAsInt();
 
-        // Procura na lista a frequência definida para o dia atual
         foreach (var item in frequenciasDosDias)
         {
             if (item.dia == diaAtual)
@@ -100,8 +95,6 @@ public class RadioController : MonoBehaviour
     public float GetNormalizedFrequency()
     {
         int rawValue = GetCurrentFrequencyAsInt();
-
-        // Normaliza diretamente entre 0 e 999999 (ou podes ajustar para o teu gosto)
         return (float)rawValue / 999999f;
     }
 

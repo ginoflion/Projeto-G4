@@ -618,10 +618,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e77909393a3965439a71efa018e9f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Radio Button
   radioController: {fileID: 1806027476}
   digitIndex: 2
   isIncreaseButton: 0
+  radioCamera: {fileID: 1867198921}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &247419252
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1166,10 +1169,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e77909393a3965439a71efa018e9f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Radio Button
   radioController: {fileID: 1806027476}
   digitIndex: 4
   isIncreaseButton: 0
+  radioCamera: {fileID: 1867198921}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &383173039
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1845,10 +1851,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e77909393a3965439a71efa018e9f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Radio Button
   radioController: {fileID: 1806027476}
   digitIndex: 2
   isIncreaseButton: 1
+  radioCamera: {fileID: 1867198921}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &478124450
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2247,10 +2256,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e77909393a3965439a71efa018e9f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Radio Button
   radioController: {fileID: 1806027476}
   digitIndex: 5
   isIncreaseButton: 0
+  radioCamera: {fileID: 1867198921}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &511061176
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2604,6 +2616,37 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 625026365}
   m_maskType: 0
+--- !u!1 &626028590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 626028591}
+  m_Layer: 0
+  m_Name: camera radio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &626028591
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 626028590}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.493, y: 1.461, z: 2.862}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &743742964
 GameObject:
   m_ObjectHideFlags: 0
@@ -2841,10 +2884,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e77909393a3965439a71efa018e9f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Radio Button
   radioController: {fileID: 1806027476}
   digitIndex: 3
   isIncreaseButton: 1
+  radioCamera: {fileID: 1867198921}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &784613031
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3980,10 +4026,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e77909393a3965439a71efa018e9f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Radio Button
   radioController: {fileID: 1806027476}
   digitIndex: 0
   isIncreaseButton: 0
+  radioCamera: {fileID: 1867198921}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &1053118773
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4543,10 +4592,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e77909393a3965439a71efa018e9f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Radio Button
   radioController: {fileID: 1806027476}
   digitIndex: 1
   isIncreaseButton: 0
+  radioCamera: {fileID: 1867198921}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &1169916634
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4813,10 +4865,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e77909393a3965439a71efa018e9f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Radio Button
   radioController: {fileID: 1806027476}
   digitIndex: 1
   isIncreaseButton: 1
+  radioCamera: {fileID: 1867198921}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &1241884125
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4938,10 +4993,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e77909393a3965439a71efa018e9f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Radio Button
   radioController: {fileID: 1806027476}
   digitIndex: 4
   isIncreaseButton: 1
+  radioCamera: {fileID: 1867198921}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &1250626341
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5030,6 +5088,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Asset: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_ActionId: 6c2ab1b8-8984-453a-af3d-a3c78ae1679a
+--- !u!114 &1325907286 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6817638361354391145, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
+  m_PrefabInstance: {fileID: 1830414274}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8acb2371b9f0ce3429e7935fa5efe263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1347998968
 GameObject:
   m_ObjectHideFlags: 0
@@ -5740,10 +5809,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e77909393a3965439a71efa018e9f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Radio Button
   radioController: {fileID: 1806027476}
   digitIndex: 5
   isIncreaseButton: 1
+  radioCamera: {fileID: 1867198921}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &1476556626
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6511,10 +6583,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e77909393a3965439a71efa018e9f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Radio Button
   radioController: {fileID: 1806027476}
   digitIndex: 0
   isIncreaseButton: 1
+  radioCamera: {fileID: 1867198921}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &1586922519
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7116,10 +7191,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e77909393a3965439a71efa018e9f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Radio Button
   radioController: {fileID: 1806027476}
   digitIndex: 3
   isIncreaseButton: 0
+  radioCamera: {fileID: 1867198921}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &1698141509
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7797,7 +7875,8 @@ GameObject:
   - component: {fileID: 1806027478}
   - component: {fileID: 1806027477}
   - component: {fileID: 1806027476}
-  m_Layer: 0
+  - component: {fileID: 1806027481}
+  m_Layer: 3
   m_Name: radio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7916,6 +7995,22 @@ Transform:
   - {fileID: 890053022}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &1806027481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806027475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79e593acdc04a4143b6973f4a357fddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: Lantern
+  playerCamera: {fileID: 1867198921}
+  playerController: {fileID: 1325907286}
+  radioCameraPosition: {fileID: 626028591}
 --- !u!1001 &1830414274
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8513,6 +8608,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6817638360860843947, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
   m_PrefabInstance: {fileID: 1830414274}
   m_PrefabAsset: {fileID: 0}
+--- !u!20 &1867198921 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 6817638360860843945, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
+  m_PrefabInstance: {fileID: 1830414274}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1932368774
 GameObject:
   m_ObjectHideFlags: 0
@@ -8953,3 +9053,4 @@ SceneRoots:
   - {fileID: 307938167}
   - {fileID: 927640775}
   - {fileID: 1806027480}
+  - {fileID: 626028591}

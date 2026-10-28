@@ -1,21 +1,51 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class RadioButton : Interactable
+public class RadioButton : MonoBehaviour
 {
     [Header("Configuração do Botão")]
-    [Tooltip("Referência ao RadioController principal.")]
     public RadioController radioController;
-
-    [Tooltip("Qual é o dígito que este botão controla (0 a 5)?")]
     [Range(0, 5)] public int digitIndex;
-
-    [Tooltip("Se verdadeiro, aumenta o número. Se falso, diminui.")]
     public bool isIncreaseButton;
 
-    public override void Interact(PlayerItem playerHand)
+    [Header("Layer e Câmara")]
+    [Tooltip("A câmara que está a ver o rádio (arrasta a mesma câmara do RadioTable).")]
+    public Camera radioCamera;
+    [Tooltip("LayerMask para detetar o botão.")]
+    public LayerMask interactableLayer;
+
+    void Update()
     {
-        // Em vez de apanhar o item (comportamento padrão do Interactable base),
-        // nós executamos a ação do rádio.
+        if (!RadioTable.isLookingAtRadio) return;
+
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            CheckMouseClick();
+        }
+    }
+
+    private void CheckMouseClick()
+    {
+        if (radioCamera == null)
+        {
+            radioCamera = Camera.main;
+            if (radioCamera == null) return;
+        }
+
+        Ray ray = radioCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 100f))
+        {
+            if (hit.collider.gameObject == gameObject)
+            {
+                ExecuteAction();
+            }
+        }
+    }
+
+    private void ExecuteAction()
+    {
         if (radioController != null)
         {
             if (isIncreaseButton)
@@ -31,16 +61,5 @@ public class RadioButton : Interactable
         {
             Debug.LogWarning("RadioController não atribuído no botão: " + gameObject.name);
         }
-    }
-
-    // Opcional: Podes adicionar feedback visual de hover aqui se quiseres
-    public override void OnHoverEnter()
-    {
-        base.OnHoverEnter();
-    }
-
-    public override void OnHoverExit()
-    {
-        base.OnHoverExit();
     }
 }
