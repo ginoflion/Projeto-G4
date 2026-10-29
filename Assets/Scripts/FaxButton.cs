@@ -7,6 +7,9 @@ public class FaxButton : Interactable
     [Header("Configuração do Botão")]
     public ButtonType type;
     public FaxMachine faxMachine;
+    [Header("Áudio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip clickSound;
 
     void Start()
     {
@@ -20,12 +23,15 @@ public class FaxButton : Interactable
         {
             case ButtonType.Subir:
                 faxMachine.CycleStation(1);
+                audioSource.PlayOneShot(clickSound);
                 break;
             case ButtonType.Descer:
                 faxMachine.CycleStation(-1);
+                audioSource.PlayOneShot(clickSound);
                 break;
             case ButtonType.Enviar:
                 faxMachine.SendFax();
+                audioSource.PlayOneShot(clickSound);
                 break;
         }
     }

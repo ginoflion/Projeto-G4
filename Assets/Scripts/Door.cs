@@ -20,14 +20,20 @@ public class Door : Interactable
     public Image fadeImage;
     public float fadeDuration = 1f;
 
+    [Header("Áudio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip doorunlock;
+    [SerializeField] private AudioClip doorlock;
     public override void Interact(PlayerItem playerItem)
     {
         if (CartaSent)
         {
+            audioSource.PlayOneShot(doorunlock);
             StartCoroutine(TransitionRoutine(playerItem));
         }
         else
         {
+            audioSource.PlayOneShot(doorlock);
             ShowWarning("É melhor enviar esta carta primeiro");
         }
     }

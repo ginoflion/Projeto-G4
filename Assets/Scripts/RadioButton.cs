@@ -14,6 +14,21 @@ public class RadioButton : MonoBehaviour
     [Tooltip("LayerMask para detetar o botão.")]
     public LayerMask interactableLayer;
 
+    [Header("Áudio")]
+    [Tooltip("AudioSource para tocar o som do botão (opcional, se vazio tenta procurar no GameObject).")]
+    [SerializeField] private AudioSource audioSource;
+    [Tooltip("Clipe de som a tocar ao interagir com o botão.")]
+    [SerializeField] private AudioClip clickSound;
+
+    void Awake()
+    {
+        // Se não arrastaste o AudioSource no Inspector, tenta encontrá-lo automaticamente no mesmo objeto
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
+    }
+
     void Update()
     {
         if (!RadioTable.isLookingAtRadio) return;
@@ -46,6 +61,9 @@ public class RadioButton : MonoBehaviour
 
     private void ExecuteAction()
     {
+        // Toca o som de clique
+        PlayClickSound();
+
         if (radioController != null)
         {
             if (isIncreaseButton)
@@ -60,6 +78,14 @@ public class RadioButton : MonoBehaviour
         else
         {
             Debug.LogWarning("RadioController não atribuído no botão: " + gameObject.name);
+        }
+    }
+
+    private void PlayClickSound()
+    {
+        if (audioSource != null && clickSound != null)
+        {
+            audioSource.PlayOneShot(clickSound);
         }
     }
 }
