@@ -179,6 +179,7 @@ public class FaxMachine : Interactable
             CartasManager.Instance.DefinirEscolha("errada");
             Debug.Log("Falha na transmissão. Consulta os logs acima para ver o que estava incorreto.");
         }
+        Door.CartaSent = true;
 
         ReturnPaper();
         ExitFaxView();

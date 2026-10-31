@@ -6,7 +6,7 @@ using TMPro;
 public class Door : Interactable
 {
     [Header("Configuração de Estado")]
-    public bool CartaSent = true;
+    public static bool CartaSent = true;
 
     [Header("Referências de Jogo")]
     public Transform spawn;
