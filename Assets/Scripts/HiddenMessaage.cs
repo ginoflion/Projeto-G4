@@ -4,6 +4,8 @@ using TMPro;
 public class HiddenMessaage : MonoBehaviour
 {
     public float distanciaMaxima = 3.5f;
+    public float velocidadeAparecer = 6f;
+    public float velocidadeDesaparecer = 2f;
     private TextMeshPro textoSecreto;
     private Color corOriginal;
     private UVLantern lanterna;
@@ -15,8 +17,11 @@ public class HiddenMessaage : MonoBehaviour
         
         corOriginal.a = 0f;
         textoSecreto.color = corOriginal;
-
-        lanterna = FindObjectsByType<UVLantern>(FindObjectsSortMode.None)[0];
+        UVLantern[] lanternas = FindObjectsByType<UVLantern>(FindObjectsSortMode.None);
+        if (lanternas.Length > 0)
+        {
+            lanterna = lanternas[0];
+        }
     }
     
     void Update()
@@ -27,17 +32,18 @@ public class HiddenMessaage : MonoBehaviour
 
         if (lanterna.uvLight.enabled)
         {
-            float distancia = Vector3.Distance(lanterna.transform.position, transform.position);
-            Vector3 direcaoParaTexto = (transform.position - lanterna.transform.position).normalized;
-            float angulo = Vector3.Angle(lanterna.transform.forward, direcaoParaTexto);
+            float distancia = Vector3.Distance(lanterna.uvLight.transform.position, transform.position);
+            Vector3 direcaoParaTexto = (transform.position - lanterna.uvLight.transform.position).normalized;
+            float angulo = Vector3.Angle(lanterna.uvLight.transform.forward, direcaoParaTexto);
 
             if (distancia <= distanciaMaxima && angulo <= lanterna.uvLight.spotAngle / 2f)
             {
                 alphaAlvo = 1f; 
             }
         }
+        float velocidadeAtual = (alphaAlvo > 0f) ? velocidadeAparecer : velocidadeDesaparecer;
 
-        corOriginal.a = Mathf.Lerp(corOriginal.a, alphaAlvo, Time.deltaTime * 6f);
+        corOriginal.a = Mathf.Lerp(corOriginal.a, alphaAlvo, Time.deltaTime * velocidadeAtual);
         textoSecreto.color = corOriginal;
     }
 }
