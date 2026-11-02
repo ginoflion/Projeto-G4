@@ -42,8 +42,6 @@ public class InteractionSystem : MonoBehaviour
     {
         Ray ray = new Ray(playerCamera.position, playerCamera.forward);
         RaycastHit hit;
-        
-        Debug.DrawRay(ray.origin, ray.direction * interactionDistance, Color.red, 2f); 
 
         if (Physics.Raycast(ray, out hit, interactionDistance, interactableLayer))
         {
