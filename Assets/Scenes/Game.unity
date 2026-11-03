@@ -4757,7 +4757,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalPosition: {x: 0, y: 0, z: 0}
   normalRotation: {x: 0, y: 0, z: 0}
-  zoomedPosition: {x: -0.65, y: -0.8, z: -0.6}
+  zoomedPosition: {x: -0.9, y: -0.2, z: -0.6}
   zoomedRotation: {x: -90, y: 0, z: 0}
   simbolos:
   - writtenText: {fileID: 722824221}
@@ -6075,7 +6075,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: df35c2212ff3a1340ab7460970b55096, type: 3}
       propertyPath: m_Name
-      value: quadro
+      value: Corkboard
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -9699,7 +9699,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalPosition: {x: 0, y: 0, z: 0}
   normalRotation: {x: 0, y: 0, z: 0}
-  zoomedPosition: {x: -0.65, y: -0.8, z: -0.6}
+  zoomedPosition: {x: -0.9, y: -0.2, z: -0.6}
   zoomedRotation: {x: 90, y: 0, z: 0}
 --- !u!1 &1802335110
 GameObject:

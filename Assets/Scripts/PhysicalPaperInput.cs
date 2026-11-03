@@ -93,11 +93,6 @@ public class PhysicalPaperInput : MonoBehaviour, IUsable
     {
         if (!isReading) return;
         if (Time.time - readStartTime < 0.2f) return;
-        if (Keyboard.current.escapeKey.wasPressedThisFrame || Mouse.current.rightButton.wasPressedThisFrame)
-        {
-            ExitZoom();
-            return;
-        }
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             Ray ray = playerCamera.ScreenPointToRay(Mouse.current.position.ReadValue());

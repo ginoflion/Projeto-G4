@@ -12,6 +12,7 @@ public class MapTable : Interactable
     private bool isLookingAtMap = false;
     private Vector3 originalCameraPosition;
     private Quaternion originalCameraRotation;
+    public InteractionSystem playerInteractionSystem;
 
     public override void Interact(PlayerItem playerHand)
     {
@@ -24,6 +25,7 @@ public class MapTable : Interactable
     private void EnterMapView()
     {
         isLookingAtMap = true;
+        if (playerInteractionSystem != null) playerInteractionSystem.enabled = false;
         originalCameraPosition = playerCamera.transform.position;
         originalCameraRotation = playerCamera.transform.rotation;
         if (playerController != null) 
@@ -40,7 +42,7 @@ public class MapTable : Interactable
 
     void Update()
     {
-        if (isLookingAtMap && Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (isLookingAtMap && Keyboard.current.eKey.wasPressedThisFrame)
         {
             ExitMapView();
         }
@@ -59,5 +61,6 @@ public class MapTable : Interactable
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         mapDrawer.isDrawingModeActive = false;
+        if (playerInteractionSystem != null) playerInteractionSystem.enabled = true;
     }
 }

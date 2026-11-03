@@ -13,6 +13,7 @@ public class RadioTable : Interactable
 
     private Vector3 originalCameraPosition;
     private Quaternion originalCameraRotation;
+    public InteractionSystem interactionSystem;
 
     public override void Interact(PlayerItem playerHand)
     {
@@ -24,6 +25,7 @@ public class RadioTable : Interactable
 
     private void EnterRadioView()
     {
+        if (interactionSystem != null) interactionSystem.enabled = false;
         isLookingAtRadio = true;
 
         originalCameraPosition = playerCamera.transform.position;
@@ -43,7 +45,7 @@ public class RadioTable : Interactable
 
     void Update()
     {
-        if (isLookingAtRadio && Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (isLookingAtRadio && Keyboard.current.eKey.wasPressedThisFrame)
         {
             ExitRadioView();
         }
@@ -63,5 +65,6 @@ public class RadioTable : Interactable
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        if (interactionSystem != null) interactionSystem.enabled = true;
     }
 }

@@ -75,7 +75,7 @@ public class FaxMachine : Interactable
     void Update()
     {
         if (!isLookingAtFax) return;
-        if (Mouse.current.rightButton.wasPressedThisFrame || Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (Mouse.current.rightButton.wasPressedThisFrame || Keyboard.current.eKey.wasPressedThisFrame)
         {
             if (insertedPaper != null && itemName != "A transmitir...")
             {
