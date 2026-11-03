@@ -8723,6 +8723,7 @@ MonoBehaviour:
   playerCamera: {fileID: 1830414276}
   playerController: {fileID: 1830414275}
   radioCameraPosition: {fileID: 1295273310}
+  interactionSystem: {fileID: 1830414278}
 --- !u!114 &1719076854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9416,6 +9417,7 @@ MonoBehaviour:
   playerController: {fileID: 1830414275}
   mapCameraPosition: {fileID: 431879051}
   mapDrawer: {fileID: 1017405780}
+  playerInteractionSystem: {fileID: 1830414278}
 --- !u!65 &1776346026
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9953,7 +9955,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6817638361354391145, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
       propertyPath: enableMouseAndCameraDebugging
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6817638361354391147, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
       propertyPath: m_Name
