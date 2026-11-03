@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 
-public class RadioController : MonoBehaviour
+public class RadioManager : MonoBehaviour
 {
     [Header("Configuração dos Dígitos")]
     private int[] digits = new int[6];
@@ -40,7 +40,6 @@ public class RadioController : MonoBehaviour
         {
             digits[digitIndex] = (digits[digitIndex] + 1) % 10;
             UpdateDisplay();
-            OnFrequencyChanged();
         }
     }
 
@@ -50,7 +49,6 @@ public class RadioController : MonoBehaviour
         {
             digits[digitIndex] = (digits[digitIndex] - 1 + 10) % 10;
             UpdateDisplay();
-            OnFrequencyChanged();
         }
     }
 
@@ -64,11 +62,10 @@ public class RadioController : MonoBehaviour
             }
         }
     }
-
-    private void OnFrequencyChanged()
+    public void VerificarFrequencia()
     {
         float currentFreq = GetCurrentFrequencyFloat();
-        Debug.Log("Frequência FM atual: " + currentFreq.ToString("F2") + " MHz");
+        Debug.Log("Frequência FM atual a verificar: " + currentFreq.ToString("F2") + " MHz");
 
         if (IsCurrentFrequencyCorrect(out GameObject prefabParaSpawnar))
         {
@@ -83,6 +80,14 @@ public class RadioController : MonoBehaviour
                 jaSpawnouHoje = true;
                 Debug.Log("Objeto spawnado com sucesso!");
             }
+            else if (jaSpawnouHoje)
+            {
+                Debug.Log("Já tinhas spawnado o objeto para este dia.");
+            }
+        }
+        else
+        {
+            Debug.Log("<color=red>Frequência incorreta!</color>");      
         }
     }
 
