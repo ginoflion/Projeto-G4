@@ -635,10 +635,10 @@ MonoBehaviour:
   radioController: {fileID: 1719076854}
   digitIndex: 5
   isIncreaseButton: 0
-  radioCamera: {fileID: 0}
+  radioCamera: {fileID: 1830414276}
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   audioSource: {fileID: 1414315967}
   clickSound: {fileID: 8300000, guid: 1ba29b865dcf7ac4189b19883c921df6, type: 3}
 --- !u!65 &74794752
@@ -916,10 +916,10 @@ MonoBehaviour:
   radioController: {fileID: 1719076854}
   digitIndex: 4
   isIncreaseButton: 1
-  radioCamera: {fileID: 0}
+  radioCamera: {fileID: 1830414276}
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   audioSource: {fileID: 1414315967}
   clickSound: {fileID: 8300000, guid: 1ba29b865dcf7ac4189b19883c921df6, type: 3}
 --- !u!65 &190677040
@@ -1377,10 +1377,10 @@ MonoBehaviour:
   radioController: {fileID: 1719076854}
   digitIndex: 4
   isIncreaseButton: 0
-  radioCamera: {fileID: 0}
+  radioCamera: {fileID: 1830414276}
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   audioSource: {fileID: 1414315967}
   clickSound: {fileID: 8300000, guid: 1ba29b865dcf7ac4189b19883c921df6, type: 3}
 --- !u!65 &246412430
@@ -2900,10 +2900,10 @@ MonoBehaviour:
   radioController: {fileID: 1719076854}
   digitIndex: 3
   isIncreaseButton: 0
-  radioCamera: {fileID: 0}
+  radioCamera: {fileID: 1830414276}
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   audioSource: {fileID: 1414315967}
   clickSound: {fileID: 8300000, guid: 1ba29b865dcf7ac4189b19883c921df6, type: 3}
 --- !u!65 &624000280
@@ -3541,10 +3541,10 @@ MonoBehaviour:
   radioController: {fileID: 1719076854}
   digitIndex: 2
   isIncreaseButton: 0
-  radioCamera: {fileID: 0}
+  radioCamera: {fileID: 1830414276}
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   audioSource: {fileID: 1414315967}
   clickSound: {fileID: 8300000, guid: 1ba29b865dcf7ac4189b19883c921df6, type: 3}
 --- !u!65 &796269946
@@ -5799,10 +5799,10 @@ MonoBehaviour:
   radioController: {fileID: 1719076854}
   digitIndex: 0
   isIncreaseButton: 0
-  radioCamera: {fileID: 0}
+  radioCamera: {fileID: 1830414276}
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   audioSource: {fileID: 1414315967}
   clickSound: {fileID: 8300000, guid: 1ba29b865dcf7ac4189b19883c921df6, type: 3}
 --- !u!65 &1107505051
@@ -5929,10 +5929,10 @@ MonoBehaviour:
   radioController: {fileID: 1719076854}
   digitIndex: 5
   isIncreaseButton: 1
-  radioCamera: {fileID: 0}
+  radioCamera: {fileID: 1830414276}
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   audioSource: {fileID: 1414315967}
   clickSound: {fileID: 8300000, guid: 1ba29b865dcf7ac4189b19883c921df6, type: 3}
 --- !u!65 &1144520255
@@ -6580,10 +6580,10 @@ MonoBehaviour:
   radioController: {fileID: 1719076854}
   digitIndex: 2
   isIncreaseButton: 1
-  radioCamera: {fileID: 0}
+  radioCamera: {fileID: 1830414276}
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   audioSource: {fileID: 1414315967}
   clickSound: {fileID: 8300000, guid: 1ba29b865dcf7ac4189b19883c921df6, type: 3}
 --- !u!65 &1213049951
@@ -7641,7 +7641,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1414315966}
   - component: {fileID: 1414315967}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Botoes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8299,10 +8299,10 @@ MonoBehaviour:
   radioController: {fileID: 1719076854}
   digitIndex: 1
   isIncreaseButton: 1
-  radioCamera: {fileID: 0}
+  radioCamera: {fileID: 1830414276}
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   audioSource: {fileID: 1414315967}
   clickSound: {fileID: 8300000, guid: 1ba29b865dcf7ac4189b19883c921df6, type: 3}
 --- !u!65 &1560354029
@@ -8429,10 +8429,10 @@ MonoBehaviour:
   radioController: {fileID: 1719076854}
   digitIndex: 3
   isIncreaseButton: 1
-  radioCamera: {fileID: 0}
+  radioCamera: {fileID: 1830414276}
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   audioSource: {fileID: 1414315967}
   clickSound: {fileID: 8300000, guid: 1ba29b865dcf7ac4189b19883c921df6, type: 3}
 --- !u!65 &1577890196
@@ -8891,10 +8891,10 @@ MonoBehaviour:
   radioController: {fileID: 1719076854}
   digitIndex: 1
   isIncreaseButton: 0
-  radioCamera: {fileID: 0}
+  radioCamera: {fileID: 1830414276}
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   audioSource: {fileID: 1414315967}
   clickSound: {fileID: 8300000, guid: 1ba29b865dcf7ac4189b19883c921df6, type: 3}
 --- !u!65 &1723509144
@@ -9021,10 +9021,10 @@ MonoBehaviour:
   radioController: {fileID: 1719076854}
   digitIndex: 0
   isIncreaseButton: 1
-  radioCamera: {fileID: 0}
+  radioCamera: {fileID: 1830414276}
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   audioSource: {fileID: 1414315967}
   clickSound: {fileID: 8300000, guid: 1ba29b865dcf7ac4189b19883c921df6, type: 3}
 --- !u!65 &1728664779
