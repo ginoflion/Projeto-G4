@@ -38,9 +38,8 @@ public class RadioController : MonoBehaviour
     {
         if (IsValidIndex(digitIndex))
         {
-            digits[digitIndex] = (digits[digitIndex] + 1) % 10;
+            digits[digitIndex] = (digits[digitIndex] + 1) % 7;
             UpdateDisplay();
-            // REMOVIDO DAQUI: OnFrequencyChanged(); -> Agora só muda o número no ecrã
         }
     }
 
@@ -48,9 +47,8 @@ public class RadioController : MonoBehaviour
     {
         if (IsValidIndex(digitIndex))
         {
-            digits[digitIndex] = (digits[digitIndex] - 1 + 10) % 10;
+            digits[digitIndex] = (digits[digitIndex] - 1 + 7) % 7;
             UpdateDisplay();
-            // REMOVIDO DAQUI: OnFrequencyChanged(); -> Agora só muda o número no ecrã
         }
     }
 
@@ -130,7 +128,20 @@ public class RadioController : MonoBehaviour
     public float GetNormalizedFrequency()
     {
         int rawValue = GetCurrentFrequencyAsInt();
-        return (float)rawValue / 999999f;
+        if (rawValue <= 0) return 0f;
+
+        float w0 = digits[0] * 1.0f;   
+        float w1 = digits[1] * 0.5f;   
+        float w2 = digits[2] * 0.25f;  
+        float w3 = digits[3] * 0.12f;  
+        float w4 = digits[4] * 0.06f;  
+        float w5 = digits[5] * 0.03f;  
+
+        float total = w0 + w1 + w2 + w3 + w4 + w5;
+
+        float maxPossible = 11.76f;
+
+        return Mathf.Clamp01(total / maxPossible);
     }
 
     public float GetCurrentFrequencyFloat()
