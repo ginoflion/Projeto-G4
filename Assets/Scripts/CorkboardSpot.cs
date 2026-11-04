@@ -33,6 +33,8 @@ public class CorkboardSpot : Interactable
             
             placedPaper.transform.position = transform.position;
             placedPaper.transform.rotation = transform.rotation;
+            BoxCollider box = placedPaper.GetComponent<BoxCollider>();
+            box.enabled = false;
 
             Rigidbody rb = placedPaper.GetComponent<Rigidbody>();
             if (rb != null) rb.isKinematic = true;
@@ -40,6 +42,8 @@ public class CorkboardSpot : Interactable
         }
         else if (!playerHand.HasItem() && placedPaper != null)
         {
+            BoxCollider box = placedPaper.GetComponent<BoxCollider>();
+            box.enabled = true;
             playerHand.PickUpItem(placedPaper); 
             placedPaper = null;
             if (outlineVisual != null) outlineVisual.SetActive(true);
