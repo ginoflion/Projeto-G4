@@ -5,7 +5,7 @@ public class RadioVerify : MonoBehaviour
 {
     [Header("Configuração")]
     [Tooltip("Arrasta o objeto que tem o script RadioController.")]
-    public RadioController radioController;
+    public RadioManager radioController;
 
     [Header("Layer e Câmara")]
     [Tooltip("A câmara que está a ver o rádio.")]

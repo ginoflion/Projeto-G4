@@ -6,7 +6,7 @@ public class RadioButton : MonoBehaviour
     public enum ButtonAction { MoveLeft, MoveRight, IncreaseValue, DecreaseValue }
 
     [Header("Configuração")]
-    public RadioController radioController;
+    public RadioManager radioController;
     public ButtonAction actionType;
 
     [Header("Layer e Câmara")]

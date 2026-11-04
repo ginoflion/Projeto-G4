@@ -4,7 +4,7 @@ using UnityEngine;
 public class OndaRadio : MonoBehaviour
 {
     [Header("Referências")]
-    public RadioController radioController;
+    public RadioManager radioController;
 
     [Header("Configuração da Onda")]
     [Range(0f, 50f)] public float minFrequency = 5f;

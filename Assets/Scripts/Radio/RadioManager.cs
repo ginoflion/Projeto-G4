@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 
-public class RadioController : MonoBehaviour
+public class RadioManager : MonoBehaviour
 {
     [Header("Configuração dos Dígitos")]
     private int[] digits = new int[6];
@@ -16,14 +16,14 @@ public class RadioController : MonoBehaviour
     {
         [Tooltip("O GameObject ou Renderer do indicador visual deste dígito.")]
         public Renderer indicatorRenderer;
-        [Tooltip("Material padrão quando NÃO está selecionado.")]
-        public Material normalMaterial;
+        [HideInInspector]
+        public Material[] normalMaterials; // Recolhido automaticamente pelo script!
     }
 
     [Header("Indicadores Visuais (6 no total)")]
     [Tooltip("Coloca aqui os 6 indicadores visuais na ordem de 0 a 5.")]
     [SerializeField] private IndicatorInfo[] indicators = new IndicatorInfo[6];
-    [Tooltip("Material a aplicar quando o indicador estiver SELECIONADO.")]
+    [Tooltip("Material a aplicar a TODOS os slots do indicador quando estiver SELECIONADO.")]
     [SerializeField] private Material selectedMaterial;
 
     [System.Serializable]
@@ -37,21 +37,44 @@ public class RadioController : MonoBehaviour
     [Header("Respostas e Spawns por Dia")]
     [SerializeField] private List<FrequenciaPorDia> frequenciasDosDias = new List<FrequenciaPorDia>();
 
-    [Header("Ponto de Spawn (Opcional)")]
+    [Header("Pontos de Animação do Papel")]
+    [Tooltip("O objeto vazio que define onde o papel nasce (dentro da ranhura).")]
     [SerializeField] private Transform spawnPoint;
+    [Tooltip("O objeto vazio que define onde o papel pára (já impresso e fora).")]
+    [SerializeField] private Transform finalPoint;
+    [SerializeField] private float duracaoMovimento = 1.0f;  // Tempo que demora a viagem
+
+    [Header("Áudio do Rádio")]
+    [SerializeField] private AudioSource radioAudioSource;
+    [SerializeField] private AudioClip somImpressaoRadio;
 
     private bool jaSpawnouHoje = false;
 
     void Start()
     {
+        CacheOriginalMaterials(); // Vai buscar os materiais automaticamente ao iniciar
         UpdateDisplay();
         UpdateVisualIndicators();
+    }
+
+    // --- CAPTURA AUTOMÁTICA DOS MATERIAIS ORIGINAIS ---
+    private void CacheOriginalMaterials()
+    {
+        if (indicators == null) return;
+
+        for (int i = 0; i < indicators.Length; i++)
+        {
+            if (indicators[i].indicatorRenderer != null)
+            {
+                // Guarda uma cópia dos materiais que o objeto já tem aplicados no Unity
+                indicators[i].normalMaterials = indicators[i].indicatorRenderer.sharedMaterials;
+            }
+        }
     }
 
     // --- NAVEGAÇÃO BLOQUEADA NAS PONTAS (Não faz loop) ---
     public void SelectPreviousDigit()
     {
-        // Se estiver no 0, mantém-se no 0
         selectedIndex = Mathf.Max(0, selectedIndex - 1);
         UpdateVisualIndicators();
         Debug.Log("Dígito selecionado: " + selectedIndex);
@@ -59,7 +82,6 @@ public class RadioController : MonoBehaviour
 
     public void SelectNextDigit()
     {
-        // Se estiver no último (digits.Length - 1), mantém-se lá
         selectedIndex = Mathf.Min(digits.Length - 1, selectedIndex + 1);
         UpdateVisualIndicators();
         Debug.Log("Dígito selecionado: " + selectedIndex);
@@ -68,14 +90,12 @@ public class RadioController : MonoBehaviour
     // --- ALTERAÇÃO DE VALOR BLOQUEADA NO 0 E NO 6 ---
     public void IncreaseSelectedDigit()
     {
-        // Se chegar a 6, fica bloqueado no 6
         digits[selectedIndex] = Mathf.Min(6, digits[selectedIndex] + 1);
         UpdateDisplay();
     }
 
     public void DecreaseSelectedDigit()
     {
-        // Se chegar a 0, fica bloqueado no 0
         digits[selectedIndex] = Mathf.Max(0, digits[selectedIndex] - 1);
         UpdateDisplay();
     }
@@ -91,21 +111,33 @@ public class RadioController : MonoBehaviour
         }
     }
 
+    // --- ATUALIZAÇÃO DOS MATERIAIS ---
     private void UpdateVisualIndicators()
     {
         if (indicators == null) return;
 
         for (int i = 0; i < indicators.Length; i++)
         {
-            if (indicators[i].indicatorRenderer != null)
+            Renderer rend = indicators[i].indicatorRenderer;
+            if (rend != null)
             {
                 if (i == selectedIndex && selectedMaterial != null)
                 {
-                    indicators[i].indicatorRenderer.material = selectedMaterial;
+                    // Aplica o material de seleção a todos os slots
+                    Material[] mats = new Material[rend.sharedMaterials.Length];
+                    for (int m = 0; m < mats.Length; m++)
+                    {
+                        mats[m] = selectedMaterial;
+                    }
+                    rend.materials = mats;
                 }
-                else if (indicators[i].normalMaterial != null)
+                else
                 {
-                    indicators[i].indicatorRenderer.material = indicators[i].normalMaterial;
+                    // Restaura os materiais originais que foram guardados no Start()
+                    if (indicators[i].normalMaterials != null && indicators[i].normalMaterials.Length > 0)
+                    {
+                        rend.materials = indicators[i].normalMaterials;
+                    }
                 }
             }
         }
@@ -122,17 +154,73 @@ public class RadioController : MonoBehaviour
 
             if (!jaSpawnouHoje && prefabParaSpawnar != null)
             {
-                Vector3 posicaoSpawn = spawnPoint != null ? spawnPoint.position : transform.position;
-                Quaternion rotacaoSpawn = spawnPoint != null ? spawnPoint.rotation : Quaternion.identity;
+                if (spawnPoint == null || finalPoint == null)
+                {
+                    Debug.LogError("Falta atribuir o SpawnPoint ou o FinalPoint no RadioManager!");
+                    return;
+                }
 
-                Instantiate(prefabParaSpawnar, posicaoSpawn, rotacaoSpawn);
+                // 1. Instancia o papel na posição exata do ponto inicial
+                GameObject papelInstanciado = Instantiate(prefabParaSpawnar, spawnPoint.position, spawnPoint.rotation);
+
+                // 2. Torna o papel filho do rádio para o acompanhar
+                papelInstanciado.transform.SetParent(transform);
+
+                // 3. Calcula as posições e rotações locais em relação ao rádio
+                Vector3 startLocalPos = transform.InverseTransformPoint(spawnPoint.position);
+                Vector3 endLocalPos = transform.InverseTransformPoint(finalPoint.position);
+                Quaternion startLocalRot = Quaternion.Inverse(transform.rotation) * spawnPoint.rotation;
+                Quaternion endLocalRot = Quaternion.Inverse(transform.rotation) * finalPoint.rotation;
+
+                // Coloca o papel imediatamente no sítio de início
+                papelInstanciado.transform.localPosition = startLocalPos;
+                papelInstanciado.transform.localRotation = startLocalRot;
+
+                // 4. Dispara a animação entre os dois pontos
+                StartCoroutine(AnimarMovimentoEntrePontos(papelInstanciado.transform, startLocalPos, endLocalPos, startLocalRot, endLocalRot));
+
+                // 5. Toca o som no rádio
+                if (radioAudioSource != null && somImpressaoRadio != null)
+                {
+                    radioAudioSource.PlayOneShot(somImpressaoRadio);
+                }
+
                 jaSpawnouHoje = true;
-                Debug.Log("Objeto spawnado com sucesso!");
+                Debug.Log("Papel a mover-se do SpawnPoint para o FinalPoint!");
             }
         }
         else
         {
             Debug.Log("<color=red>Frequência incorreta!</color>");
+        }
+    }
+
+    // Coroutine que faz o papel deslizar suavemente entre o ponto inicial e o final
+    private System.Collections.IEnumerator AnimarMovimentoEntrePontos(Transform papelTransform, Vector3 startPos, Vector3 endPos, Quaternion startRot, Quaternion endRot)
+    {
+        float tempoDecorrido = 0f;
+
+        while (tempoDecorrido < duracaoMovimento)
+        {
+            if (papelTransform == null) yield break;
+
+            tempoDecorrido += Time.deltaTime;
+            float progresso = Mathf.Clamp01(tempoDecorrido / duracaoMovimento);
+
+            // Efeito suave (Ease Out) para a animação começar e acabar com suavidade
+            progresso = Mathf.Sin(progresso * Mathf.PI * 0.5f);
+
+            // Interpola a posição e a rotação localmente
+            papelTransform.localPosition = Vector3.Lerp(startPos, endPos, progresso);
+            papelTransform.localRotation = Quaternion.Lerp(startRot, endRot, progresso);
+
+            yield return null;
+        }
+
+        if (papelTransform != null)
+        {
+            papelTransform.localPosition = endPos;
+            papelTransform.localRotation = endRot;
         }
     }
 
@@ -161,7 +249,7 @@ public class RadioController : MonoBehaviour
             }
         }
 
-        Debug.LogWarning($"A frequência correta para o Dia {diaAtual} não foi configurada no RadioController!");
+        Debug.LogWarning($"A frequência correta para o Dia {diaAtual} não foi configurada no RadioManager!");
         return false;
     }
 
