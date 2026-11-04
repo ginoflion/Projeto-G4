@@ -6,18 +6,31 @@ public class RadioController : MonoBehaviour
 {
     [Header("Configuração dos Dígitos")]
     private int[] digits = new int[6];
+    private int selectedIndex = 0; // Posição atual selecionada (0 a 5)
 
     [Header("Interface (TextMeshPro 3D)")]
     public TextMeshPro[] digitTexts;
 
     [System.Serializable]
+    public struct IndicatorInfo
+    {
+        [Tooltip("O GameObject ou Renderer do indicador visual deste dígito.")]
+        public Renderer indicatorRenderer;
+        [Tooltip("Material padrão quando NÃO está selecionado.")]
+        public Material normalMaterial;
+    }
+
+    [Header("Indicadores Visuais (6 no total)")]
+    [Tooltip("Coloca aqui os 6 indicadores visuais na ordem de 0 a 5.")]
+    [SerializeField] private IndicatorInfo[] indicators = new IndicatorInfo[6];
+    [Tooltip("Material a aplicar quando o indicador estiver SELECIONADO.")]
+    [SerializeField] private Material selectedMaterial;
+
+    [System.Serializable]
     public struct FrequenciaPorDia
     {
-        [Tooltip("Número do dia (Ex: 1, 2, 3...)")]
         public int dia;
-        [Tooltip("Frequência correta para este dia em formato inteiro (Ex: 9520 para 95.2 MHz)")]
         public int frequenciaCorreta;
-        [Tooltip("Objeto/Prefab a spawnar quando acertares nesta frequência")]
         public GameObject prefabParaSpawnar;
     }
 
@@ -32,24 +45,33 @@ public class RadioController : MonoBehaviour
     void Start()
     {
         UpdateDisplay();
+        UpdateVisualIndicators();
     }
 
-    public void IncreaseDigit(int digitIndex)
+    public void SelectPreviousDigit()
     {
-        if (IsValidIndex(digitIndex))
-        {
-            digits[digitIndex] = (digits[digitIndex] + 1) % 7;
-            UpdateDisplay();
-        }
+        selectedIndex = (selectedIndex - 1 + digits.Length) % digits.Length;
+        UpdateVisualIndicators();
+        Debug.Log("Dígito selecionado: " + selectedIndex);
     }
 
-    public void DecreaseDigit(int digitIndex)
+    public void SelectNextDigit()
     {
-        if (IsValidIndex(digitIndex))
-        {
-            digits[digitIndex] = (digits[digitIndex] - 1 + 7) % 7;
-            UpdateDisplay();
-        }
+        selectedIndex = (selectedIndex + 1) % digits.Length;
+        UpdateVisualIndicators();
+        Debug.Log("Dígito selecionado: " + selectedIndex);
+    }
+
+    public void IncreaseSelectedDigit()
+    {
+        digits[selectedIndex] = (digits[selectedIndex] + 1) % 7; // Vai de 0 a 6
+        UpdateDisplay();
+    }
+
+    public void DecreaseSelectedDigit()
+    {
+        digits[selectedIndex] = (digits[selectedIndex] - 1 + 7) % 7; // Vai de 0 a 6
+        UpdateDisplay();
     }
 
     private void UpdateDisplay()
@@ -63,9 +85,28 @@ public class RadioController : MonoBehaviour
         }
     }
 
-    /// <p>
-    /// NOVA FUNÇÃO: Deves ligar esta função ao botão de "Verificar" ou "Confirmar" no Inspector do Unity.
-    /// </p>
+    // Atualiza os materiais de todos os indicadores: todos ficam visíveis, mas apenas o selecionado muda de material
+    private void UpdateVisualIndicators()
+    {
+        if (indicators == null) return;
+
+        for (int i = 0; i < indicators.Length; i++)
+        {
+            if (indicators[i].indicatorRenderer != null)
+            {
+                // Se for o índice selecionado, aplica o material de seleção. Caso contrário, aplica o normal.
+                if (i == selectedIndex && selectedMaterial != null)
+                {
+                    indicators[i].indicatorRenderer.material = selectedMaterial;
+                }
+                else if (indicators[i].normalMaterial != null)
+                {
+                    indicators[i].indicatorRenderer.material = indicators[i].normalMaterial;
+                }
+            }
+        }
+    }
+
     public void VerificarFrequencia()
     {
         float currentFreq = GetCurrentFrequencyFloat();
@@ -84,15 +125,10 @@ public class RadioController : MonoBehaviour
                 jaSpawnouHoje = true;
                 Debug.Log("Objeto spawnado com sucesso!");
             }
-            else if (jaSpawnouHoje)
-            {
-                Debug.Log("Já tinhas spawnado o objeto para este dia.");
-            }
         }
         else
         {
             Debug.Log("<color=red>Frequência incorreta!</color>");
-            // Podes adicionar aqui feedback visual de erro (ex: som de erro, luz vermelha, etc.)
         }
     }
 
@@ -130,15 +166,14 @@ public class RadioController : MonoBehaviour
         int rawValue = GetCurrentFrequencyAsInt();
         if (rawValue <= 0) return 0f;
 
-        float w0 = digits[0] * 1.0f;   
-        float w1 = digits[1] * 0.5f;   
-        float w2 = digits[2] * 0.25f;  
-        float w3 = digits[3] * 0.12f;  
-        float w4 = digits[4] * 0.06f;  
-        float w5 = digits[5] * 0.03f;  
+        float w0 = digits[0] * 1.0f;
+        float w1 = digits[1] * 0.5f;
+        float w2 = digits[2] * 0.25f;
+        float w3 = digits[3] * 0.12f;
+        float w4 = digits[4] * 0.06f;
+        float w5 = digits[5] * 0.03f;
 
         float total = w0 + w1 + w2 + w3 + w4 + w5;
-
         float maxPossible = 11.76f;
 
         return Mathf.Clamp01(total / maxPossible);
@@ -158,10 +193,5 @@ public class RadioController : MonoBehaviour
         }
         int.TryParse(freqStr, out int result);
         return result;
-    }
-
-    private bool IsValidIndex(int index)
-    {
-        return index >= 0 && index < digits.Length;
     }
 }

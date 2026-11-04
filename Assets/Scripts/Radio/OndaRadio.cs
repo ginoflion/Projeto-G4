@@ -7,7 +7,7 @@ public class OndaRadio : MonoBehaviour
     public RadioController radioController;
 
     [Header("Configuração da Onda")]
-    [Range(2f, 50f)] public float minFrequency = 5f;
+    [Range(0f, 50f)] public float minFrequency = 5f;
     [Range(10f, 150f)] public float maxFrequency = 80f;
     public float scrollSpeed = 1.5f;
     public float heightAmplitude = 0.2f;
