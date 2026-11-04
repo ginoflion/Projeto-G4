@@ -48,29 +48,35 @@ public class RadioController : MonoBehaviour
         UpdateVisualIndicators();
     }
 
+    // --- NAVEGAÇÃO BLOQUEADA NAS PONTAS (Não faz loop) ---
     public void SelectPreviousDigit()
     {
-        selectedIndex = (selectedIndex - 1 + digits.Length) % digits.Length;
+        // Se estiver no 0, mantém-se no 0
+        selectedIndex = Mathf.Max(0, selectedIndex - 1);
         UpdateVisualIndicators();
         Debug.Log("Dígito selecionado: " + selectedIndex);
     }
 
     public void SelectNextDigit()
     {
-        selectedIndex = (selectedIndex + 1) % digits.Length;
+        // Se estiver no último (digits.Length - 1), mantém-se lá
+        selectedIndex = Mathf.Min(digits.Length - 1, selectedIndex + 1);
         UpdateVisualIndicators();
         Debug.Log("Dígito selecionado: " + selectedIndex);
     }
 
+    // --- ALTERAÇÃO DE VALOR BLOQUEADA NO 0 E NO 6 ---
     public void IncreaseSelectedDigit()
     {
-        digits[selectedIndex] = (digits[selectedIndex] + 1) % 7; // Vai de 0 a 6
+        // Se chegar a 6, fica bloqueado no 6
+        digits[selectedIndex] = Mathf.Min(6, digits[selectedIndex] + 1);
         UpdateDisplay();
     }
 
     public void DecreaseSelectedDigit()
     {
-        digits[selectedIndex] = (digits[selectedIndex] - 1 + 7) % 7; // Vai de 0 a 6
+        // Se chegar a 0, fica bloqueado no 0
+        digits[selectedIndex] = Mathf.Max(0, digits[selectedIndex] - 1);
         UpdateDisplay();
     }
 
@@ -85,7 +91,6 @@ public class RadioController : MonoBehaviour
         }
     }
 
-    // Atualiza os materiais de todos os indicadores: todos ficam visíveis, mas apenas o selecionado muda de material
     private void UpdateVisualIndicators()
     {
         if (indicators == null) return;
@@ -94,7 +99,6 @@ public class RadioController : MonoBehaviour
         {
             if (indicators[i].indicatorRenderer != null)
             {
-                // Se for o índice selecionado, aplica o material de seleção. Caso contrário, aplica o normal.
                 if (i == selectedIndex && selectedMaterial != null)
                 {
                     indicators[i].indicatorRenderer.material = selectedMaterial;
