@@ -12,11 +12,13 @@ public class ReadablePaper : MonoBehaviour, IUsable
     private bool isReading = false;
     private SUPERCharacterAIO playerController;
     private InteractionSystem interactionSystem;
+    private GameObject child;
     
     void Start()
     {
         playerController = FindObjectsByType<SUPERCharacterAIO>(FindObjectsSortMode.None)[0];
         interactionSystem = FindObjectsByType<InteractionSystem>(FindObjectsSortMode.None)[0];
+        child = transform.GetChild(0).gameObject;
     }
     
     public void Use()
@@ -25,6 +27,7 @@ public class ReadablePaper : MonoBehaviour, IUsable
 
         if (isReading)
         {
+            child.layer = LayerMask.NameToLayer("IgnoreCRT");
             transform.localPosition = zoomedPosition;
             transform.localRotation = Quaternion.Euler(zoomedRotation);
             if (playerController != null) 
@@ -35,6 +38,7 @@ public class ReadablePaper : MonoBehaviour, IUsable
         }
         else
         {
+            child.layer = LayerMask.NameToLayer("Default");
             transform.localPosition = normalPosition;
             transform.localRotation = Quaternion.Euler(normalRotation);
 
