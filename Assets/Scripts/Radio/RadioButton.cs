@@ -61,7 +61,6 @@ public class RadioButton : MonoBehaviour
             return;
         }
 
-        // Executa a função correspondente com base no tipo de botão configurado no Inspetor
         switch (actionType)
         {
             case ButtonAction.MoveLeft:

@@ -25,7 +25,6 @@ public class RadioVerify : MonoBehaviour
 
     void Update()
     {
-        // Garante que o jogador está a olhar para o rádio (usando a mesma lógica dos outros botões)
         if (!RadioTable.isLookingAtRadio) return;
 
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
@@ -47,7 +46,6 @@ public class RadioVerify : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 100f))
         {
-            // Verifica se o raio atingiu este exato objeto (o botão de verificar)
             if (hit.collider.gameObject == gameObject)
             {
                 ExecuteVerification();
@@ -61,7 +59,6 @@ public class RadioVerify : MonoBehaviour
 
         if (radioController != null)
         {
-            // Chama a nova função que criámos no RadioController
             radioController.VerificarFrequencia();
         }
         else

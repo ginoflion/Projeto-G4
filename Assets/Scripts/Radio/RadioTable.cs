@@ -19,7 +19,6 @@ public class RadioTable : Interactable
 
     private void Start()
     {
-        // Procura o CrosshairController de forma segura sem risco de IndexOutOfRange
         crosshairController = FindFirstObjectByType<CrosshairController>();
 
         if (crosshairController == null)

@@ -6,7 +6,7 @@ public class RadioManager : MonoBehaviour
 {
     [Header("Configuração dos Dígitos")]
     private int[] digits = new int[6];
-    private int selectedIndex = 0; // Posição atual selecionada (0 a 5)
+    private int selectedIndex = 0; 
 
     [Header("Interface (TextMeshPro 3D)")]
     public TextMeshPro[] digitTexts;
@@ -17,7 +17,7 @@ public class RadioManager : MonoBehaviour
         [Tooltip("O GameObject ou Renderer do indicador visual deste dígito.")]
         public Renderer indicatorRenderer;
         [HideInInspector]
-        public Material[] normalMaterials; // Recolhido automaticamente pelo script!
+        public Material[] normalMaterials;
     }
 
     [Header("Indicadores Visuais (6 no total)")]
@@ -42,24 +42,23 @@ public class RadioManager : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [Tooltip("O objeto vazio que define onde o papel pára (já impresso e fora).")]
     [SerializeField] private Transform finalPoint;
-    [SerializeField] private float duracaoMovimento = 1.0f;  // Tempo que demora a viagem
+    [SerializeField] private float duracaoMovimento = 1.0f; 
 
     [Header("Áudio do Rádio")]
     [SerializeField] private AudioSource radioAudioSource;
     [SerializeField] private AudioClip somImpressaoRadio;
-    [SerializeField] private AudioClip somInteracaoPapel; // Som tocado quando o player agarra o papel
+    [SerializeField] private AudioClip somInteracaoPapel; 
 
     private bool jaSpawnouHoje = false;
-    private Transform papelGeradoTransform; // Referência para vigiar o papel gerado
+    private Transform papelGeradoTransform; 
 
     void Start()
     {
-        CacheOriginalMaterials(); // Vai buscar os materiais automaticamente ao iniciar
+        CacheOriginalMaterials(); 
         UpdateDisplay();
         UpdateVisualIndicators();
     }
 
-    // --- CAPTURA AUTOMÁTICA DOS MATERIAIS ORIGINAIS ---
     private void CacheOriginalMaterials()
     {
         if (indicators == null) return;
@@ -68,13 +67,11 @@ public class RadioManager : MonoBehaviour
         {
             if (indicators[i].indicatorRenderer != null)
             {
-                // Guarda uma cópia dos materiais que o objeto já tem aplicados no Unity
                 indicators[i].normalMaterials = indicators[i].indicatorRenderer.sharedMaterials;
             }
         }
     }
 
-    // --- NAVEGAÇÃO BLOQUEADA NAS PONTAS (Não faz loop) ---
     public void SelectPreviousDigit()
     {
         selectedIndex = Mathf.Max(0, selectedIndex - 1);
@@ -89,7 +86,6 @@ public class RadioManager : MonoBehaviour
         Debug.Log("Dígito selecionado: " + selectedIndex);
     }
 
-    // --- ALTERAÇÃO DE VALOR BLOQUEADA NO 0 E NO 6 ---
     public void IncreaseSelectedDigit()
     {
         digits[selectedIndex] = Mathf.Min(6, digits[selectedIndex] + 1);
@@ -113,7 +109,6 @@ public class RadioManager : MonoBehaviour
         }
     }
 
-    // --- ATUALIZAÇÃO DOS MATERIAIS ---
     private void UpdateVisualIndicators()
     {
         if (indicators == null) return;
@@ -125,7 +120,6 @@ public class RadioManager : MonoBehaviour
             {
                 if (i == selectedIndex && selectedMaterial != null)
                 {
-                    // Aplica o material de seleção a todos os slots
                     Material[] mats = new Material[rend.sharedMaterials.Length];
                     for (int m = 0; m < mats.Length; m++)
                     {
@@ -135,7 +129,6 @@ public class RadioManager : MonoBehaviour
                 }
                 else
                 {
-                    // Restaura os materiais originais que foram guardados no Start()
                     if (indicators[i].normalMaterials != null && indicators[i].normalMaterials.Length > 0)
                     {
                         rend.materials = indicators[i].normalMaterials;
@@ -162,32 +155,24 @@ public class RadioManager : MonoBehaviour
                     return;
                 }
 
-                // 1. Instancia o papel na posição exata do ponto inicial
                 GameObject papelInstanciado = Instantiate(prefabParaSpawnar, spawnPoint.position, spawnPoint.rotation);
 
-                // 2. Torna o papel filho do rádio para o acompanhar
                 papelInstanciado.transform.SetParent(transform);
 
-                // Guarda a referência para vigiar quando o player o agarrar
                 papelGeradoTransform = papelInstanciado.transform;
 
-                // 3. Calcula as posições e rotações locais em relação ao rádio
                 Vector3 startLocalPos = transform.InverseTransformPoint(spawnPoint.position);
                 Vector3 endLocalPos = transform.InverseTransformPoint(finalPoint.position);
                 Quaternion startLocalRot = Quaternion.Inverse(transform.rotation) * spawnPoint.rotation;
                 Quaternion endLocalRot = Quaternion.Inverse(transform.rotation) * finalPoint.rotation;
 
-                // Coloca o papel imediatamente no sítio de início
                 papelInstanciado.transform.localPosition = startLocalPos;
                 papelInstanciado.transform.localRotation = startLocalRot;
 
-                // 4. Dispara a animação entre os dois pontos
                 StartCoroutine(AnimarMovimentoEntrePontos(papelInstanciado.transform, startLocalPos, endLocalPos, startLocalRot, endLocalRot));
 
-                // 5. Dispara a coroutine que vigia o momento em que o player agarra o papel
                 StartCoroutine(VigiarInteracaoPapel());
 
-                // 6. Toca o som de impressão no rádio
                 if (radioAudioSource != null && somImpressaoRadio != null)
                 {
                     radioAudioSource.PlayOneShot(somImpressaoRadio);
@@ -203,7 +188,6 @@ public class RadioManager : MonoBehaviour
         }
     }
 
-    // Coroutine que faz o papel deslizar suavemente entre o ponto inicial e o final
     private System.Collections.IEnumerator AnimarMovimentoEntrePontos(Transform papelTransform, Vector3 startPos, Vector3 endPos, Quaternion startRot, Quaternion endRot)
     {
         float tempoDecorrido = 0f;
@@ -215,10 +199,8 @@ public class RadioManager : MonoBehaviour
             tempoDecorrido += Time.deltaTime;
             float progresso = Mathf.Clamp01(tempoDecorrido / duracaoMovimento);
 
-            // Efeito suave (Ease Out) para a animação começar e acabar com suavidade
             progresso = Mathf.Sin(progresso * Mathf.PI * 0.5f);
 
-            // Interpola a posição e a rotação localmente
             papelTransform.localPosition = Vector3.Lerp(startPos, endPos, progresso);
             papelTransform.localRotation = Quaternion.Lerp(startRot, endRot, progresso);
 
@@ -232,7 +214,6 @@ public class RadioManager : MonoBehaviour
         }
     }
 
-    // Coroutine que vigia se o papel deixou de ser filho do rádio (quando o player o apanha)
     private System.Collections.IEnumerator VigiarInteracaoPapel()
     {
         while (papelGeradoTransform != null && papelGeradoTransform.parent == transform)
@@ -240,7 +221,6 @@ public class RadioManager : MonoBehaviour
             yield return null;
         }
 
-        // Se o loop terminou, significa que o pai mudou (o player interagiu e o tirou de lá)
         if (radioAudioSource != null && somInteracaoPapel != null)
         {
             radioAudioSource.PlayOneShot(somInteracaoPapel);

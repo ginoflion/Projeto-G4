@@ -17,6 +17,10 @@ public class MainMenuController : MonoBehaviour
     {
         MainMenuPanel.SetActive(false);
         //PlayCoroutine de Fade
+        if (CartasManager.Instance != null)
+        {
+            CartasManager.Instance.SpawnJornal1();
+        }
         MainCamera.enabled = true;
         MenuCamera.enabled = false;
         superCharacterAIO.enabled = true;
