@@ -8,7 +8,7 @@ public class RadioTable : Interactable
     [Header("Câmara e Jogador")]
     public Camera playerCamera;
     public SUPERCharacterAIO playerController;
-    public Transform radioCameraPosition; 
+    public Transform radioCameraPosition;
 
     public static bool isLookingAtRadio = false;
 
@@ -19,7 +19,13 @@ public class RadioTable : Interactable
 
     private void Start()
     {
-        crosshairController = FindObjectsByType<CrosshairController>(FindObjectsSortMode.None)[0];
+        // Procura o CrosshairController de forma segura sem risco de IndexOutOfRange
+        crosshairController = FindFirstObjectByType<CrosshairController>();
+
+        if (crosshairController == null)
+        {
+            Debug.LogWarning("CrosshairController não foi encontrado na cena! Verifica se está presente.");
+        }
     }
 
     public override void Interact(PlayerItem playerHand)
@@ -32,7 +38,11 @@ public class RadioTable : Interactable
 
     private void EnterRadioView()
     {
-        crosshairController.SetCrosshairVisibility(false);
+        if (crosshairController != null)
+        {
+            crosshairController.SetCrosshairVisibility(false);
+        }
+
         if (interactionSystem != null) interactionSystem.enabled = false;
         isLookingAtRadio = true;
 
@@ -44,8 +54,11 @@ public class RadioTable : Interactable
             playerController.PausePlayer(PauseModes.FreezeInPlace);
         }
 
-        playerCamera.transform.position = radioCameraPosition.position;
-        playerCamera.transform.rotation = radioCameraPosition.rotation;
+        if (radioCameraPosition != null)
+        {
+            playerCamera.transform.position = radioCameraPosition.position;
+            playerCamera.transform.rotation = radioCameraPosition.rotation;
+        }
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -53,7 +66,7 @@ public class RadioTable : Interactable
 
     void Update()
     {
-        if (isLookingAtRadio && Keyboard.current.eKey.wasPressedThisFrame)
+        if (isLookingAtRadio && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
             ExitRadioView();
         }
@@ -62,7 +75,12 @@ public class RadioTable : Interactable
     private void ExitRadioView()
     {
         isLookingAtRadio = false;
-        crosshairController.SetCrosshairVisibility(true);
+
+        if (crosshairController != null)
+        {
+            crosshairController.SetCrosshairVisibility(true);
+        }
+
         playerCamera.transform.position = originalCameraPosition;
         playerCamera.transform.rotation = originalCameraRotation;
 
@@ -73,6 +91,7 @@ public class RadioTable : Interactable
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
         if (interactionSystem != null) interactionSystem.enabled = true;
     }
 }

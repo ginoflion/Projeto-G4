@@ -47,8 +47,10 @@ public class RadioManager : MonoBehaviour
     [Header("Áudio do Rádio")]
     [SerializeField] private AudioSource radioAudioSource;
     [SerializeField] private AudioClip somImpressaoRadio;
+    [SerializeField] private AudioClip somInteracaoPapel; // Som tocado quando o player agarra o papel
 
     private bool jaSpawnouHoje = false;
+    private Transform papelGeradoTransform; // Referência para vigiar o papel gerado
 
     void Start()
     {
@@ -166,6 +168,9 @@ public class RadioManager : MonoBehaviour
                 // 2. Torna o papel filho do rádio para o acompanhar
                 papelInstanciado.transform.SetParent(transform);
 
+                // Guarda a referência para vigiar quando o player o agarrar
+                papelGeradoTransform = papelInstanciado.transform;
+
                 // 3. Calcula as posições e rotações locais em relação ao rádio
                 Vector3 startLocalPos = transform.InverseTransformPoint(spawnPoint.position);
                 Vector3 endLocalPos = transform.InverseTransformPoint(finalPoint.position);
@@ -179,7 +184,10 @@ public class RadioManager : MonoBehaviour
                 // 4. Dispara a animação entre os dois pontos
                 StartCoroutine(AnimarMovimentoEntrePontos(papelInstanciado.transform, startLocalPos, endLocalPos, startLocalRot, endLocalRot));
 
-                // 5. Toca o som no rádio
+                // 5. Dispara a coroutine que vigia o momento em que o player agarra o papel
+                StartCoroutine(VigiarInteracaoPapel());
+
+                // 6. Toca o som de impressão no rádio
                 if (radioAudioSource != null && somImpressaoRadio != null)
                 {
                     radioAudioSource.PlayOneShot(somImpressaoRadio);
@@ -222,6 +230,23 @@ public class RadioManager : MonoBehaviour
             papelTransform.localPosition = endPos;
             papelTransform.localRotation = endRot;
         }
+    }
+
+    // Coroutine que vigia se o papel deixou de ser filho do rádio (quando o player o apanha)
+    private System.Collections.IEnumerator VigiarInteracaoPapel()
+    {
+        while (papelGeradoTransform != null && papelGeradoTransform.parent == transform)
+        {
+            yield return null;
+        }
+
+        // Se o loop terminou, significa que o pai mudou (o player interagiu e o tirou de lá)
+        if (radioAudioSource != null && somInteracaoPapel != null)
+        {
+            radioAudioSource.PlayOneShot(somInteracaoPapel);
+        }
+
+        papelGeradoTransform = null;
     }
 
     public bool IsCurrentFrequencyCorrect()
