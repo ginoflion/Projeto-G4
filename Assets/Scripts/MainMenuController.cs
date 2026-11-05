@@ -11,6 +11,7 @@ public class MainMenuController : MonoBehaviour
     public Camera MenuCamera;
     public SUPERCharacterAIO superCharacterAIO;
     public GameObject MenuIcon;
+    public CrosshairController crosshairController;
     
     public void PlayGame()
     {
@@ -20,6 +21,7 @@ public class MainMenuController : MonoBehaviour
         MenuCamera.enabled = false;
         superCharacterAIO.enabled = true;
         MenuIcon.SetActive(false);
+        crosshairController.SetCrosshairVisibility(true);
     }
 
     public void GoBackToMenu()

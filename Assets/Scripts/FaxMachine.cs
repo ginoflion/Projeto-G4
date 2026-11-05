@@ -23,10 +23,12 @@ public class FaxMachine : Interactable
     private int currentIndex = 0;
     private GameObject insertedPaper;
     private PlayerItem currentPlayerHand;
+    private CrosshairController _crosshairController;
 
     void Start()
     {
         itemName = "Inserir Resposta";
+        _crosshairController = FindObjectsByType<CrosshairController>(FindObjectsSortMode.None)[0];
         UpdateScreen();
     }
 
@@ -56,12 +58,14 @@ public class FaxMachine : Interactable
         if (interactionSystem != null) interactionSystem.enabled = false;
         playerCamera.transform.position = faxCameraPosition.position;
         playerCamera.transform.rotation = faxCameraPosition.rotation;
+        _crosshairController.SetCrosshairVisibility(false);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
 
     private void ExitFaxView()
     {
+        _crosshairController.SetCrosshairVisibility(true);
         isLookingAtFax = false;
         itemName = "Inserir Resposta";
         playerCamera.transform.position = originalCameraPosition;

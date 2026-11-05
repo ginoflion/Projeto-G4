@@ -1,3 +1,4 @@
+using System;
 using SUPERCharacter;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,6 +15,12 @@ public class RadioTable : Interactable
     private Vector3 originalCameraPosition;
     private Quaternion originalCameraRotation;
     public InteractionSystem interactionSystem;
+    private CrosshairController crosshairController;
+
+    private void Start()
+    {
+        crosshairController = FindObjectsByType<CrosshairController>(FindObjectsSortMode.None)[0];
+    }
 
     public override void Interact(PlayerItem playerHand)
     {
@@ -25,6 +32,7 @@ public class RadioTable : Interactable
 
     private void EnterRadioView()
     {
+        crosshairController.SetCrosshairVisibility(false);
         if (interactionSystem != null) interactionSystem.enabled = false;
         isLookingAtRadio = true;
 
@@ -54,7 +62,7 @@ public class RadioTable : Interactable
     private void ExitRadioView()
     {
         isLookingAtRadio = false;
-
+        crosshairController.SetCrosshairVisibility(true);
         playerCamera.transform.position = originalCameraPosition;
         playerCamera.transform.rotation = originalCameraRotation;
 

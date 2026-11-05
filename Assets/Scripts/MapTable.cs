@@ -13,6 +13,12 @@ public class MapTable : Interactable
     private Vector3 originalCameraPosition;
     private Quaternion originalCameraRotation;
     public InteractionSystem playerInteractionSystem;
+    private CrosshairController crosshairController;
+
+    private void Start()
+    {
+        crosshairController = FindObjectsByType<CrosshairController>(FindObjectsSortMode.None)[0];
+    }
 
     public override void Interact(PlayerItem playerHand)
     {
@@ -24,6 +30,7 @@ public class MapTable : Interactable
 
     private void EnterMapView()
     {
+        crosshairController.SetCrosshairVisibility(false);
         isLookingAtMap = true;
         if (playerInteractionSystem != null) playerInteractionSystem.enabled = false;
         originalCameraPosition = playerCamera.transform.position;
@@ -51,7 +58,7 @@ public class MapTable : Interactable
     private void ExitMapView()
     {
         isLookingAtMap = false;
-
+        crosshairController.SetCrosshairVisibility(true);
         playerCamera.transform.position = originalCameraPosition;
         playerCamera.transform.rotation = originalCameraRotation;
         if (playerController != null) 

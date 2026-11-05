@@ -13,9 +13,11 @@ public class ReadablePaper : MonoBehaviour, IUsable
     private SUPERCharacterAIO playerController;
     private InteractionSystem interactionSystem;
     private GameObject child;
+    private CrosshairController crosshairController;
     
     void Start()
     {
+        crosshairController = FindObjectsByType<CrosshairController>(FindObjectsSortMode.None)[0];
         playerController = FindObjectsByType<SUPERCharacterAIO>(FindObjectsSortMode.None)[0];
         interactionSystem = FindObjectsByType<InteractionSystem>(FindObjectsSortMode.None)[0];
         child = transform.GetChild(0).gameObject;
@@ -27,6 +29,7 @@ public class ReadablePaper : MonoBehaviour, IUsable
 
         if (isReading)
         {
+            crosshairController.SetCrosshairVisibility(false);
             child.layer = LayerMask.NameToLayer("IgnoreCRT");
             transform.localPosition = zoomedPosition;
             transform.localRotation = Quaternion.Euler(zoomedRotation);
@@ -38,6 +41,7 @@ public class ReadablePaper : MonoBehaviour, IUsable
         }
         else
         {
+            crosshairController.SetCrosshairVisibility(true);
             child.layer = LayerMask.NameToLayer("Default");
             transform.localPosition = normalPosition;
             transform.localRotation = Quaternion.Euler(normalRotation);
