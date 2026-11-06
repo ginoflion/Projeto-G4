@@ -7,6 +7,7 @@ public class PlayerItem : MonoBehaviour
     private GameObject currentItem;
     
     public InputActionReference useAction;
+    public GameObject lanternSpot;
     
     void OnEnable()
     {
@@ -55,6 +56,11 @@ public class PlayerItem : MonoBehaviour
             Transform getrotadedChild = currentItem.transform.Find("getrotaded");
             if (jornalChild != null) jornalChild.gameObject.SetActive(false);
             if (getrotadedChild != null) getrotadedChild.gameObject.SetActive(true);
+        }
+        
+        if (currentItem != null && GetItemName() == "UVLantern")
+        {
+            lanternSpot.layer = LayerMask.NameToLayer("Interactable");
         }
         
         Rigidbody rb = currentItem.GetComponent<Rigidbody>();

@@ -1,4 +1,5 @@
 using SUPERCharacter;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +15,7 @@ public class MapTable : Interactable
     private Quaternion originalCameraRotation;
     public InteractionSystem playerInteractionSystem;
     private CrosshairController crosshairController;
+    public TextMeshProUGUI textDisplay;
 
     private void Start()
     {
@@ -30,6 +32,8 @@ public class MapTable : Interactable
 
     private void EnterMapView()
     {
+        textDisplay.text = "1 - Pencil" +
+                           "2 - Eraser";
         crosshairController.SetCrosshairVisibility(false);
         isLookingAtMap = true;
         if (playerInteractionSystem != null) playerInteractionSystem.enabled = false;
@@ -57,6 +61,7 @@ public class MapTable : Interactable
 
     private void ExitMapView()
     {
+        textDisplay.text = "Press E to Interact";
         isLookingAtMap = false;
         crosshairController.SetCrosshairVisibility(true);
         playerCamera.transform.position = originalCameraPosition;
