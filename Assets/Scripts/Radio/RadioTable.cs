@@ -16,6 +16,7 @@ public class RadioTable : Interactable
     private Quaternion originalCameraRotation;
     public InteractionSystem interactionSystem;
     private CrosshairController crosshairController;
+    private BoxCollider boxCollider;
 
     private void Start()
     {
@@ -24,6 +25,12 @@ public class RadioTable : Interactable
         if (crosshairController == null)
         {
             Debug.LogWarning("CrosshairController não foi encontrado na cena! Verifica se está presente.");
+        }
+
+        boxCollider = GetComponent<BoxCollider>();
+        if (boxCollider == null)
+        {
+            Debug.LogWarning("BoxCollider não foi encontrado neste objeto RadioTable!");
         }
     }
 
@@ -44,6 +51,11 @@ public class RadioTable : Interactable
 
         if (interactionSystem != null) interactionSystem.enabled = false;
         isLookingAtRadio = true;
+
+        if (boxCollider != null)
+        {
+            boxCollider.enabled = false;
+        }
 
         originalCameraPosition = playerCamera.transform.position;
         originalCameraRotation = playerCamera.transform.rotation;
@@ -92,5 +104,10 @@ public class RadioTable : Interactable
         Cursor.visible = false;
 
         if (interactionSystem != null) interactionSystem.enabled = true;
+
+        if (boxCollider != null)
+        {
+            boxCollider.enabled = true;
+        }
     }
 }
