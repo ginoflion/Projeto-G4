@@ -14,7 +14,7 @@ public class CorkboardSpot : Interactable
     
     public override void OnHoverEnter()
     {
-        if (placedPaper == null && outlineVisual != null && playerHand != null && (playerHand.GetItemName() == "Paper" || playerHand.GetItemName() == "Answer"))
+        if (placedPaper == null && outlineVisual != null && playerHand != null && (playerHand.GetItemName() == "Paper" || playerHand.GetItemName() == "Answer" || playerHand.GetItemName() == "Instructions"))
         {
             outlineVisual.SetActive(true);
         }

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dayName: Dia 1
   paperAnswers:
-  - faca
-  - queijo
-  - bola
+  - 22:41
+  - Docks
+  - Stabbing
   correctFaxStationIndex: 4
   dayStatus: Falhado

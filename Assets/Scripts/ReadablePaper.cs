@@ -15,6 +15,7 @@ public class ReadablePaper : MonoBehaviour, IUsable
     private GameObject child;
     private CrosshairController crosshairController;
     
+    
     void Start()
     {
         crosshairController = FindObjectsByType<CrosshairController>(FindObjectsSortMode.None)[0];

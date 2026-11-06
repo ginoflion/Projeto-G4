@@ -12,6 +12,10 @@ public class MainMenuController : MonoBehaviour
     public SUPERCharacterAIO superCharacterAIO;
     public GameObject MenuIcon;
     public CrosshairController crosshairController;
+    public GameObject pauseMenu;
+    public GameObject pauseMenuControls;
+    public GameObject pauseMenuOptions;
+    public GameObject Crosshair;
     
     public void PlayGame()
     {
@@ -63,5 +67,46 @@ public class MainMenuController : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void OpenPauseMenu()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        MenuIcon.SetActive(true);
+        pauseMenu.SetActive(true);
+        Crosshair.SetActive(false);
+        Time.timeScale = 0f;
+    }
+
+    public void ReturnToGame()
+    {
+        pauseMenu.SetActive(false);
+        MenuIcon.SetActive(false);
+        Crosshair.SetActive(true);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Time.timeScale = 1f;
+    }
+    public void GoToPauseMenu()
+    {
+        
+        pauseMenu.SetActive(true);
+        pauseMenuOptions.SetActive(false);
+        pauseMenuControls.SetActive(false);
+    }
+    
+    public void OpenPauseControls()
+    {
+        pauseMenuControls.SetActive(true);
+        pauseMenu.SetActive(false);
+        pauseMenuOptions.SetActive(false);
+    }
+
+    public void OpenPauseOptions()
+    {
+        pauseMenuControls.SetActive(false);
+        pauseMenu.SetActive(false);
+        pauseMenuOptions.SetActive(true);
     }
 }
