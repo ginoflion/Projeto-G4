@@ -34,7 +34,6 @@ public class Door : Interactable
         else
         {
             audioSource.PlayOneShot(doorlock);
-            ShowWarning("É melhor enviar esta carta primeiro");
         }
     }
 
@@ -76,30 +75,6 @@ public class Door : Interactable
             yield return StartCoroutine(Fade(1f, 0f));
             fadeImage.gameObject.SetActive(false);
         }
-    }
-
-    private void ShowWarning(string message)
-    {
-        if (warningText == null) return;
-
-        if (warningCoroutine != null)
-        {
-            StopCoroutine(warningCoroutine);
-        }
-
-        warningCoroutine = StartCoroutine(WarningRoutine(message));
-    }
-
-    private IEnumerator WarningRoutine(string message)
-    {
-        warningText.text = message;
-        warningText.gameObject.SetActive(true);
-
-        yield return new WaitForSeconds(warningDuration);
-
-        warningText.text = "";
-        warningText.gameObject.SetActive(false);
-        warningCoroutine = null;
     }
 
     private IEnumerator Fade(float startAlpha, float endAlpha)
