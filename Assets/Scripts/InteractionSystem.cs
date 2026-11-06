@@ -10,6 +10,7 @@ public class InteractionSystem : MonoBehaviour
     private PlayerItem playerItem;
     public InputActionReference interactAction;
     private Interactable currentHoveredObject;
+    public GameObject helper;
 
     void Awake()
     {
@@ -51,6 +52,7 @@ public class InteractionSystem : MonoBehaviour
             {
                 if (currentHoveredObject != null) currentHoveredObject.OnHoverExit();
                 currentHoveredObject = interactable;
+                helper.SetActive(true);
                 if (currentHoveredObject != null) currentHoveredObject.OnHoverEnter();
             }
         }
@@ -58,6 +60,7 @@ public class InteractionSystem : MonoBehaviour
         {
             if (currentHoveredObject != null)
             {
+                helper.SetActive(false);
                 currentHoveredObject.OnHoverExit();
                 currentHoveredObject = null;
             }

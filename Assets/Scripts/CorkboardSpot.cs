@@ -5,7 +5,6 @@ public class CorkboardSpot : Interactable
     public GameObject outlineVisual;
     private GameObject placedPaper;
     private PlayerItem playerHand;
-    public Vector3 positionOffset = new Vector3(0f, -0.34f, 0f);
 
     void Start()
     {
@@ -32,7 +31,7 @@ public class CorkboardSpot : Interactable
         {
             placedPaper = playerHand.DropItem(); 
             
-            placedPaper.transform.position = transform.position + positionOffset;
+            placedPaper.transform.position = transform.position;
             placedPaper.transform.rotation = transform.rotation * Quaternion.Euler(90f, 0f, -90f);
             BoxCollider box = placedPaper.GetComponent<BoxCollider>();
             box.enabled = false;

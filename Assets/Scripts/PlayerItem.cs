@@ -48,6 +48,14 @@ public class PlayerItem : MonoBehaviour
     {
         if (HasItem()) return;
         currentItem = item;
+
+        if (currentItem != null && GetItemName() == "Paper")
+        {
+            Transform jornalChild = currentItem.transform.Find("jornal");
+            Transform getrotadedChild = currentItem.transform.Find("getrotaded");
+            if (jornalChild != null) jornalChild.gameObject.SetActive(false);
+            if (getrotadedChild != null) getrotadedChild.gameObject.SetActive(true);
+        }
         
         Rigidbody rb = currentItem.GetComponent<Rigidbody>();
         if (rb != null) rb.isKinematic = true;
