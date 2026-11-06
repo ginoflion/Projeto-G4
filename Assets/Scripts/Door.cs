@@ -6,15 +6,10 @@ using TMPro;
 public class Door : Interactable
 {
     [Header("Configuração de Estado")]
-    public static bool CartaSent = true;
+    public static bool CartaSent = false;
 
     [Header("Referências de Jogo")]
     public Transform spawn;
-
-    [Header("Aviso (Carta não enviada)")]
-    public TextMeshProUGUI warningText;
-    public float warningDuration = 2f;
-    private Coroutine warningCoroutine;
 
     [Header("Configuração de Fade")]
     public Image fadeImage;
@@ -41,7 +36,6 @@ public class Door : Interactable
     {
         CartaSent = false;
 
-        if (warningText != null) warningText.text = "";
 
         if (fadeImage != null)
         {
