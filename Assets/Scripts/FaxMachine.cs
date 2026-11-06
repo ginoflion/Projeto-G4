@@ -1,8 +1,9 @@
+using SUPERCharacter;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
-using TMPro;
-using SUPERCharacter;
 
 public class FaxMachine : Interactable
 {
@@ -184,23 +185,28 @@ public class FaxMachine : Interactable
 
             if (paperInput != null)
             {
-                if (paperInput.simbolos.Count != currentDay.paperAnswers.Count)
-                {
-                    areAnswersCorrect = false;
-                }
-                else
-                {
-                    for (int i = 0; i < currentDay.paperAnswers.Count; i++)
-                    {
-                        string playerInputWritten = paperInput.simbolos[i].currentInput.Trim().ToLower();
-                        string expectedAnswer = currentDay.paperAnswers[i].Trim().ToLower();
+                List<string> playerAnswers = new List<string>();
 
-                        if (playerInputWritten != expectedAnswer)
-                        {
-                            areAnswersCorrect = false;
-                        }
+                foreach (var simbolo in paperInput.simbolos)
+                {
+                    if (simbolo != null && !string.IsNullOrEmpty(simbolo.currentInput))
+                    {
+                        string normalized = NormalizeAnswer(simbolo.currentInput);
+                        playerAnswers.Add(normalized);
                     }
                 }
+
+                List<string> expectedAnswers = new List<string>();
+                foreach (var ans in currentDay.paperAnswers)
+                {
+                    if (!string.IsNullOrEmpty(ans))
+                    {
+                        string normalized = NormalizeAnswer(ans);
+                        expectedAnswers.Add(normalized);
+                    }
+                }
+
+                areAnswersCorrect = AreListsEqualUnordered(playerAnswers, expectedAnswers);
             }
             else
             {
@@ -225,6 +231,104 @@ public class FaxMachine : Interactable
 
         ExitFaxView();
         StartCoroutine(RetirarEVoltarMaoRoutine());
+    }
+
+    // FUNÇÕES AUXILIARES
+
+    private string NormalizeAnswer(string rawInput)
+    {
+        string input = rawInput.Trim().ToLower();
+
+        if (input == "meia-noite" || input == "midnight") input = "00:00";
+        if (input == "meio-dia" || input == "noon") input = "12:00";
+
+        input = NormalizeTimeFormat(input);
+
+        return input;
+    }
+
+    private string NormalizeTimeFormat(string input)
+    {
+        bool isPM = input.Contains("pm");
+        bool isAM = input.Contains("am");
+
+        if (isPM || isAM)
+        {
+            string cleanTime = input.Replace("pm", "").Replace("am", "").Trim();
+            if (int.TryParse(cleanTime, out int hour12))
+            {
+                if (isPM && hour12 < 12) hour12 += 12;
+                if (isAM && hour12 == 12) hour12 = 0;
+                return $"{hour12:D2}:00";
+            }
+        }
+
+        if (input.Contains(" "))
+        {
+            string[] parts = input.Split(new char[] { ' ' }, System.StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length == 2 && int.TryParse(parts[0], out int h) && int.TryParse(parts[1], out int m))
+            {
+                if (h >= 0 && h < 24 && m >= 0 && m < 60)
+                {
+                    return $"{h:D2}:{m:D2}";
+                }
+            }
+        }
+
+        if (!input.Contains(":") && int.TryParse(input, out int timeDigits))
+        {
+            if (input.Length == 4)
+            {
+                int hours = timeDigits / 100;
+                int minutes = timeDigits % 100;
+                if (hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60)
+                {
+                    return $"{hours:D2}:{minutes:D2}";
+                }
+            }
+            else if (input.Length == 3)
+            {
+                int hours = timeDigits / 100;
+                int minutes = timeDigits % 100;
+                if (hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60)
+                {
+                    return $"{hours:D2}:{minutes:D2}";
+                }
+            }
+        }
+
+        if (int.TryParse(input, out int hourOnly) && hourOnly >= 0 && hourOnly < 24 && !input.Contains(":"))
+        {
+            return $"{hourOnly:D2}:00";
+        }
+
+        if (System.DateTime.TryParse(input, out System.DateTime parsedTime))
+        {
+            return parsedTime.ToString("HH:mm");
+        }
+
+        return input;
+    }
+
+    private bool AreListsEqualUnordered(List<string> list1, List<string> list2)
+    {
+        if (list1.Count != list2.Count) return false;
+
+        List<string> temp2 = new List<string>(list2);
+
+        foreach (string item in list1)
+        {
+            if (temp2.Contains(item))
+            {
+                temp2.Remove(item);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        return temp2.Count == 0;
     }
 
     private IEnumerator RetirarEVoltarMaoRoutine()

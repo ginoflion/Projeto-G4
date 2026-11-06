@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92e507faf0914e6479e4e599eb7ef96f, type: 3}
   m_Name: Day 2
   m_EditorClassIdentifier: 
-  dayName: Dia 1
-  paperAnswers: []
-  correctFaxStationIndex: 4
+  dayName: Dia 2
+  paperAnswers:
+  - 23:36
+  - Pub
+  - Poison
+  correctFaxStationIndex: 1
+  dayStatus: Not Finished
