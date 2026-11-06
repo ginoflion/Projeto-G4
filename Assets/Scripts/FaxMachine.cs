@@ -11,10 +11,20 @@ public class FaxMachine : Interactable
     public TextMeshPro screenText;
     public string[] stationNames = { "Estação Norte", "Porto", "Central Elétrica", "Arquivo", "Polícia", "Câmara" };
     public Camera playerCamera;
-    public Transform faxCameraPosition; 
+    public Transform faxCameraPosition;
     public SUPERCharacterAIO playerController;
     public InteractionSystem interactionSystem;
-    public LayerMask buttonLayer; 
+    public LayerMask buttonLayer;
+
+    [Header("Trajeto do Papel na Fax (Pontos)")]
+    [Tooltip("Coloca aqui os pontos em ordem: [0] Ponto Inicial, [1] Intermédio, [2] Ponto Final.")]
+    [SerializeField] private Transform[] pontosDeTrajeto;
+    [SerializeField] private float tempoViagemPapel = 0.8f;
+
+    [Header("Áudio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip somInserirPapel;
+    [SerializeField] private AudioClip somRetirarPapel;
 
     private bool isLookingAtFax = false;
     private Vector3 originalCameraPosition;
@@ -37,20 +47,52 @@ public class FaxMachine : Interactable
         if (!isLookingAtFax && playerHand.HasItem() && playerHand.GetItemName() == requiredItemName && insertedPaper == null)
         {
             insertedPaper = playerHand.DropItem();
-            insertedPaper.SetActive(false); 
+            insertedPaper.SetActive(true);
             currentPlayerHand = playerHand;
-            
-            EnterFaxView();
+
+            if (audioSource != null && somInserirPapel != null)
+            {
+                audioSource.PlayOneShot(somInserirPapel);
+            }
+
+            StartCoroutine(InserirEAnimarPapelRoutine());
         }
-        else if (playerHand.HasItem())
+    }
+
+    private IEnumerator InserirEAnimarPapelRoutine()
+    {
+        if (pontosDeTrajeto == null || pontosDeTrajeto.Length < 2)
         {
+            Debug.LogError("Precisas de configurar pelo menos 2 pontos no array 'Pontos De Trajeto' da FaxMachine!");
+            EnterFaxView();
+            yield break;
         }
+
+        Transform pontoInicial = pontosDeTrajeto[0];
+        insertedPaper.transform.position = pontoInicial.position;
+        insertedPaper.transform.rotation = pontoInicial.rotation;
+        insertedPaper.transform.SetParent(transform);
+
+        int qtd = pontosDeTrajeto.Length;
+        Vector3[] localPos = new Vector3[qtd];
+        Quaternion[] localRot = new Quaternion[qtd];
+
+        for (int i = 0; i < qtd; i++)
+        {
+            localPos[i] = transform.InverseTransformPoint(pontosDeTrajeto[i].position);
+            localRot[i] = Quaternion.Inverse(transform.rotation) * pontosDeTrajeto[i].rotation;
+        }
+
+        yield return StartCoroutine(AnimarTrajetoPapel(insertedPaper.transform, localPos, localRot, false, tempoViagemPapel));
+
+        EnterFaxView();
     }
 
     private void EnterFaxView()
     {
         isLookingAtFax = true;
         itemName = "A configurar transmissão...";
+        _crosshairController.SetCrosshairVisibility(false);
         originalCameraPosition = playerCamera.transform.position;
         originalCameraRotation = playerCamera.transform.rotation;
 
@@ -58,16 +100,16 @@ public class FaxMachine : Interactable
         if (interactionSystem != null) interactionSystem.enabled = false;
         playerCamera.transform.position = faxCameraPosition.position;
         playerCamera.transform.rotation = faxCameraPosition.rotation;
-        _crosshairController.SetCrosshairVisibility(false);
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
 
     private void ExitFaxView()
     {
-        _crosshairController.SetCrosshairVisibility(true);
         isLookingAtFax = false;
         itemName = "Inserir Resposta";
+        _crosshairController.SetCrosshairVisibility(true);
         playerCamera.transform.position = originalCameraPosition;
         playerCamera.transform.rotation = originalCameraRotation;
         if (playerController != null) playerController.UnpausePlayer();
@@ -83,7 +125,9 @@ public class FaxMachine : Interactable
         {
             if (insertedPaper != null && itemName != "A transmitir...")
             {
-                ReturnPaper();
+                ExitFaxView();
+                StartCoroutine(RetirarEVoltarMaoRoutine());
+                return;
             }
             if (itemName != "A transmitir...") ExitFaxView();
         }
@@ -128,6 +172,7 @@ public class FaxMachine : Interactable
         Debug.Log("A transmitir para: " + stationNames[currentIndex]);
         itemName = "A transmitir...";
         yield return new WaitForSeconds(animationDuration);
+
         DayData currentDay = AnswerManager.Instance.GetCurrentDayData();
         bool isStationCorrect = false;
         bool areAnswersCorrect = true;
@@ -135,18 +180,13 @@ public class FaxMachine : Interactable
         if (currentDay != null)
         {
             isStationCorrect = (currentIndex == currentDay.correctFaxStationIndex);
-            if (!isStationCorrect)
-            {
-                Debug.Log($"[Erro no Fax] Destino incorreto! Mandaste para '{stationNames[currentIndex]}', mas o destino correto era outro.");
-            }
-
             PhysicalPaperInput paperInput = insertedPaper.GetComponent<PhysicalPaperInput>();
+
             if (paperInput != null)
             {
                 if (paperInput.simbolos.Count != currentDay.paperAnswers.Count)
                 {
                     areAnswersCorrect = false;
-                    Debug.Log($"[Erro no Fax] O número de palavras escritas não coincide com o puzzle (Escritas: {paperInput.simbolos.Count}, Esperadas: {currentDay.paperAnswers.Count}).");
                 }
                 else
                 {
@@ -158,7 +198,6 @@ public class FaxMachine : Interactable
                         if (playerInputWritten != expectedAnswer)
                         {
                             areAnswersCorrect = false;
-                            Debug.Log($"[Erro no Fax] Símbolo #{i + 1} incorreto. Escreveste '{playerInputWritten}', mas a resposta esperada era '{expectedAnswer}'.");
                         }
                     }
                 }
@@ -166,7 +205,6 @@ public class FaxMachine : Interactable
             else
             {
                 areAnswersCorrect = false;
-                Debug.Log("[Erro no Fax] O papel inserido não tem o componente PhysicalPaperInput anexado.");
             }
         }
 
@@ -176,21 +214,88 @@ public class FaxMachine : Interactable
         if (daySuccess)
         {
             CartasManager.Instance.DefinirEscolha("certa");
-            Debug.Log("Sucesso! Respostas corretas e transmissão enviada para a estação certa.");
+            Debug.Log("Sucesso! Respostas corretas e transmissão enviada.");
         }
         else
         {
             CartasManager.Instance.DefinirEscolha("errada");
-            Debug.Log("Falha na transmissão. Consulta os logs acima para ver o que estava incorreto.");
+            Debug.Log("Falha na transmissão.");
         }
         Door.CartaSent = true;
 
-        ReturnPaper();
         ExitFaxView();
+        StartCoroutine(RetirarEVoltarMaoRoutine());
+    }
+
+    private IEnumerator RetirarEVoltarMaoRoutine()
+    {
+        if (insertedPaper != null && pontosDeTrajeto != null && pontosDeTrajeto.Length >= 2)
+        {
+            if (audioSource != null && somRetirarPapel != null)
+            {
+                audioSource.PlayOneShot(somRetirarPapel);
+            }
+
+            int qtd = pontosDeTrajeto.Length;
+            Vector3[] localPos = new Vector3[qtd];
+            Quaternion[] localRot = new Quaternion[qtd];
+
+            for (int i = 0; i < qtd; i++)
+            {
+                localPos[i] = transform.InverseTransformPoint(pontosDeTrajeto[i].position);
+                localRot[i] = Quaternion.Inverse(transform.rotation) * pontosDeTrajeto[i].rotation;
+            }
+
+            yield return StartCoroutine(AnimarTrajetoPapel(insertedPaper.transform, localPos, localRot, true, tempoViagemPapel));
+        }
+
+        ReturnPaper();
+    }
+
+    private IEnumerator AnimarTrajetoPapel(Transform alvo, Vector3[] posicoes, Quaternion[] rotacoes, bool reverso, float duracao)
+    {
+        float tempoDecorrido = 0f;
+        int totalSegmentos = posicoes.Length - 1;
+
+        while (tempoDecorrido < duracao)
+        {
+            if (alvo == null) yield break;
+
+            tempoDecorrido += Time.deltaTime;
+            float progressoGlobal = Mathf.Clamp01(tempoDecorrido / duracao);
+            progressoGlobal = Mathf.Sin(progressoGlobal * Mathf.PI * 0.5f);
+
+            if (reverso)
+            {
+                progressoGlobal = 1f - progressoGlobal;
+            }
+
+            float progressoEscalado = progressoGlobal * totalSegmentos;
+            int indiceSegmento = Mathf.FloorToInt(progressoEscalado);
+
+            if (indiceSegmento >= totalSegmentos) indiceSegmento = totalSegmentos - 1;
+            if (indiceSegmento < 0) indiceSegmento = 0;
+
+            float progressoSegmento = progressoEscalado - indiceSegmento;
+
+            alvo.localPosition = Vector3.Lerp(posicoes[indiceSegmento], posicoes[indiceSegmento + 1], progressoSegmento);
+            alvo.localRotation = Quaternion.Lerp(rotacoes[indiceSegmento], rotacoes[indiceSegmento + 1], progressoSegmento);
+
+            yield return null;
+        }
+
+        if (alvo != null)
+        {
+            int targetIdx = reverso ? 0 : posicoes.Length - 1;
+            alvo.localPosition = posicoes[targetIdx];
+            alvo.localRotation = rotacoes[targetIdx];
+        }
     }
 
     private void ReturnPaper()
     {
+        if (insertedPaper == null) return;
+
         insertedPaper.SetActive(true);
         if (currentPlayerHand != null && !currentPlayerHand.HasItem())
         {
