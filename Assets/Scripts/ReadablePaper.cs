@@ -20,7 +20,7 @@ public class ReadablePaper : MonoBehaviour, IUsable
         crosshairController = FindObjectsByType<CrosshairController>(FindObjectsSortMode.None)[0];
         playerController = FindObjectsByType<SUPERCharacterAIO>(FindObjectsSortMode.None)[0];
         interactionSystem = FindObjectsByType<InteractionSystem>(FindObjectsSortMode.None)[0];
-        child = transform.GetChild(0).gameObject;
+        child = transform.GetChild(1).gameObject;
     }
     
     public void Use()
