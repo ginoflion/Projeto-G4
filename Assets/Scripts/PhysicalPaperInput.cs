@@ -34,9 +34,11 @@ public class PhysicalPaperInput : MonoBehaviour, IUsable
     
     private SUPERCharacterAIO playerController;
     private InteractionSystem interactionSystem;
+    public GameObject visual;
 
     void Start()
     {
+        playerCamera = Camera.main;
         playerController = FindObjectsByType<SUPERCharacterAIO>(FindObjectsSortMode.None)[0];
         interactionSystem = FindObjectsByType<InteractionSystem>(FindObjectsSortMode.None)[0];
 
@@ -56,6 +58,7 @@ public class PhysicalPaperInput : MonoBehaviour, IUsable
 
     private void EnterZoom()
     {
+        visual.layer = LayerMask.NameToLayer("IgnoreCRT");
         isReading = true;
         readStartTime = Time.time; 
 
@@ -74,6 +77,7 @@ public class PhysicalPaperInput : MonoBehaviour, IUsable
 
     private void ExitZoom()
     {
+        visual.layer = LayerMask.NameToLayer("Default");
         isReading = false;
 
         transform.localPosition = normalPosition;
