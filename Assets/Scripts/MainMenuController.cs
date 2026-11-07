@@ -1,5 +1,7 @@
+using System.Collections;
 using SUPERCharacter;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -16,20 +18,58 @@ public class MainMenuController : MonoBehaviour
     public GameObject pauseMenuControls;
     public GameObject pauseMenuOptions;
     public GameObject Crosshair;
-    
+
+    [Header("Configurações de Fade")]
+    public Image fadeImage;
+    public float fadeDuration = 1f; 
+
     public void PlayGame()
     {
-        MainMenuPanel.SetActive(false);
-        //PlayCoroutine de Fade
-        if (CartasManager.Instance != null)
+        StartCoroutine(PlayGameWithFadeRoutine());
+    }
+
+    private IEnumerator PlayGameWithFadeRoutine()
+    {
+        if (fadeImage != null)
         {
-            CartasManager.Instance.SpawnJornal1();
+            fadeImage.gameObject.SetActive(true);
+            yield return StartCoroutine(FadeRoutine(0f, 1f)); 
         }
+
+        MainMenuPanel.SetActive(false);
         MainCamera.enabled = true;
         MenuCamera.enabled = false;
         superCharacterAIO.enabled = true;
         MenuIcon.SetActive(false);
+
+        if (fadeImage != null)
+        {
+            yield return StartCoroutine(FadeRoutine(1f, 0f));
+            fadeImage.gameObject.SetActive(false);
+        }
         crosshairController.SetCrosshairVisibility(true);
+        if (CartasManager.Instance != null)
+        {
+            CartasManager.Instance.SpawnJornal1();
+        }
+    }
+
+    private IEnumerator FadeRoutine(float startAlpha, float endAlpha)
+    {
+        float elapsedTime = 0f;
+        Color color = fadeImage.color;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float currentAlpha = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / fadeDuration);
+            color.a = currentAlpha;
+            fadeImage.color = color;
+            yield return null;
+        }
+
+        color.a = endAlpha;
+        fadeImage.color = color;
     }
 
     public void GoBackToMenu()
@@ -88,14 +128,14 @@ public class MainMenuController : MonoBehaviour
         Cursor.visible = false;
         Time.timeScale = 1f;
     }
+
     public void GoToPauseMenu()
     {
-        
         pauseMenu.SetActive(true);
         pauseMenuOptions.SetActive(false);
         pauseMenuControls.SetActive(false);
     }
-    
+
     public void OpenPauseControls()
     {
         pauseMenuControls.SetActive(true);
