@@ -27,7 +27,7 @@ public class CorkboardSpot : Interactable
 
     public override void Interact(PlayerItem playerHand)
     {
-        if (playerHand.HasItem() && (playerHand.GetItemName() == "Paper" || playerHand.GetItemName() == "Answer") && placedPaper == null)
+        if (playerHand.HasItem() && (playerHand.GetItemName() == "Paper" || playerHand.GetItemName() == "Answer" || playerHand.GetItemName() == "Instructions") && placedPaper == null)
         {
             placedPaper = playerHand.DropItem(); 
             
