@@ -7802,8 +7802,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e02c610a96ba67749baa7e4dbf150d8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabDia1: {fileID: 7620412196061848375, guid: 006f4c0ddd08e4b4cacf53b5529fa938, type: 3}
-  listaDiasComEscolha: []
+  prefabDia1: {fileID: 5024402523003435975, guid: 83cebd34c8234fc4b83f0b66c10ca1ae, type: 3}
+  listaDiasComEscolha:
+  - nomeDoDia: Dia 2
+    cartaCertaPrefab: {fileID: 8281093760011637876, guid: c151410884d0fab4b9d2c1cdcc6a023b, type: 3}
+    cartaErradaPrefab: {fileID: 1942027982248696761, guid: d5546da7c6b8ab2439c31bdf52a0b74a, type: 3}
+  - nomeDoDia: Dia 3
+    cartaCertaPrefab: {fileID: 4117471435041071639, guid: 864c28ff7b630f7458de9c1c18041b8a, type: 3}
+    cartaErradaPrefab: {fileID: 7286088997831351955, guid: f6798fae7a4093648bea42525e8bafc1, type: 3}
+  - nomeDoDia: Dia 4
+    cartaCertaPrefab: {fileID: 2519553136911675234, guid: 4d12858ac954ff54aa0d236119a7739e, type: 3}
+    cartaErradaPrefab: {fileID: 1515723658307354888, guid: 0041517ee4e061340ac7c04d487f20c9, type: 3}
+  - nomeDoDia: Dia 5
+    cartaCertaPrefab: {fileID: 6609207459242395315, guid: 11b82a1db928a4e4f8770b00dbbd1c66, type: 3}
+    cartaErradaPrefab: {fileID: 4539136257395639547, guid: a145df21ce35b9a42acc3d45cfdaf7f0, type: 3}
   pontosDeTrajeto:
   - {fileID: 405749656}
   - {fileID: 559235957}
@@ -13358,7 +13370,7 @@ Transform:
   m_GameObject: {fileID: 1774682696}
   serializedVersion: 2
   m_LocalRotation: {x: 0.90547454, y: -0, z: -0, w: 0.42440063}
-  m_LocalPosition: {x: 12.87, y: 5.178, z: -5.28}
+  m_LocalPosition: {x: 12.239, y: 3.081, z: -3.655}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
