@@ -21,19 +21,44 @@ public class MainMenuController : MonoBehaviour
 
     [Header("Configurações de Fade")]
     public Image fadeImage;
-    public float fadeDuration = 1f; 
+    public float fadeDuration = 1f;
+
+    [Header("Configurações de Áudio")]
+    public AudioSource audioSource; 
+    public AudioClip menuMusic;      
+    public AudioClip gameplayMusic;
+    public AudioSource audioSourceB;
+    public AudioClip Button;
+
+    private void Start()
+    {
+        if (audioSource != null && menuMusic != null)
+        {
+            audioSourceB.clip = Button;
+            audioSource.clip = menuMusic;
+            audioSource.Play();
+        }
+    }
 
     public void PlayGame()
     {
+        audioSourceB.Play();
         StartCoroutine(PlayGameWithFadeRoutine());
     }
 
     private IEnumerator PlayGameWithFadeRoutine()
     {
+        if (audioSource != null && gameplayMusic != null)
+        {
+            audioSource.Stop();
+            audioSource.clip = gameplayMusic;
+            audioSource.Play();
+        }
+
         if (fadeImage != null)
         {
             fadeImage.gameObject.SetActive(true);
-            yield return StartCoroutine(FadeRoutine(0f, 1f)); 
+            yield return StartCoroutine(FadeRoutine(0f, 1f));
         }
 
         MainMenuPanel.SetActive(false);
@@ -74,14 +99,23 @@ public class MainMenuController : MonoBehaviour
 
     public void GoBackToMenu()
     {
+        audioSourceB.Play();
         MainMenuPanel.SetActive(true);
         ControlsPanel.SetActive(false);
         OptionsPanel.SetActive(false);
         CreditsPanel.SetActive(false);
+
+        if (audioSource != null && menuMusic != null && audioSource.clip != menuMusic)
+        {
+            audioSource.Stop();
+            audioSource.clip = menuMusic;
+            audioSource.Play();
+        }
     }
 
     public void OpenControls()
     {
+        audioSourceB.Play();
         ControlsPanel.SetActive(true);
         MainMenuPanel.SetActive(false);
         OptionsPanel.SetActive(false);
@@ -90,6 +124,7 @@ public class MainMenuController : MonoBehaviour
 
     public void OpenOptions()
     {
+        audioSourceB.Play();
         ControlsPanel.SetActive(false);
         MainMenuPanel.SetActive(false);
         OptionsPanel.SetActive(true);
@@ -98,6 +133,7 @@ public class MainMenuController : MonoBehaviour
 
     public void OpenCredits()
     {
+        audioSourceB.Play();
         ControlsPanel.SetActive(false);
         MainMenuPanel.SetActive(false);
         OptionsPanel.SetActive(false);
@@ -106,6 +142,7 @@ public class MainMenuController : MonoBehaviour
 
     public void QuitGame()
     {
+        audioSourceB.Play();
         Application.Quit();
     }
 
@@ -121,6 +158,7 @@ public class MainMenuController : MonoBehaviour
 
     public void ReturnToGame()
     {
+        audioSourceB.Play();
         pauseMenu.SetActive(false);
         MenuIcon.SetActive(false);
         Crosshair.SetActive(true);
@@ -138,6 +176,7 @@ public class MainMenuController : MonoBehaviour
 
     public void OpenPauseControls()
     {
+        audioSourceB.Play();
         pauseMenuControls.SetActive(true);
         pauseMenu.SetActive(false);
         pauseMenuOptions.SetActive(false);
@@ -145,6 +184,7 @@ public class MainMenuController : MonoBehaviour
 
     public void OpenPauseOptions()
     {
+        audioSourceB.Play();
         pauseMenuControls.SetActive(false);
         pauseMenu.SetActive(false);
         pauseMenuOptions.SetActive(true);

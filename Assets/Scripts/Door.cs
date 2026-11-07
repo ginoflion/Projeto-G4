@@ -19,15 +19,16 @@ public class Door : Interactable
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip doorunlock;
     [SerializeField] private AudioClip doorlock;
+    [SerializeField] private AudioSource Game;
 
     [Header("Configuração do Final (Último Dia / Dia 5)")]
     [Tooltip("Número do dia final que dispara a sequência especial.")]
     public int diaFinal = 5;
 
-    [Header("Referências de Câmara e Jogador (Estilo RadioTable)")]
+    [Header("Referências de Câmara e Jogador")]
     public Camera playerCamera;
     public SUPERCharacterAIO playerController;
-    public Transform salaPretaCameraPosition; 
+    public Transform salaPretaCameraPosition;
     public InteractionSystem interactionSystem;
     private CrosshairController crosshairController;
 
@@ -57,7 +58,7 @@ public class Door : Interactable
 
     public override void Interact(PlayerItem playerItem)
     {
-        if (CartaSent && !playerItem.HasItem()) //AQUI---------------------------------------------------------------------------------------------------------------
+        if (CartaSent && !playerItem.HasItem())
         {
             if (audioSource != null && doorunlock != null)
             {
@@ -128,6 +129,7 @@ public class Door : Interactable
 
     private IEnumerator SequenciaFinalRoutine(PlayerItem playerItem)
     {
+        Game.Stop();
         CartaSent = false;
 
         if (interactionSystem != null) interactionSystem.enabled = false;
@@ -201,7 +203,6 @@ public class Door : Interactable
                 objetoFinal.transform.position = Vector3.Lerp(posInicial, posFinal, t);
 
                 Quaternion rotacaoBase = Quaternion.Slerp(rotInicial, rotFinal, t);
-
                 float anguloExtra = 360f * voltasCompletas * (1f - t);
                 Quaternion rotacaoVoltas = Quaternion.AngleAxis(anguloExtra, velocidadeRotacao.normalized);
 

@@ -41,6 +41,8 @@ public class CartasManager : MonoBehaviour
 
     [Header("Debug / Visualização no Inspetor")]
     [SerializeField] private string ultimaEscolhaRecebida = "certa";
+    [SerializeField] private AudioSource porta;
+    [SerializeField] private AudioClip deliver;
 
     private void Awake()
     {
@@ -132,7 +134,6 @@ public class CartasManager : MonoBehaviour
                     if (!string.IsNullOrEmpty(nomeAnimacaoDia1))
                     {
                         animatorMecanismo.Play(nomeAnimacaoDia1);
-                        Debug.Log($"Executou a animação direta '{nomeAnimacaoDia1}' para o Dia 1.");
                     }
                 }
                 else
@@ -140,7 +141,6 @@ public class CartasManager : MonoBehaviour
                     if (!string.IsNullOrEmpty(triggerOutrosDias))
                     {
                         animatorMecanismo.SetTrigger(triggerOutrosDias);
-                        Debug.Log($"Disparou a trigger '{triggerOutrosDias}' para o Dia {diaAtual}.");
                     }
                 }
             }
@@ -166,7 +166,7 @@ public class CartasManager : MonoBehaviour
             cartaInstanciada.transform.localPosition = localPositions[0];
             cartaInstanciada.transform.localRotation = localRotations[0];
 
-            StartCoroutine(AnimarTrajetoMultiplo(cartaInstanciada.transform, localPositions, localRotations));
+            StartCoroutine(AnimarCartaComAudio(cartaInstanciada.transform, localPositions, localRotations));
         }
         else
         {
@@ -180,8 +180,25 @@ public class CartasManager : MonoBehaviour
         SpawnarCarta();
     }
 
-    private System.Collections.IEnumerator AnimarTrajetoMultiplo(Transform cartaTransform, Vector3[] posicoes, Quaternion[] rotacoes)
+    private System.Collections.IEnumerator AnimarCartaComAudio(Transform cartaTransform, Vector3[] posicoes, Quaternion[] rotacoes)
     {
+        if (porta != null && deliver != null)
+        {
+            porta.PlayOneShot(deliver);
+        }
+
+        float tempoAtraso = 0f;
+        if (deliver != null)
+        {
+            tempoAtraso = deliver.length - duracaoMovimento;
+            if (tempoAtraso < 0f) tempoAtraso = 0f; 
+        }
+
+        if (tempoAtraso > 0f)
+        {
+            yield return new WaitForSeconds(tempoAtraso);
+        }
+
         float tempoDecorrido = 0f;
         int totalSegmentos = posicoes.Length - 1;
 
