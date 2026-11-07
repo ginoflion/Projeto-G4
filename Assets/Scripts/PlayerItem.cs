@@ -49,29 +49,35 @@ public class PlayerItem : MonoBehaviour
     {
         if (HasItem()) return;
         currentItem = item;
+    
+        Rigidbody rb = currentItem.GetComponent<Rigidbody>();
+        if (rb != null) rb.isKinematic = true;
+    
+        Collider col  = currentItem.GetComponent<Collider>();
+        if (col != null) col.enabled = false;
+    
+        currentItem.transform.SetParent(handTransform);
+    
+        currentItem.transform.localPosition = Vector3.zero;
+        currentItem.transform.localRotation = Quaternion.identity;
 
         if (currentItem != null && GetItemName() == "Paper")
         {
+            ReadablePaper paperScript = currentItem.GetComponent<ReadablePaper>();
+        
+            currentItem.transform.localPosition = paperScript.normalPosition;
+            currentItem.transform.localRotation = Quaternion.Euler(paperScript.normalRotation);
+        
             Transform jornalChild = currentItem.transform.Find("jornal");
             Transform getrotadedChild = currentItem.transform.Find("getrotaded");
             if (jornalChild != null) jornalChild.gameObject.SetActive(false);
             if (getrotadedChild != null) getrotadedChild.gameObject.SetActive(true);
         }
-        
+    
         if (currentItem != null && GetItemName() == "UVLantern")
         {
             lanternSpot.layer = LayerMask.NameToLayer("Interactable");
         }
-        
-        Rigidbody rb = currentItem.GetComponent<Rigidbody>();
-        if (rb != null) rb.isKinematic = true;
-        
-        Collider col  = currentItem.GetComponent<Collider>();
-        if (col != null) col.enabled = false;
-        
-        currentItem.transform.SetParent(handTransform);
-        currentItem.transform.localPosition = Vector3.zero;
-        currentItem.transform.localRotation = Quaternion.identity;
     }
 
     public GameObject DropItem()

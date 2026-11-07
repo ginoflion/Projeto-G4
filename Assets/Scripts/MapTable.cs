@@ -32,8 +32,7 @@ public class MapTable : Interactable
 
     private void EnterMapView()
     {
-        textDisplay.text = "1 - Pencil" +
-                           "2 - Eraser";
+        textDisplay.text = "1 - Penci\n2 - Eraser";
         crosshairController.SetCrosshairVisibility(false);
         isLookingAtMap = true;
         if (playerInteractionSystem != null) playerInteractionSystem.enabled = false;

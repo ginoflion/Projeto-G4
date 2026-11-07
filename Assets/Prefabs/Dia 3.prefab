@@ -230,8 +230,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalPosition: {x: -0.6, y: 0.3, z: -0.6}
-  normalRotation: {x: 140, y: 95, z: -15}
-  zoomedPosition: {x: -0.795, y: 0.4, z: -0.775}
+  normalRotation: {x: 46.715, y: -53.474, z: 14.154}
+  zoomedPosition: {x: -0.813, y: 0.408, z: -0.779}
   zoomedRotation: {x: 26, y: -20, z: 50}
 --- !u!1 &5873417030450793828
 GameObject:
