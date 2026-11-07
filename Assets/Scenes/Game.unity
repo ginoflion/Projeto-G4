@@ -2564,16 +2564,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 308676357}
-  m_LocalRotation: {x: -0.002807256, y: 0.9999736, z: -0.0012325839, w: 0.006595383}
-  m_LocalPosition: {x: 0, y: 0, z: -5.236}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -5.213}
   m_LocalScale: {x: 0.9849819, y: 0.9849819, z: 0.9849819}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1616303211}
-  m_LocalEulerAnglesHint: {x: 0.139, y: 179.244, z: -0.323}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.29, y: 3.4482164}
+  m_AnchoredPosition: {x: -0.623, y: 3.446}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &308676359
@@ -5139,7 +5139,6 @@ GameObject:
   - component: {fileID: 518567497}
   - component: {fileID: 518567500}
   - component: {fileID: 518567499}
-  - component: {fileID: 518567498}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -5162,27 +5161,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1321886895}
   m_LocalEulerAnglesHint: {x: -0.461, y: 0.431, z: -24.577}
---- !u!65 &518567498
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 518567496}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &518567499
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8387,7 +8365,6 @@ GameObject:
   m_Component:
   - component: {fileID: 752352520}
   - component: {fileID: 752352523}
-  - component: {fileID: 752352522}
   - component: {fileID: 752352521}
   m_Layer: 0
   m_Name: Camera
@@ -8455,14 +8432,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &752352522
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 752352519}
-  m_Enabled: 1
 --- !u!20 &752352523
 Camera:
   m_ObjectHideFlags: 0
@@ -11743,17 +11712,17 @@ MonoBehaviour:
   prefabDia1: {fileID: 5024402523003435975, guid: 83cebd34c8234fc4b83f0b66c10ca1ae, type: 3}
   listaDiasComEscolha:
   - nomeDoDia: Dia 2
-    cartaCertaPrefab: {fileID: 8281093760011637876, guid: c151410884d0fab4b9d2c1cdcc6a023b, type: 3}
-    cartaErradaPrefab: {fileID: 1942027982248696761, guid: d5546da7c6b8ab2439c31bdf52a0b74a, type: 3}
+    cartaCertaPrefab: {fileID: 1942027982248696761, guid: d5546da7c6b8ab2439c31bdf52a0b74a, type: 3}
+    cartaErradaPrefab: {fileID: 8281093760011637876, guid: c151410884d0fab4b9d2c1cdcc6a023b, type: 3}
   - nomeDoDia: Dia 3
-    cartaCertaPrefab: {fileID: 4117471435041071639, guid: 864c28ff7b630f7458de9c1c18041b8a, type: 3}
-    cartaErradaPrefab: {fileID: 7286088997831351955, guid: f6798fae7a4093648bea42525e8bafc1, type: 3}
+    cartaCertaPrefab: {fileID: 7286088997831351955, guid: f6798fae7a4093648bea42525e8bafc1, type: 3}
+    cartaErradaPrefab: {fileID: 4117471435041071639, guid: 864c28ff7b630f7458de9c1c18041b8a, type: 3}
   - nomeDoDia: Dia 4
-    cartaCertaPrefab: {fileID: 2519553136911675234, guid: 4d12858ac954ff54aa0d236119a7739e, type: 3}
-    cartaErradaPrefab: {fileID: 1515723658307354888, guid: 0041517ee4e061340ac7c04d487f20c9, type: 3}
+    cartaCertaPrefab: {fileID: 1515723658307354888, guid: 0041517ee4e061340ac7c04d487f20c9, type: 3}
+    cartaErradaPrefab: {fileID: 2519553136911675234, guid: 4d12858ac954ff54aa0d236119a7739e, type: 3}
   - nomeDoDia: Dia 5
-    cartaCertaPrefab: {fileID: 6609207459242395315, guid: 11b82a1db928a4e4f8770b00dbbd1c66, type: 3}
-    cartaErradaPrefab: {fileID: 4539136257395639547, guid: a145df21ce35b9a42acc3d45cfdaf7f0, type: 3}
+    cartaCertaPrefab: {fileID: 4539136257395639547, guid: a145df21ce35b9a42acc3d45cfdaf7f0, type: 3}
+    cartaErradaPrefab: {fileID: 6609207459242395315, guid: 11b82a1db928a4e4f8770b00dbbd1c66, type: 3}
   pontosDeTrajeto:
   - {fileID: 405749656}
   - {fileID: 559235957}
@@ -12913,7 +12882,6 @@ GameObject:
   - component: {fileID: 1065820319}
   - component: {fileID: 1065820322}
   - component: {fileID: 1065820321}
-  - component: {fileID: 1065820320}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -12936,27 +12904,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 884903331}
   m_LocalEulerAnglesHint: {x: 0.28, y: 0.622, z: -37.143}
---- !u!65 &1065820320
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1065820318}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1065820321
 MeshRenderer:
   m_ObjectHideFlags: 0

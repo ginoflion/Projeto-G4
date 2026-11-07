@@ -15,7 +15,7 @@ public class AnswerManager : MonoBehaviour
 
     private void Start()
     {
-        currentDayIndex = DayManager.Instance.GetCurrentDay();
+        currentDayIndex = DayManager.Instance.GetCurrentDay()-1;
     }
 
     public DayData GetCurrentDayData()
