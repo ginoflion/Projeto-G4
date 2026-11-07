@@ -35,11 +35,13 @@ public class PhysicalPaperInput : MonoBehaviour, IUsable
     private SUPERCharacterAIO playerController;
     private InteractionSystem interactionSystem;
     public GameObject visual;
+    public GameObject crosshair;
 
     void Start()
     {
-        playerCamera = Camera.main;
+        
         playerController = FindObjectsByType<SUPERCharacterAIO>(FindObjectsSortMode.None)[0];
+        playerCamera = playerController.playerCamera;
         interactionSystem = FindObjectsByType<InteractionSystem>(FindObjectsSortMode.None)[0];
 
         foreach (var sim in simbolos)
@@ -59,6 +61,8 @@ public class PhysicalPaperInput : MonoBehaviour, IUsable
 
     private void EnterZoom()
     {
+        crosshair = GameObject.Find("Crosshair");
+        crosshair.SetActive(false);
         visual.layer = LayerMask.NameToLayer("IgnoreCRT");
         isReading = true;
         readStartTime = Time.time; 
@@ -82,6 +86,7 @@ public class PhysicalPaperInput : MonoBehaviour, IUsable
 
     private void ExitZoom()
     {
+        crosshair.SetActive(true);
         visual.layer = LayerMask.NameToLayer("Default");
         isReading = false;
         foreach (Simbolo simbolo in simbolos)
@@ -105,7 +110,6 @@ public class PhysicalPaperInput : MonoBehaviour, IUsable
     void Update()
     {
         if (!isReading) return;
-        if (Time.time - readStartTime < 0.2f) return;
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             Ray ray = playerCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
