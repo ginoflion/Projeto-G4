@@ -110,6 +110,7 @@ public class PhysicalPaperInput : MonoBehaviour, IUsable
     void Update()
     {
         if (!isReading) return;
+        if (Time.time - readStartTime < 0.2f) return;
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             Ray ray = playerCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
