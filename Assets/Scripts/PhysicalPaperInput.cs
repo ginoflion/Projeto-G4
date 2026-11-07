@@ -45,6 +45,7 @@ public class PhysicalPaperInput : MonoBehaviour, IUsable
         foreach (var sim in simbolos)
         {
             if (sim.writtenText != null) sim.writtenText.text = "";
+            sim.symbolCollider.enabled = false;
         }
     }
     
@@ -67,6 +68,10 @@ public class PhysicalPaperInput : MonoBehaviour, IUsable
 
         if (playerController != null) playerController.PausePlayer(PauseModes.FreezeInPlace);
         if (interactionSystem != null) interactionSystem.enabled = false;
+        foreach (Simbolo simbolo in simbolos)
+        {
+            simbolo.symbolCollider.enabled = true;
+        }
         
         Keyboard.current.onTextInput += OnTextInput;
         Cursor.lockState = CursorLockMode.None;
@@ -79,6 +84,10 @@ public class PhysicalPaperInput : MonoBehaviour, IUsable
     {
         visual.layer = LayerMask.NameToLayer("Default");
         isReading = false;
+        foreach (Simbolo simbolo in simbolos)
+        {
+            simbolo.symbolCollider.enabled = false;
+        }
 
         transform.localPosition = normalPosition;
         transform.localRotation = Quaternion.Euler(normalRotation);

@@ -12110,6 +12110,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: AnswerDay1
       objectReference: {fileID: 0}
+    - target: {fileID: 6959072390525088923, guid: 4221694480f5f42469e2fd02dee8bfa2, type: 3}
+      propertyPath: normalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6959072390525088923, guid: 4221694480f5f42469e2fd02dee8bfa2, type: 3}
+      propertyPath: normalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6959072390525088923, guid: 4221694480f5f42469e2fd02dee8bfa2, type: 3}
+      propertyPath: normalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
