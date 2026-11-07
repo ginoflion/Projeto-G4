@@ -57,7 +57,7 @@ public class Door : Interactable
 
     public override void Interact(PlayerItem playerItem)
     {
-        if (CartaSent) //AQUI---------------------------------------------------------------------------------------------------------------
+        if (CartaSent && !playerItem.HasItem()) //AQUI---------------------------------------------------------------------------------------------------------------
         {
             if (audioSource != null && doorunlock != null)
             {

@@ -81,6 +81,14 @@ public class PlayerItem : MonoBehaviour
             currentItem.transform.localRotation = Quaternion.Euler(paperScript.normalRotation);
         }
         
+        if (currentItem != null && GetItemName() == "Answer")
+        {
+            PhysicalPaperInput paperScript = currentItem.GetComponent<PhysicalPaperInput>();
+        
+            currentItem.transform.localPosition = paperScript.normalPosition;
+            currentItem.transform.localRotation = Quaternion.Euler(paperScript.normalRotation);
+        }
+        
         if (currentItem != null && GetItemName() == "Instructions")
         {
             InstructionsPaper paperScript = currentItem.GetComponent<InstructionsPaper>();
