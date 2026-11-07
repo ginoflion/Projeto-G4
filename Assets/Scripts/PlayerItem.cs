@@ -73,6 +73,21 @@ public class PlayerItem : MonoBehaviour
             if (jornalChild != null) jornalChild.gameObject.SetActive(false);
             if (getrotadedChild != null) getrotadedChild.gameObject.SetActive(true);
         }
+        if (currentItem != null && GetItemName() == "Instruction")
+        {
+            NewPaper paperScript = currentItem.GetComponent<NewPaper>();
+        
+            currentItem.transform.localPosition = paperScript.normalPosition;
+            currentItem.transform.localRotation = Quaternion.Euler(paperScript.normalRotation);
+        }
+        
+        if (currentItem != null && GetItemName() == "Instructions")
+        {
+            InstructionsPaper paperScript = currentItem.GetComponent<InstructionsPaper>();
+        
+            currentItem.transform.localPosition = paperScript.normalPosition;
+            currentItem.transform.localRotation = Quaternion.Euler(paperScript.normalRotation);
+        }
     
         if (currentItem != null && GetItemName() == "UVLantern")
         {

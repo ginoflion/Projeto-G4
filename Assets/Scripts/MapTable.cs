@@ -16,9 +16,14 @@ public class MapTable : Interactable
     public InteractionSystem playerInteractionSystem;
     private CrosshairController crosshairController;
     public TextMeshProUGUI textDisplay;
+    public Camera overlayCamera;
+    private int layer1;
+    private int layer2;
 
     private void Start()
     {
+        layer1 = LayerMask.NameToLayer("Map");
+        layer2 = LayerMask.NameToLayer("Paint");
         crosshairController = FindObjectsByType<CrosshairController>(FindObjectsSortMode.None)[0];
     }
 
@@ -32,7 +37,8 @@ public class MapTable : Interactable
 
     private void EnterMapView()
     {
-        textDisplay.text = "1 - Penci\n2 - Eraser";
+        overlayCamera.cullingMask |= (1 << layer1) | (1 << layer2);
+        textDisplay.text = "1 - Pencil\n2 - Eraser";
         crosshairController.SetCrosshairVisibility(false);
         isLookingAtMap = true;
         if (playerInteractionSystem != null) playerInteractionSystem.enabled = false;
@@ -60,6 +66,7 @@ public class MapTable : Interactable
 
     private void ExitMapView()
     {
+        overlayCamera.cullingMask &= ((1 << layer1) | (1 << layer2));
         textDisplay.text = "Press E to Interact";
         isLookingAtMap = false;
         crosshairController.SetCrosshairVisibility(true);
