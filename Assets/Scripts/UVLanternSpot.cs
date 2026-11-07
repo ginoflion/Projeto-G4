@@ -14,7 +14,7 @@ public class UVLanternSpot : Interactable
     
     public override void OnHoverEnter()
     {
-        if (placedPaper == null && outlineVisual != null && playerHand != null && (playerHand.GetItemName() == "Lantern"))
+        if (placedPaper == null && outlineVisual != null && playerHand != null && (playerHand.GetItemName() == "UVLantern"))
         {
             outlineVisual.SetActive(true);
         }
@@ -27,7 +27,7 @@ public class UVLanternSpot : Interactable
 
     public override void Interact(PlayerItem playerHand)
     {
-        if (playerHand.HasItem() && (playerHand.GetItemName() == "Lantern") && placedPaper == null)
+        if (playerHand.HasItem() && (playerHand.GetItemName() == "UVLantern") && placedPaper == null)
         {
             placedPaper = playerHand.DropItem(); 
             

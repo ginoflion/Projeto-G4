@@ -52,7 +52,7 @@ public class InteractionSystem : MonoBehaviour
             {
                 if (currentHoveredObject != null) currentHoveredObject.OnHoverExit();
                 currentHoveredObject = interactable;
-                helper.SetActive(true);
+                if (playerItem != null && !playerItem.HasItem()) helper.SetActive(true);
                 if (currentHoveredObject != null) currentHoveredObject.OnHoverEnter();
             }
         }
