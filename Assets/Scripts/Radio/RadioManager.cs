@@ -51,11 +51,12 @@ public class RadioManager : MonoBehaviour
     [SerializeField] private AudioClip somImpressaoRadio;
     [SerializeField] private AudioClip somInteracaoPapel;
 
-    private bool jaSpawnouHoje = false;
+    public static bool jaSpawnouHoje = false;
     private Transform papelGeradoTransform;
 
     void Start()
     {
+        jaSpawnouHoje = false;
         CacheOriginalMaterials();
         UpdateDisplay();
         UpdateVisualIndicators();
@@ -314,5 +315,19 @@ public class RadioManager : MonoBehaviour
         }
         int.TryParse(freqStr, out int result);
         return result;
+    }
+    public void ResetarDigitosParaZero()
+    {
+        for (int i = 0; i < digits.Length; i++)
+        {
+            digits[i] = 0;
+        }
+
+        selectedIndex = 0;
+
+        UpdateDisplay();
+        UpdateVisualIndicators();
+
+        Debug.Log("Todos os dígitos do rádio foram reiniciados para 0.");
     }
 }

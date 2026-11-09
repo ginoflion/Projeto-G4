@@ -93,7 +93,12 @@ public class Door : Interactable
     private IEnumerator TransitionRoutine(PlayerItem playerItem)
     {
         CartaSent = false;
-
+        RadioManager.jaSpawnouHoje = false;
+        RadioManager radioManager = FindFirstObjectByType<RadioManager>();
+        if (radioManager != null)
+        {
+            radioManager.ResetarDigitosParaZero();
+        }
         if (fadeImage != null)
         {
             fadeImage.gameObject.SetActive(true);
