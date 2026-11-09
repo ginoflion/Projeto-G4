@@ -172,9 +172,9 @@ public class MainMenuController : MonoBehaviour
 
     public void GoToPauseMenu()
     {
-        pauseMenu.SetActive(true);
         pauseMenuOptions.SetActive(false);
         pauseMenuControls.SetActive(false);
+        pauseMenu.SetActive(true);
     }
 
     public void OpenPauseControls()
