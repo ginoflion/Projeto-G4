@@ -6,7 +6,7 @@ public class RadioManager : MonoBehaviour
 {
     [Header("Configuração dos Dígitos")]
     private int[] digits = new int[6];
-    private int selectedIndex = 0; 
+    private int selectedIndex = 0;
 
     [Header("Interface (TextMeshPro 3D)")]
     public TextMeshPro[] digitTexts;
@@ -42,19 +42,21 @@ public class RadioManager : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [Tooltip("O objeto vazio que define onde o papel pára (já impresso e fora).")]
     [SerializeField] private Transform finalPoint;
-    [SerializeField] private float duracaoMovimento = 1.0f; 
+    [SerializeField] private float duracaoMovimento = 1.0f;
+    [Tooltip("Tempo em segundos que o colisor do papel fica desativado após spawnar.")]
+    [SerializeField] private float duracaoDesativadoCollider = 2.0f;
 
     [Header("Áudio do Rádio")]
     [SerializeField] private AudioSource radioAudioSource;
     [SerializeField] private AudioClip somImpressaoRadio;
-    [SerializeField] private AudioClip somInteracaoPapel; 
+    [SerializeField] private AudioClip somInteracaoPapel;
 
     private bool jaSpawnouHoje = false;
-    private Transform papelGeradoTransform; 
+    private Transform papelGeradoTransform;
 
     void Start()
     {
-        CacheOriginalMaterials(); 
+        CacheOriginalMaterials();
         UpdateDisplay();
         UpdateVisualIndicators();
     }
@@ -173,10 +175,8 @@ public class RadioManager : MonoBehaviour
 
                 StartCoroutine(VigiarInteracaoPapel());
 
-                if (radioAudioSource != null && somImpressaoRadio != null)
-                {
-                    radioAudioSource.PlayOneShot(somImpressaoRadio);
-                }
+                // Gestão de colisão por variável de segundos e som de impressão
+                StartCoroutine(GerenciarColisorPapel(papelInstanciado));
 
                 jaSpawnouHoje = true;
                 Debug.Log("Papel a mover-se do SpawnPoint para o FinalPoint!");
@@ -211,6 +211,36 @@ public class RadioManager : MonoBehaviour
         {
             papelTransform.localPosition = endPos;
             papelTransform.localRotation = endRot;
+        }
+    }
+
+    private System.Collections.IEnumerator GerenciarColisorPapel(GameObject papelInstanciado)
+    {
+        // 1. Obter todos os BoxColliders (incluindo em filhos)
+        BoxCollider[] colliders = papelInstanciado.GetComponentsInChildren<BoxCollider>();
+
+        // 2. Desativar todos os colliders imediatamente
+        foreach (var col in colliders)
+        {
+            if (col != null) col.enabled = false;
+        }
+
+        // 3. Tocar o som de impressão normalmente
+        if (radioAudioSource != null && somImpressaoRadio != null)
+        {
+            radioAudioSource.PlayOneShot(somImpressaoRadio);
+        }
+
+        // 4. Aguardar o tempo definido na variável do Inspector
+        yield return new WaitForSeconds(duracaoDesativadoCollider);
+
+        // 5. Reativar os colliders se o papel ainda existir
+        if (papelInstanciado != null)
+        {
+            foreach (var col in colliders)
+            {
+                if (col != null) col.enabled = true;
+            }
         }
     }
 
