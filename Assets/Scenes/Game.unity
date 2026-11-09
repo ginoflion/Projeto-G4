@@ -17784,7 +17784,6 @@ Transform:
   m_LocalScale: {x: 0.24164286, y: 0.24164286, z: 0.24164286}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1847478174}
   - {fileID: 461599122}
   m_Father: {fileID: 1616303211}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -207.375}
@@ -22536,6 +22535,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6817638360860843947, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
       insertIndex: -1
       addedObject: {fileID: 814309338}
+    - targetCorrespondingSourceObject: {fileID: 6817638360860843947, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1847478174}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
 --- !u!114 &1830414275 stripped
@@ -22678,6 +22680,7 @@ GameObject:
   - component: {fileID: 1847478174}
   - component: {fileID: 1847478176}
   - component: {fileID: 1847478175}
+  - component: {fileID: 1847478177}
   m_Layer: 3
   m_Name: Spot Light
   m_TagString: Untagged
@@ -22693,13 +22696,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1847478173}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.85, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.16109528, y: 0.16109529, z: 0.16109528}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1395494812}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_Father: {fileID: 1867198918}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1847478175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22788,6 +22791,21 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!114 &1847478177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847478173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d0d08c268bbc5448a5a1023784bb6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 1867198918}
+  uvSpotlight: {fileID: 1847478176}
+  rotationSpeed: 15
 --- !u!1 &1849441728
 GameObject:
   m_ObjectHideFlags: 0
