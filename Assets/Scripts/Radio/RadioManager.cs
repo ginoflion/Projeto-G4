@@ -175,7 +175,6 @@ public class RadioManager : MonoBehaviour
 
                 StartCoroutine(VigiarInteracaoPapel());
 
-                // Gestão de colisão por variável de segundos e som de impressão
                 StartCoroutine(GerenciarColisorPapel(papelInstanciado));
 
                 jaSpawnouHoje = true;
@@ -216,25 +215,20 @@ public class RadioManager : MonoBehaviour
 
     private System.Collections.IEnumerator GerenciarColisorPapel(GameObject papelInstanciado)
     {
-        // 1. Obter todos os BoxColliders (incluindo em filhos)
         BoxCollider[] colliders = papelInstanciado.GetComponentsInChildren<BoxCollider>();
 
-        // 2. Desativar todos os colliders imediatamente
         foreach (var col in colliders)
         {
             if (col != null) col.enabled = false;
         }
 
-        // 3. Tocar o som de impressão normalmente
         if (radioAudioSource != null && somImpressaoRadio != null)
         {
             radioAudioSource.PlayOneShot(somImpressaoRadio);
         }
 
-        // 4. Aguardar o tempo definido na variável do Inspector
         yield return new WaitForSeconds(duracaoDesativadoCollider);
 
-        // 5. Reativar os colliders se o papel ainda existir
         if (papelInstanciado != null)
         {
             foreach (var col in colliders)

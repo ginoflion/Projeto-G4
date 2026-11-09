@@ -21,6 +21,8 @@ public class FaxMachine : Interactable
     [Tooltip("Coloca aqui os pontos em ordem: [0] Ponto Inicial, [1] Intermédio, [2] Ponto Final.")]
     [SerializeField] private Transform[] pontosDeTrajeto;
     [SerializeField] private float tempoViagemPapel = 0.8f;
+    [Tooltip("Tempo em segundos que o colisor do papel fica desativado ao inserir ou retirar.")]
+    [SerializeField] private float duracaoDesativadoCollider = 1.0f;
 
     [Header("Áudio")]
     [SerializeField] private AudioSource audioSource;
@@ -83,6 +85,8 @@ public class FaxMachine : Interactable
             localPos[i] = transform.InverseTransformPoint(pontosDeTrajeto[i].position);
             localRot[i] = Quaternion.Inverse(transform.rotation) * pontosDeTrajeto[i].rotation;
         }
+
+        StartCoroutine(GerenciarColisorPapel(insertedPaper));
 
         yield return StartCoroutine(AnimarTrajetoPapel(insertedPaper.transform, localPos, localRot, false, tempoViagemPapel));
 
@@ -331,6 +335,28 @@ public class FaxMachine : Interactable
         return temp2.Count == 0;
     }
 
+    private IEnumerator GerenciarColisorPapel(GameObject papel)
+    {
+        if (papel == null) yield break;
+
+        BoxCollider[] colliders = papel.GetComponentsInChildren<BoxCollider>();
+
+        foreach (var col in colliders)
+        {
+            if (col != null) col.enabled = false;
+        }
+
+        yield return new WaitForSeconds(duracaoDesativadoCollider);
+
+        if (papel != null)
+        {
+            foreach (var col in colliders)
+            {
+                if (col != null) col.enabled = true;
+            }
+        }
+    }
+
     private IEnumerator RetirarEVoltarMaoRoutine()
     {
         if (insertedPaper != null && pontosDeTrajeto != null && pontosDeTrajeto.Length >= 2)
@@ -349,6 +375,8 @@ public class FaxMachine : Interactable
                 localPos[i] = transform.InverseTransformPoint(pontosDeTrajeto[i].position);
                 localRot[i] = Quaternion.Inverse(transform.rotation) * pontosDeTrajeto[i].rotation;
             }
+
+            StartCoroutine(GerenciarColisorPapel(insertedPaper));
 
             yield return StartCoroutine(AnimarTrajetoPapel(insertedPaper.transform, localPos, localRot, true, tempoViagemPapel));
         }
