@@ -28,6 +28,7 @@ public class FaxMachine : Interactable
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip somInserirPapel;
     [SerializeField] private AudioClip somRetirarPapel;
+    [SerializeField] private AudioClip transmitir;
 
     private bool isLookingAtFax = false;
     private Vector3 originalCameraPosition;
@@ -91,9 +92,10 @@ public class FaxMachine : Interactable
         {
             paperInput.HideText();
         }
+        EnterFaxView();
         yield return StartCoroutine(AnimarTrajetoPapel(insertedPaper.transform, localPos, localRot, false, tempoViagemPapel));
 
-        EnterFaxView();
+        
     }
 
     private void EnterFaxView()
@@ -133,8 +135,8 @@ public class FaxMachine : Interactable
         {
             if (insertedPaper != null && itemName != "A transmitir...")
             {
-                ExitFaxView();
                 StartCoroutine(RetirarEVoltarMaoRoutine());
+
                 return;
             }
             if (itemName != "A transmitir...") ExitFaxView();
@@ -171,6 +173,7 @@ public class FaxMachine : Interactable
     {
         if (insertedPaper != null && itemName != "A transmitir...")
         {
+            audioSource.PlayOneShot(transmitir);
             StartCoroutine(SendFaxRoutine());
         }
     }
@@ -236,8 +239,7 @@ public class FaxMachine : Interactable
         }
         Door.CartaSent = true;
 
-        ExitFaxView();
-        StartCoroutine(RetirarEVoltarMaoRoutine());
+        StartCoroutine(RetirarEVoltarMaoRoutine());   
     }
 
     // FUNÇÕES AUXILIARES
@@ -395,6 +397,7 @@ public class FaxMachine : Interactable
         }
 
         ReturnPaper();
+        ExitFaxView();
     }
 
     private IEnumerator AnimarTrajetoPapel(Transform alvo, Vector3[] posicoes, Quaternion[] rotacoes, bool reverso, float duracao)

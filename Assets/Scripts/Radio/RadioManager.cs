@@ -50,6 +50,7 @@ public class RadioManager : MonoBehaviour
     [SerializeField] private AudioSource radioAudioSource;
     [SerializeField] private AudioClip somImpressaoRadio;
     [SerializeField] private AudioClip somInteracaoPapel;
+    [SerializeField] private AudioClip Erro;
 
     public static bool jaSpawnouHoje = false;
     private Transform papelGeradoTransform;
@@ -184,6 +185,7 @@ public class RadioManager : MonoBehaviour
         }
         else
         {
+            radioAudioSource.PlayOneShot(Erro);
             Debug.Log("<color=red>Frequência incorreta!</color>");
         }
     }
