@@ -4277,7 +4277,6 @@ GameObject:
   - component: {fileID: 468854171}
   - component: {fileID: 468854174}
   - component: {fileID: 468854173}
-  - component: {fileID: 468854172}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -4300,27 +4299,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1321886895}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!65 &468854172
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468854170}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &468854173
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4630,7 +4608,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -11453,6 +11431,7 @@ MonoBehaviour:
   - {fileID: 1277156801}
   - {fileID: 909783279}
   tempoViagemPapel: 4
+  duracaoDesativadoCollider: 4.5
   audioSource: {fileID: 981836570}
   somInserirPapel: {fileID: 8300000, guid: bc18cd15356dc3547a667dc7b2e617a3, type: 3}
   somRetirarPapel: {fileID: 8300000, guid: 172f8d00b25f00041b73569f09b4fd2a, type: 3}
@@ -11593,7 +11572,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.65
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -11637,7 +11616,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -15663,6 +15642,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: d8ab817e46d19204cbd829bb54989448, type: 3}
     - target: {fileID: 6360178014415601180, guid: abf0999ad7e4ccf47b63c1a045ef2028, type: 3}
+      propertyPath: duracaoDesativadoCollider
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6360178014415601180, guid: abf0999ad7e4ccf47b63c1a045ef2028, type: 3}
       propertyPath: frequenciasDosDias.Array.size
       value: 5
       objectReference: {fileID: 0}
@@ -15726,6 +15709,14 @@ PrefabInstance:
       propertyPath: frequenciasDosDias.Array.data[4].prefabParaSpawnar
       value: 
       objectReference: {fileID: 1977584345399501952, guid: acd97c87bac6c9f4ba4d4d8402e32699, type: 3}
+    - target: {fileID: 6789662590885350773, guid: abf0999ad7e4ccf47b63c1a045ef2028, type: 3}
+      propertyPath: m_Volume
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 6789662590885350773, guid: abf0999ad7e4ccf47b63c1a045ef2028, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7247798344855694348, guid: abf0999ad7e4ccf47b63c1a045ef2028, type: 3}
       propertyPath: m_fontColor.b
       value: 0
