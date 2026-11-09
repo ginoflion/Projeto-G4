@@ -9,6 +9,7 @@ public class MainMenuController : MonoBehaviour
     public GameObject MainMenuPanel;
     public GameObject ControlsPanel;
     public GameObject OptionsPanel;
+    public GameObject OptionsMenuBack;
     public GameObject CreditsPanel;
     public Camera MainCamera;
     public Camera MenuCamera;
@@ -17,7 +18,7 @@ public class MainMenuController : MonoBehaviour
     public CrosshairController crosshairController;
     public GameObject pauseMenu;
     public GameObject pauseMenuControls;
-    public GameObject pauseMenuOptions;
+    public GameObject pauseMenuOptionsBack;
     public GameObject Crosshair;
 
     [Header("Configurações de Fade")]
@@ -30,6 +31,12 @@ public class MainMenuController : MonoBehaviour
     public AudioClip gameplayMusic;
     public AudioSource audioSourceB;
     public AudioClip Button;
+    
+    public Slider volumeSlider;
+    public Slider sensitivitySlider;
+    private float defaultVolume = 1f;
+    private float defaultSensitivity = 2f;
+    public PlayerItem playerItem;
 
     private void Start()
     {
@@ -39,6 +46,7 @@ public class MainMenuController : MonoBehaviour
             audioSource.clip = menuMusic;
             audioSource.Play();
         }
+        LoadSettings();
     }
 
     public void PlayGame()
@@ -97,6 +105,50 @@ public class MainMenuController : MonoBehaviour
         color.a = endAlpha;
         fadeImage.color = color;
     }
+    
+    public void SetVolume(float volume)
+    {
+        AudioListener.volume = volume;
+        PlayerPrefs.SetFloat("MasterVolume", volume);
+        PlayerPrefs.Save(); 
+    }
+
+    public void SetSensitivity(float sensitivity)
+    {
+        if (superCharacterAIO != null)
+        {
+            superCharacterAIO.Sensitivity = sensitivity; 
+        }
+
+        PlayerPrefs.SetFloat("MouseSensitivity", sensitivity);
+        PlayerPrefs.Save(); 
+    }
+    private void LoadSettings()
+    {
+        if (PlayerPrefs.HasKey("MasterVolume"))
+        {
+            float savedVolume = PlayerPrefs.GetFloat("MasterVolume");
+            if (volumeSlider != null) volumeSlider.value = savedVolume;
+            SetVolume(savedVolume);
+        }
+        else
+        {
+            if (volumeSlider != null) volumeSlider.value = defaultVolume;
+            SetVolume(defaultVolume);
+        }
+
+        if (PlayerPrefs.HasKey("MouseSensitivity"))
+        {
+            float savedSensitivity = PlayerPrefs.GetFloat("MouseSensitivity");
+            if (sensitivitySlider != null) sensitivitySlider.value = savedSensitivity;
+            SetSensitivity(savedSensitivity);
+        }
+        else
+        {
+            if (sensitivitySlider != null) sensitivitySlider.value = defaultSensitivity;
+            SetSensitivity(defaultSensitivity);
+        }
+    }
 
     public void GoBackToMenu()
     {
@@ -129,6 +181,8 @@ public class MainMenuController : MonoBehaviour
         ControlsPanel.SetActive(false);
         MainMenuPanel.SetActive(false);
         OptionsPanel.SetActive(true);
+        OptionsMenuBack.SetActive(true);
+        pauseMenuOptionsBack.SetActive(false);   
         CreditsPanel.SetActive(false);
     }
 
@@ -151,6 +205,7 @@ public class MainMenuController : MonoBehaviour
 
     public void OpenPauseMenu()
     {
+        playerItem.enabled = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         MenuIcon.SetActive(true);
@@ -161,6 +216,7 @@ public class MainMenuController : MonoBehaviour
 
     public void ReturnToGame()
     {
+        playerItem.enabled = true;
         audioSourceB.Play();
         pauseMenu.SetActive(false);
         MenuIcon.SetActive(false);
@@ -172,7 +228,7 @@ public class MainMenuController : MonoBehaviour
 
     public void GoToPauseMenu()
     {
-        pauseMenuOptions.SetActive(false);
+        OptionsPanel.SetActive(false);
         pauseMenuControls.SetActive(false);
         pauseMenu.SetActive(true);
     }
@@ -182,7 +238,7 @@ public class MainMenuController : MonoBehaviour
         audioSourceB.Play();
         pauseMenuControls.SetActive(true);
         pauseMenu.SetActive(false);
-        pauseMenuOptions.SetActive(false);
+        OptionsPanel.SetActive(false);
     }
 
     public void OpenPauseOptions()
@@ -190,6 +246,8 @@ public class MainMenuController : MonoBehaviour
         audioSourceB.Play();
         pauseMenuControls.SetActive(false);
         pauseMenu.SetActive(false);
-        pauseMenuOptions.SetActive(true);
+        OptionsMenuBack.SetActive(false);
+        pauseMenuOptionsBack.SetActive(true);   
+        OptionsPanel.SetActive(true);
     }
 }
