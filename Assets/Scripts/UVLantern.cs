@@ -6,7 +6,7 @@ public class UVLantern : MonoBehaviour, IUsable
     [Header("Áudio")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip clickSound;
-    private bool isLightOn = false;
+    public bool isLightOn = false;
 
     void Start()
     {

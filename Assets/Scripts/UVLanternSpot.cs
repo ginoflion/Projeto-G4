@@ -29,7 +29,9 @@ public class UVLanternSpot : Interactable
     {
         if (playerHand.HasItem() && (playerHand.GetItemName() == "UVLantern") && placedPaper == null)
         {
-            placedPaper = playerHand.DropItem(); 
+            placedPaper = playerHand.DropItem();
+            UVLantern Uv = placedPaper.GetComponent<UVLantern>();
+            if (Uv != null && Uv.isLightOn) Uv.Use();
             
             placedPaper.transform.position = transform.position;
             placedPaper.transform.rotation = transform.rotation;

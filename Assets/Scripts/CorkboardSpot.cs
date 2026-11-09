@@ -3,7 +3,7 @@ using UnityEngine;
 public class CorkboardSpot : Interactable
 {
     public GameObject outlineVisual;
-    private GameObject placedPaper;
+    public GameObject placedPaper;
     private PlayerItem playerHand;
 
     void Start()

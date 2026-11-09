@@ -40,68 +40,77 @@ public class InteractionSystem : MonoBehaviour
     }
 
     private void HandleHover()
-{
-    Ray ray = new Ray(playerCamera.position, playerCamera.forward);
-    RaycastHit hit;
-
-    if (Physics.Raycast(ray, out hit, interactionDistance, interactableLayer))
     {
-        Interactable interactable = hit.collider.GetComponent<Interactable>();
+        Ray ray = new Ray(playerCamera.position, playerCamera.forward);
+        RaycastHit hit;
 
-        if (interactable != currentHoveredObject)
+        if (Physics.Raycast(ray, out hit, interactionDistance, interactableLayer))
         {
-            if (currentHoveredObject != null) currentHoveredObject.OnHoverExit();
-            currentHoveredObject = interactable;
-            if (currentHoveredObject != null) currentHoveredObject.OnHoverEnter();
+            Interactable interactable = hit.collider.GetComponent<Interactable>();
+
+            if (interactable != currentHoveredObject)
+            {
+                if (currentHoveredObject != null) currentHoveredObject.OnHoverExit();
+                currentHoveredObject = interactable;
+                if (currentHoveredObject != null) currentHoveredObject.OnHoverEnter();
+            }
+
+            if (currentHoveredObject != null)
+            {
+                bool shouldShowHelper = false;
+                FaxMachine fax = currentHoveredObject.GetComponent<FaxMachine>();
+                UVLanternSpot lanternSpot = currentHoveredObject.GetComponent<UVLanternSpot>();
+                CorkboardSpot corkboardSpot = currentHoveredObject.GetComponent<CorkboardSpot>();
+
+                if (fax != null)
+                {
+                    if (playerItem != null && playerItem.HasItem() && playerItem.GetItemName() == "Answer")
+                    {
+                        shouldShowHelper = true;
+                    }
+                }
+                if (lanternSpot != null)
+                {
+                    if (playerItem != null && playerItem.HasItem() && playerItem.GetItemName() == "UVLantern")
+                    {
+                        shouldShowHelper = true;
+                    }
+                }
+                if (corkboardSpot != null)
+                {
+                    if (playerItem != null && playerItem.HasItem() && (playerItem.GetItemName() == "Paper" || playerItem.GetItemName() == "Answer" || playerItem.GetItemName() == "Instructions"|| playerItem.GetItemName() == "Instruction"))
+                    {
+                        shouldShowHelper = true;
+                    }
+                    else if (corkboardSpot.placedPaper != null)
+                    {
+                        shouldShowHelper = true;
+                    }
+                }
+                else
+                {
+                    if (playerItem != null && !playerItem.HasItem())
+                    {
+                        if (currentHoveredObject == fax) shouldShowHelper = false;
+                        else
+                        {
+                            shouldShowHelper = true;
+                        }
+                       
+                    }
+                }
+
+                if (helper != null) helper.SetActive(shouldShowHelper);
+            }
         }
-
-        if (currentHoveredObject != null)
+        else
         {
-            bool shouldShowHelper = false;
-            FaxMachine fax = currentHoveredObject.GetComponent<FaxMachine>();
-            UVLanternSpot lanternSpot = currentHoveredObject.GetComponent<UVLanternSpot>();
-            CorkboardSpot corkboardSpot = currentHoveredObject.GetComponent<CorkboardSpot>();
-
-            if (fax != null)
+            if (currentHoveredObject != null)
             {
-                if (playerItem != null && playerItem.HasItem() && playerItem.GetItemName() == "Answer")
-                {
-                    shouldShowHelper = true;
-                }
+                if (helper != null) helper.SetActive(false);
+                currentHoveredObject.OnHoverExit();
+                currentHoveredObject = null;
             }
-            if (lanternSpot != null)
-            {
-                if (playerItem != null && playerItem.HasItem() && playerItem.GetItemName() == "UVLantern")
-                {
-                    shouldShowHelper = true;
-                }
-            }
-            if (corkboardSpot != null)
-            {
-                if (playerItem != null && playerItem.HasItem() && (playerItem.GetItemName() == "Paper" || playerItem.GetItemName() == "Answer" || playerItem.GetItemName() == "Instructions"|| playerItem.GetItemName() == "Instruction"))
-                {
-                    shouldShowHelper = true;
-                }
-            }
-            else
-            {
-                if (playerItem != null && !playerItem.HasItem())
-                {
-                    shouldShowHelper = true;
-                }
-            }
-
-            if (helper != null) helper.SetActive(shouldShowHelper);
         }
     }
-    else
-    {
-        if (currentHoveredObject != null)
-        {
-            if (helper != null) helper.SetActive(false);
-            currentHoveredObject.OnHoverExit();
-            currentHoveredObject = null;
-        }
-    }
-}
 }
