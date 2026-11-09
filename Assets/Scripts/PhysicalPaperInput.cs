@@ -111,6 +111,19 @@ public class PhysicalPaperInput : MonoBehaviour, IUsable
     {
         if (!isReading) return;
         if (Time.time - readStartTime < 0.2f) return;
+        if (Keyboard.current.backspaceKey.wasPressedThisFrame)
+        {
+            if (currentSymbolIndex < simbolos.Count)
+            {
+                Simbolo currentSim = simbolos[currentSymbolIndex];
+                if (currentSim.currentInput.Length > 0)
+                {
+                    currentSim.currentInput = currentSim.currentInput.Substring(0, currentSim.currentInput.Length - 1);
+                    HighlightCurrentLine();
+                }
+            }
+        }
+
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             Ray ray = playerCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -156,15 +169,8 @@ public class PhysicalPaperInput : MonoBehaviour, IUsable
         if (currentSymbolIndex >= simbolos.Count) return;
 
         Simbolo currentSim = simbolos[currentSymbolIndex];
-
-        if (c == '\b')
-        {
-            if (currentSim.currentInput.Length > 0)
-            {
-                currentSim.currentInput = currentSim.currentInput.Substring(0, currentSim.currentInput.Length - 1);
-            }
-        }
-        else if (c == ' ')
+        
+        if (c == ' ')
         {
             currentSymbolIndex = (currentSymbolIndex + 1) % simbolos.Count;
             HighlightCurrentLine();
@@ -205,5 +211,27 @@ public class PhysicalPaperInput : MonoBehaviour, IUsable
     void OnDestroy()
     {
         if (Keyboard.current != null) Keyboard.current.onTextInput -= OnTextInput;
+    }
+    
+    public void HideText()
+    {
+        foreach (var sim in simbolos)
+        {
+            if (sim.writtenText != null)
+            {
+                sim.writtenText.alpha = 0f; 
+            }
+        }
+    }
+
+    public void ShowText()
+    {
+        foreach (var sim in simbolos)
+        {
+            if (sim.writtenText != null)
+            {
+                sim.writtenText.alpha = 1f; 
+            }
+        }
     }
 }

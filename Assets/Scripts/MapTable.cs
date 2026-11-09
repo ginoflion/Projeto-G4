@@ -66,7 +66,7 @@ public class MapTable : Interactable
 
     private void ExitMapView()
     {
-        overlayCamera.cullingMask &= ((1 << layer1) | (1 << layer2));
+        overlayCamera.cullingMask &= ~((1 << layer1) | (1 << layer2));
         textDisplay.text = "Press E to Interact";
         isLookingAtMap = false;
         crosshairController.SetCrosshairVisibility(true);

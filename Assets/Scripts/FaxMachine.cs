@@ -70,7 +70,6 @@ public class FaxMachine : Interactable
             EnterFaxView();
             yield break;
         }
-
         Transform pontoInicial = pontosDeTrajeto[0];
         insertedPaper.transform.position = pontoInicial.position;
         insertedPaper.transform.rotation = pontoInicial.rotation;
@@ -87,7 +86,11 @@ public class FaxMachine : Interactable
         }
 
         StartCoroutine(GerenciarColisorPapel(insertedPaper));
-
+        PhysicalPaperInput paperInput = insertedPaper.GetComponent<PhysicalPaperInput>();
+        if (paperInput != null)
+        {
+            paperInput.HideText();
+        }
         yield return StartCoroutine(AnimarTrajetoPapel(insertedPaper.transform, localPos, localRot, false, tempoViagemPapel));
 
         EnterFaxView();
@@ -427,6 +430,11 @@ public class FaxMachine : Interactable
     private void ReturnPaper()
     {
         if (insertedPaper == null) return;
+        PhysicalPaperInput paperInput = insertedPaper.GetComponent<PhysicalPaperInput>();
+        if (paperInput != null)
+        {
+            paperInput.ShowText();
+        }
 
         insertedPaper.SetActive(true);
         if (currentPlayerHand != null && !currentPlayerHand.HasItem())

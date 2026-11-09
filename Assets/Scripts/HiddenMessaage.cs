@@ -5,7 +5,7 @@ public class HiddenMessaage : MonoBehaviour
 {
     public float distanciaMaxima = 3.5f;
     public float velocidadeAparecer = 6f;
-    public float velocidadeDesaparecer = 2f;
+    public float velocidadeDesaparecer = 1f;
     private TextMeshPro textoSecreto;
     private Color corOriginal;
     private UVLantern lanterna;

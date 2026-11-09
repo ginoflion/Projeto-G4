@@ -22490,12 +22490,28 @@ PrefabInstance:
       value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 6817638361354391145, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
+      propertyPath: enableFootstepSounds
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6817638361354391145, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
       propertyPath: autoGenerateCrosshair
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6817638361354391145, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
+      propertyPath: footstepSoundSet.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6817638361354391145, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
       propertyPath: enableMouseAndCameraDebugging
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6817638361354391145, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
+      propertyPath: footstepSoundSet.Array.data[0].profileTriggerType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6817638361354391145, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
+      propertyPath: footstepSoundSet.Array.data[0]._Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6817638361354391147, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
       propertyPath: m_Name
@@ -22738,9 +22754,9 @@ Light:
   m_Type: 0
   m_Color: {r: 0.64346313, g: 0.29814878, b: 0.9433962, a: 1}
   m_Intensity: 7
-  m_Range: 4
-  m_SpotAngle: 39.7
-  m_InnerSpotAngle: 32.754837
+  m_Range: 6
+  m_SpotAngle: 31.849123
+  m_InnerSpotAngle: 24.90396
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
