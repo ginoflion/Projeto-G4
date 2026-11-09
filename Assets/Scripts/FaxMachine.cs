@@ -248,6 +248,16 @@ public class FaxMachine : Interactable
 
         if (input == "meia-noite" || input == "midnight") input = "00:00";
         if (input == "meio-dia" || input == "noon") input = "12:00";
+        if (input == "dock") input = "docks";
+        if (input == "stab" || input == "stabed" || input == "knife" || input == "knifed") input = "stabbing";
+        if (input == "bar") input = "pub";
+        if(input == "poisoned" || input == "rat poison" || input == "drugged") input = "poison";
+        if (input == "garbage") input = "dumpsite";
+        if (input == "car") input = "run over";
+        if (input == "disco") input = "nightclub";
+        if (input == "hanged" || input == "suffocated" || input == "suffocate") input = "hanging";
+        if (input == "work") input = "office";
+        if (input == "gun" || input == "shot at") input = "shot";
 
         input = NormalizeTimeFormat(input);
 
