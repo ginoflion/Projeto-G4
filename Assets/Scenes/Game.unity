@@ -9887,7 +9887,7 @@ GameObject:
   - component: {fileID: 827813094}
   - component: {fileID: 827813092}
   m_Layer: 0
-  m_Name: Spot (1)
+  m_Name: UVLightSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10733,7 +10733,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 846621160}
   m_LocalRotation: {x: 0.018038899, y: 0.69590557, z: -0.01601143, w: 0.71772826}
-  m_LocalPosition: {x: 0, y: 0, z: 4.621}
+  m_LocalPosition: {x: 0, y: 0, z: 4.345}
   m_LocalScale: {x: 0.87834525, y: 0.87834525, z: 0.87834525}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10741,7 +10741,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 2.762, y: 88.234, z: 0.122}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.347, y: 1.444}
+  m_AnchoredPosition: {x: 3.347, y: 1.285}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &846621162
@@ -22529,6 +22529,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HandVisual
       objectReference: {fileID: 0}
+    - target: {fileID: 8529606668823448187, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
+      propertyPath: text
+      value: 
+      objectReference: {fileID: 1406896191}
     - target: {fileID: 8529606668823448187, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
       propertyPath: useAction
       value: 

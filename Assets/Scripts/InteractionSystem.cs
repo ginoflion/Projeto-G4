@@ -40,30 +40,68 @@ public class InteractionSystem : MonoBehaviour
     }
 
     private void HandleHover()
+{
+    Ray ray = new Ray(playerCamera.position, playerCamera.forward);
+    RaycastHit hit;
+
+    if (Physics.Raycast(ray, out hit, interactionDistance, interactableLayer))
     {
-        Ray ray = new Ray(playerCamera.position, playerCamera.forward);
-        RaycastHit hit;
+        Interactable interactable = hit.collider.GetComponent<Interactable>();
 
-        if (Physics.Raycast(ray, out hit, interactionDistance, interactableLayer))
+        if (interactable != currentHoveredObject)
         {
-            Interactable interactable = hit.collider.GetComponent<Interactable>();
-
-            if (interactable != currentHoveredObject)
-            {
-                if (currentHoveredObject != null) currentHoveredObject.OnHoverExit();
-                currentHoveredObject = interactable;
-                if (playerItem != null && !playerItem.HasItem()) helper.SetActive(true);
-                if (currentHoveredObject != null) currentHoveredObject.OnHoverEnter();
-            }
+            if (currentHoveredObject != null) currentHoveredObject.OnHoverExit();
+            currentHoveredObject = interactable;
+            if (currentHoveredObject != null) currentHoveredObject.OnHoverEnter();
         }
-        else
+
+        if (currentHoveredObject != null)
         {
-            if (currentHoveredObject != null)
+            bool shouldShowHelper = false;
+            FaxMachine fax = currentHoveredObject.GetComponent<FaxMachine>();
+            UVLanternSpot lanternSpot = currentHoveredObject.GetComponent<UVLanternSpot>();
+            CorkboardSpot corkboardSpot = currentHoveredObject.GetComponent<CorkboardSpot>();
+
+            if (fax != null)
             {
-                helper.SetActive(false);
-                currentHoveredObject.OnHoverExit();
-                currentHoveredObject = null;
+                if (playerItem != null && playerItem.HasItem() && playerItem.GetItemName() == "Answer")
+                {
+                    shouldShowHelper = true;
+                }
             }
+            if (lanternSpot != null)
+            {
+                if (playerItem != null && playerItem.HasItem() && playerItem.GetItemName() == "UVLantern")
+                {
+                    shouldShowHelper = true;
+                }
+            }
+            if (corkboardSpot != null)
+            {
+                if (playerItem != null && playerItem.HasItem() && (playerItem.GetItemName() == "Paper" || playerItem.GetItemName() == "Answer" || playerItem.GetItemName() == "Instructions"|| playerItem.GetItemName() == "Instruction"))
+                {
+                    shouldShowHelper = true;
+                }
+            }
+            else
+            {
+                if (playerItem != null && !playerItem.HasItem())
+                {
+                    shouldShowHelper = true;
+                }
+            }
+
+            if (helper != null) helper.SetActive(shouldShowHelper);
         }
     }
+    else
+    {
+        if (currentHoveredObject != null)
+        {
+            if (helper != null) helper.SetActive(false);
+            currentHoveredObject.OnHoverExit();
+            currentHoveredObject = null;
+        }
+    }
+}
 }

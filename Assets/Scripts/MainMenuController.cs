@@ -221,9 +221,9 @@ public class MainMenuController : MonoBehaviour
         pauseMenu.SetActive(false);
         MenuIcon.SetActive(false);
         Crosshair.SetActive(true);
+        Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        Time.timeScale = 1f;
     }
 
     public void GoToPauseMenu()
