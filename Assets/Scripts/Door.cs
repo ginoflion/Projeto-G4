@@ -53,6 +53,7 @@ public class Door : Interactable
 
     private void Start()
     {
+        CartaSent = false;
         crosshairController = FindFirstObjectByType<CrosshairController>();
     }
 

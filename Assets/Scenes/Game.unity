@@ -11616,7 +11616,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -15715,7 +15715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6789662590885350773, guid: abf0999ad7e4ccf47b63c1a045ef2028, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7247798344855694348, guid: abf0999ad7e4ccf47b63c1a045ef2028, type: 3}
       propertyPath: m_fontColor.b

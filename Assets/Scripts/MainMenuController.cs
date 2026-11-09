@@ -2,6 +2,7 @@ using System.Collections;
 using SUPERCharacter;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -142,8 +143,10 @@ public class MainMenuController : MonoBehaviour
 
     public void QuitGame()
     {
+        Time.timeScale = 1f; 
         audioSourceB.Play();
         Application.Quit();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void OpenPauseMenu()
