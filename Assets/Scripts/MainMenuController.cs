@@ -37,15 +37,31 @@ public class MainMenuController : MonoBehaviour
     private float defaultVolume = 1f;
     private float defaultSensitivity = 2f;
     public PlayerItem playerItem;
+    
+    public AudioSource[] audioSources; 
+    private float[] baseVolumes;
 
     private void Start()
     {
+        if (audioSources != null && audioSources.Length > 0)
+        {
+            baseVolumes = new float[audioSources.Length];
+            for (int i = 0; i < audioSources.Length; i++)
+            {
+                if (audioSources[i] != null)
+                {
+                    baseVolumes[i] = audioSources[i].volume;
+                }
+            }
+        }
+
         if (audioSource != null && menuMusic != null)
         {
             audioSourceB.clip = Button;
             audioSource.clip = menuMusic;
             audioSource.Play();
         }
+
         LoadSettings();
     }
 
@@ -108,9 +124,19 @@ public class MainMenuController : MonoBehaviour
     
     public void SetVolume(float volume)
     {
-        AudioListener.volume = volume;
         PlayerPrefs.SetFloat("MasterVolume", volume);
         PlayerPrefs.Save(); 
+
+        if (audioSources != null && baseVolumes != null)
+        {
+            for (int i = 0; i < audioSources.Length; i++)
+            {
+                if (audioSources[i] != null)
+                {
+                    audioSources[i].volume = baseVolumes[i] * volume;
+                }
+            }
+        }
     }
 
     public void SetSensitivity(float sensitivity)

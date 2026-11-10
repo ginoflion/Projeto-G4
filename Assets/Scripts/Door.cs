@@ -65,6 +65,7 @@ public class Door : Interactable
             {
                 audioSource.PlayOneShot(doorunlock);
             }
+            
 
             int diaAtual = 1;
             if (DayManager.Instance != null)

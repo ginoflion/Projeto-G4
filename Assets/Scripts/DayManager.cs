@@ -25,6 +25,7 @@ public class DayManager : MonoBehaviour
 
     public void AdvanceDay()
     {
+        AnswerManager.Instance.currentDayIndex = DayManager.Instance.GetCurrentDay();
         currentDay++;
     }
 

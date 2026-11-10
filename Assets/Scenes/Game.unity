@@ -5894,6 +5894,17 @@ MonoBehaviour:
   volumeSlider: {fileID: 196111972}
   sensitivitySlider: {fileID: 1145482236}
   playerItem: {fileID: 1830414280}
+  audioSources:
+  - {fileID: 1830414282}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!82 &477264751
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13783,7 +13794,7 @@ MonoBehaviour:
     m_Bits: 128
   isDrawingModeActive: 0
   currentTool: 0
-  eraserRadius: 0.01
+  eraserRadius: 0.03
 --- !u!1001 &948051488
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18075,6 +18086,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1616303211}
     m_Modifications:
+    - target: {fileID: -8692223231605289136, guid: b18b38fbab4c07e4795cb84540943376, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b6c5e9a19fb06da4c9c3c8805a853545, type: 2}
     - target: {fileID: -8679921383154817045, guid: b18b38fbab4c07e4795cb84540943376, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.12771896
@@ -25410,6 +25425,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8995f69983ac1ba41b3ab94e1cde89ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &1830414282 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6817638361354391142, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
+  m_PrefabInstance: {fileID: 1830414274}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1836589365
 GameObject:
   m_ObjectHideFlags: 0
