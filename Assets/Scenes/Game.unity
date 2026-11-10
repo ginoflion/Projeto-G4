@@ -9671,6 +9671,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: CorkboardSpot
   outlineVisual: {fileID: 1836589365}
+  placedPaper: {fileID: 0}
 --- !u!1 &814309335
 GameObject:
   m_ObjectHideFlags: 0
@@ -12262,6 +12263,7 @@ MonoBehaviour:
   audioSource: {fileID: 981836570}
   somInserirPapel: {fileID: 8300000, guid: bc18cd15356dc3547a667dc7b2e617a3, type: 3}
   somRetirarPapel: {fileID: 8300000, guid: 172f8d00b25f00041b73569f09b4fd2a, type: 3}
+  transmitir: {fileID: 0}
 --- !u!65 &981836565
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14310,6 +14312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: CorkboardSpot
   outlineVisual: {fileID: 332805270}
+  placedPaper: {fileID: 0}
 --- !u!65 &1095505823
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15598,6 +15601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: CorkboardSpot
   outlineVisual: {fileID: 739448494}
+  placedPaper: {fileID: 0}
 --- !u!65 &1196199241
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17802,6 +17806,7 @@ MonoBehaviour:
   uvLight: {fileID: 1847478176}
   audioSource: {fileID: 1395494814}
   clickSound: {fileID: 8300000, guid: 1b9a77c165a6a6341a45533525cbcf48, type: 3}
+  isLightOn: 0
 --- !u!82 &1395494814
 AudioSource:
   m_ObjectHideFlags: 0
@@ -18163,6 +18168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: CorkboardSpot
   outlineVisual: {fileID: 1333058710}
+  placedPaper: {fileID: 0}
 --- !u!65 &1405104396
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21897,6 +21903,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: CorkboardSpot
   outlineVisual: {fileID: 1246504359}
+  placedPaper: {fileID: 0}
 --- !u!65 &1774827288
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -22978,6 +22985,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: CorkboardSpot
   outlineVisual: {fileID: 154110582}
+  placedPaper: {fileID: 0}
 --- !u!65 &1851015274
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23615,6 +23623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: CorkboardSpot
   outlineVisual: {fileID: 1472665440}
+  placedPaper: {fileID: 0}
 --- !u!65 &1930584981
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24402,6 +24411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: CorkboardSpot
   outlineVisual: {fileID: 2104613371}
+  placedPaper: {fileID: 0}
 --- !u!65 &2036584422
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24636,6 +24646,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: CorkboardSpot
   outlineVisual: {fileID: 1962479369}
+  placedPaper: {fileID: 0}
 --- !u!65 &2049955628
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24897,6 +24908,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: CorkboardSpot
   outlineVisual: {fileID: 1530083037}
+  placedPaper: {fileID: 0}
 --- !u!65 &2061646547
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25021,6 +25033,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: CorkboardSpot
   outlineVisual: {fileID: 1972353796}
+  placedPaper: {fileID: 0}
 --- !u!65 &2089645134
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25465,6 +25478,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: CorkboardSpot
   outlineVisual: {fileID: 843437027}
+  placedPaper: {fileID: 0}
 --- !u!65 &2128538295
 BoxCollider:
   m_ObjectHideFlags: 0
