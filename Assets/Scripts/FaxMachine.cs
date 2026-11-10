@@ -31,6 +31,7 @@ public class FaxMachine : Interactable
     [SerializeField] private AudioClip transmitir;
 
     private bool isLookingAtFax = false;
+    private bool isAnimating = false;
     private Vector3 originalCameraPosition;
     private Quaternion originalCameraRotation;
 
@@ -48,6 +49,8 @@ public class FaxMachine : Interactable
 
     public override void Interact(PlayerItem playerHand)
     {
+        if (isAnimating) return;
+
         if (!isLookingAtFax && playerHand.HasItem() && playerHand.GetItemName() == requiredItemName && insertedPaper == null)
         {
             insertedPaper = playerHand.DropItem();
@@ -65,12 +68,16 @@ public class FaxMachine : Interactable
 
     private IEnumerator InserirEAnimarPapelRoutine()
     {
+        isAnimating = true; 
+
         if (pontosDeTrajeto == null || pontosDeTrajeto.Length < 2)
         {
             Debug.LogError("Precisas de configurar pelo menos 2 pontos no array 'Pontos De Trajeto' da FaxMachine!");
             EnterFaxView();
+            isAnimating = false; 
             yield break;
         }
+
         Transform pontoInicial = pontosDeTrajeto[0];
         insertedPaper.transform.position = pontoInicial.position;
         insertedPaper.transform.rotation = pontoInicial.rotation;
@@ -92,10 +99,11 @@ public class FaxMachine : Interactable
         {
             paperInput.HideText();
         }
+
         EnterFaxView();
         yield return StartCoroutine(AnimarTrajetoPapel(insertedPaper.transform, localPos, localRot, false, tempoViagemPapel));
 
-        
+        isAnimating = false; 
     }
 
     private void EnterFaxView()
@@ -130,13 +138,13 @@ public class FaxMachine : Interactable
 
     void Update()
     {
-        if (!isLookingAtFax) return;
+        if (!isLookingAtFax || isAnimating) return;
+
         if (Mouse.current.rightButton.wasPressedThisFrame || Keyboard.current.eKey.wasPressedThisFrame)
         {
             if (insertedPaper != null && itemName != "A transmitir...")
             {
                 StartCoroutine(RetirarEVoltarMaoRoutine());
-
                 return;
             }
             if (itemName != "A transmitir...") ExitFaxView();
@@ -158,6 +166,7 @@ public class FaxMachine : Interactable
 
     public void CycleStation(int direction)
     {
+        if (isAnimating) return; 
         currentIndex += direction;
         if (currentIndex < 0) currentIndex = stationNames.Length - 1;
         if (currentIndex >= stationNames.Length) currentIndex = 0;
@@ -171,7 +180,7 @@ public class FaxMachine : Interactable
 
     public void SendFax()
     {
-        if (insertedPaper != null && itemName != "A transmitir...")
+        if (insertedPaper != null && itemName != "A transmitir..." && !isAnimating)
         {
             audioSource.PlayOneShot(transmitir);
             StartCoroutine(SendFaxRoutine());
@@ -180,6 +189,7 @@ public class FaxMachine : Interactable
 
     private IEnumerator SendFaxRoutine()
     {
+        isAnimating = true;
         Debug.Log("A transmitir para: " + stationNames[currentIndex]);
         itemName = "A transmitir...";
         yield return new WaitForSeconds(animationDuration);
@@ -239,7 +249,7 @@ public class FaxMachine : Interactable
         }
         Door.CartaSent = true;
 
-        StartCoroutine(RetirarEVoltarMaoRoutine());   
+        StartCoroutine(RetirarEVoltarMaoRoutine());
     }
 
     // FUNÇÕES AUXILIARES
@@ -253,7 +263,7 @@ public class FaxMachine : Interactable
         if (input == "dock") input = "docks";
         if (input == "stab" || input == "stabed" || input == "knife" || input == "knifed") input = "stabbing";
         if (input == "bar") input = "pub";
-        if(input == "poisoned" || input == "rat poison" || input == "drugged") input = "poison";
+        if (input == "poisoned" || input == "rat poison" || input == "drugged") input = "poison";
         if (input == "garbage") input = "dumpsite";
         if (input == "car") input = "run over";
         if (input == "disco") input = "nightclub";
@@ -374,6 +384,8 @@ public class FaxMachine : Interactable
 
     private IEnumerator RetirarEVoltarMaoRoutine()
     {
+        isAnimating = true; 
+
         if (insertedPaper != null && pontosDeTrajeto != null && pontosDeTrajeto.Length >= 2)
         {
             if (audioSource != null && somRetirarPapel != null)
@@ -398,6 +410,7 @@ public class FaxMachine : Interactable
 
         ReturnPaper();
         ExitFaxView();
+        isAnimating = false; 
     }
 
     private IEnumerator AnimarTrajetoPapel(Transform alvo, Vector3[] posicoes, Quaternion[] rotacoes, bool reverso, float duracao)
