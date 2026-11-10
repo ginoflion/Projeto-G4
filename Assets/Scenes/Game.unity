@@ -5896,15 +5896,12 @@ MonoBehaviour:
   playerItem: {fileID: 1830414280}
   audioSources:
   - {fileID: 1830414282}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 477264751}
+  - {fileID: 46435961}
+  - {fileID: 981836570}
+  - {fileID: 1395494814}
+  - {fileID: 582772245}
+  - {fileID: 1321886896}
 --- !u!82 &477264751
 AudioSource:
   m_ObjectHideFlags: 0
@@ -19520,6 +19517,11 @@ PrefabInstance:
 --- !u!4 &1321886895 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3025798947953767943, guid: abf0999ad7e4ccf47b63c1a045ef2028, type: 3}
+  m_PrefabInstance: {fileID: 1321886894}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1321886896 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6789662590885350773, guid: abf0999ad7e4ccf47b63c1a045ef2028, type: 3}
   m_PrefabInstance: {fileID: 1321886894}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1333058710

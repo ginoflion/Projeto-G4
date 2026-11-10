@@ -11,6 +11,14 @@ public class UVLanternSpot : Interactable
         if (outlineVisual != null) outlineVisual.SetActive(false);
         playerHand = FindObjectsByType<PlayerItem>(FindObjectsSortMode.None)[0];
     }
+
+    void Update()
+    {
+        if (placedPaper != null && placedPaper.transform.parent != null)
+        {
+            placedPaper = null;
+        }
+    }
     
     public override void OnHoverEnter()
     {
@@ -22,7 +30,7 @@ public class UVLanternSpot : Interactable
 
     public override void OnHoverExit()
     {
-        if (outlineVisual != null ) outlineVisual.SetActive(false);
+        if (outlineVisual != null) outlineVisual.SetActive(false);
     }
 
     public override void Interact(PlayerItem playerHand)
@@ -30,6 +38,7 @@ public class UVLanternSpot : Interactable
         if (playerHand.HasItem() && (playerHand.GetItemName() == "UVLantern") && placedPaper == null)
         {
             placedPaper = playerHand.DropItem();
+            
             UVLantern Uv = placedPaper.GetComponent<UVLantern>();
             if (Uv != null && Uv.isLightOn) Uv.Use();
             
@@ -38,12 +47,19 @@ public class UVLanternSpot : Interactable
 
             Rigidbody rb = placedPaper.GetComponent<Rigidbody>();
             if (rb != null) rb.isKinematic = true;
+
+            Collider col = placedPaper.GetComponent<Collider>();
+            if (col != null) col.enabled = false;
+
             if (outlineVisual != null) outlineVisual.SetActive(false);
         }
         else if (!playerHand.HasItem() && placedPaper != null)
         {
-            playerHand.PickUpItem(placedPaper); 
+            GameObject itemToPick = placedPaper;
             placedPaper = null;
+            
+            playerHand.PickUpItem(itemToPick); 
+            
             if (outlineVisual != null) outlineVisual.SetActive(true);
         }
     }
