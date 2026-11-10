@@ -2195,7 +2195,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 477264750}
+        m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
+        m_MethodName: SetVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &196273846
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5894,14 +5906,6 @@ MonoBehaviour:
   volumeSlider: {fileID: 196111972}
   sensitivitySlider: {fileID: 1145482236}
   playerItem: {fileID: 1830414280}
-  audioSources:
-  - {fileID: 1830414282}
-  - {fileID: 477264751}
-  - {fileID: 46435961}
-  - {fileID: 981836570}
-  - {fileID: 1395494814}
-  - {fileID: 582772245}
-  - {fileID: 1321886896}
 --- !u!82 &477264751
 AudioSource:
   m_ObjectHideFlags: 0
@@ -16973,10 +16977,22 @@ MonoBehaviour:
   m_MinValue: 0.5
   m_MaxValue: 5
   m_WholeNumbers: 0
-  m_Value: 0.5
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 477264750}
+        m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
+        m_MethodName: SetSensitivity
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1146370312
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19517,11 +19533,6 @@ PrefabInstance:
 --- !u!4 &1321886895 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3025798947953767943, guid: abf0999ad7e4ccf47b63c1a045ef2028, type: 3}
-  m_PrefabInstance: {fileID: 1321886894}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &1321886896 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 6789662590885350773, guid: abf0999ad7e4ccf47b63c1a045ef2028, type: 3}
   m_PrefabInstance: {fileID: 1321886894}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1333058710
@@ -25427,11 +25438,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8995f69983ac1ba41b3ab94e1cde89ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!82 &1830414282 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 6817638361354391142, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
-  m_PrefabInstance: {fileID: 1830414274}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1836589365
 GameObject:
   m_ObjectHideFlags: 0
