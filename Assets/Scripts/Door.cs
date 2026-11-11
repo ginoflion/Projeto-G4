@@ -7,6 +7,7 @@ public class Door : Interactable
 {
     [Header("Configuração de Estado")]
     public static bool CartaSent = false;
+    public GameObject helper;
 
     [Header("Referências de Jogo")]
     public Transform spawn;
@@ -138,6 +139,7 @@ public class Door : Interactable
     {
         Game.Stop();
         CartaSent = false;
+        helper.SetActive(false);
 
         if (interactionSystem != null) interactionSystem.enabled = false;
 
