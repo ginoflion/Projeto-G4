@@ -6262,7 +6262,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 484021675}
   m_LocalRotation: {x: -0.0030137168, y: 0.9991006, z: -0.033452176, w: -0.02588072}
-  m_LocalPosition: {x: 0, y: 0, z: -1.5211}
+  m_LocalPosition: {x: 0, y: 0, z: 0.127}
   m_LocalScale: {x: 0.15902317, y: 0.15902317, z: 0.15902317}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6270,7 +6270,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 3.842, y: 182.959, z: -0.246}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.6188, y: 2.2524}
+  m_AnchoredPosition: {x: 3.6333, y: 2.2524}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &484021677
@@ -7641,6 +7641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Door
+  helper: {fileID: 1406896189}
   spawn: {fileID: 1551067566}
   fadeImage: {fileID: 923897788}
   fadeDuration: 1
@@ -10534,7 +10535,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 6ebffab209006de419f02e59c10a4854, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.55
+      value: 3.5645
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6ebffab209006de419f02e59c10a4854, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10542,7 +10543,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6ebffab209006de419f02e59c10a4854, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.5251
+      value: 0.123000026
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6ebffab209006de419f02e59c10a4854, type: 3}
       propertyPath: m_LocalRotation.w
@@ -13200,7 +13201,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 869774454}
   m_LocalRotation: {x: -0.048744727, y: 0.021991087, z: -0.0010734859, w: 0.99856865}
-  m_LocalPosition: {x: 0, y: 0, z: -1.546}
+  m_LocalPosition: {x: 0, y: 0, z: 0.102100015}
   m_LocalScale: {x: 0.15902317, y: 0.15902317, z: 0.15902317}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13208,7 +13209,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: -5.584, y: 2.535, z: -0.247}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.597, y: 2.2498944}
+  m_AnchoredPosition: {x: 3.6115, y: 2.2498944}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &871980517
