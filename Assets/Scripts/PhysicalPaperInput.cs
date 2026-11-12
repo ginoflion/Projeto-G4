@@ -248,4 +248,38 @@ public class PhysicalPaperInput : MonoBehaviour, IUsable
             visualCarimbo.SetActive(true);
         }
     }
+    
+    public void SetIgnoreCRTLayer()
+    {
+        SetPaperLayer("IgnoreCRT");
+    }
+
+    public void SetDefaultLayer()
+    {
+        SetPaperLayer("Default");
+    }
+
+    private void SetPaperLayer(string layerName)
+    {
+        int layer = LayerMask.NameToLayer(layerName);
+        if (layer < 0) return;
+
+        if (visual != null)
+        {
+            visual.layer = layer;
+        }
+
+        foreach (var sim in simbolos)
+        {
+            if (sim.writtenText != null)
+            {
+                sim.writtenText.gameObject.layer = layer;
+            }
+        }
+
+        if (visualCarimbo != null)
+        {
+            visualCarimbo.layer = layer;
+        }
+    }
 }

@@ -85,7 +85,7 @@ public class PlayerItem : MonoBehaviour
         if (currentItem != null && GetItemName() == "Answer")
         {
             PhysicalPaperInput paperScript = currentItem.GetComponent<PhysicalPaperInput>();
-        
+            paperScript.SetIgnoreCRTLayer();
             currentItem.transform.localPosition = paperScript.normalPosition;
             currentItem.transform.localRotation = Quaternion.Euler(paperScript.normalRotation);
         }

@@ -30,6 +30,10 @@ public class CorkboardSpot : Interactable
         if (playerHand.HasItem() && (playerHand.GetItemName() == "Paper" || playerHand.GetItemName() == "Answer" || playerHand.GetItemName() == "Instructions"|| playerHand.GetItemName() == "Instruction") && placedPaper == null)
         {
             placedPaper = playerHand.DropItem(); 
+            if (placedPaper.TryGetComponent(out PhysicalPaperInput paper))
+            {
+                paper.SetDefaultLayer();
+            }
             
             placedPaper.transform.position = transform.position;
             placedPaper.transform.rotation = transform.rotation * Quaternion.Euler(90f, 0f, -90f);
