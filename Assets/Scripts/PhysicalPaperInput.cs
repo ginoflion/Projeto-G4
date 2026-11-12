@@ -36,6 +36,9 @@ public class PhysicalPaperInput : MonoBehaviour, IUsable
     private InteractionSystem interactionSystem;
     public GameObject visual;
     public GameObject crosshair;
+    
+    public bool jaFoiCarimbado = false;
+    [SerializeField] private GameObject visualCarimbo;
 
     void Start()
     {
@@ -232,6 +235,17 @@ public class PhysicalPaperInput : MonoBehaviour, IUsable
             {
                 sim.writtenText.alpha = 1f; 
             }
+        }
+    }
+    
+
+
+    public void AplicarCarimbo()
+    {
+        jaFoiCarimbado = true;
+        if (visualCarimbo != null)
+        {
+            visualCarimbo.SetActive(true);
         }
     }
 }
