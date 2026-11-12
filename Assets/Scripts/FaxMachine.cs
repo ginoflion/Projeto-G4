@@ -29,6 +29,7 @@ public class FaxMachine : Interactable
     [SerializeField] private AudioClip somInserirPapel;
     [SerializeField] private AudioClip somRetirarPapel;
     [SerializeField] private AudioClip transmitir;
+    [SerializeField] private AudioClip somErroCarimbado;
 
     private bool isLookingAtFax = false;
     private bool isAnimating = false;
@@ -53,6 +54,20 @@ public class FaxMachine : Interactable
 
         if (!isLookingAtFax && playerHand.HasItem() && playerHand.GetItemName() == requiredItemName && insertedPaper == null)
         {
+            GameObject itemNaMao = playerHand.GetCurrentItem();
+            if (itemNaMao != null)
+            {
+                PhysicalPaperInput paperCheck = itemNaMao.GetComponent<PhysicalPaperInput>();
+                if (paperCheck != null && paperCheck.jaFoiCarimbado)
+                {
+                    if (audioSource != null && somErroCarimbado != null)
+                    {
+                        audioSource.PlayOneShot(somErroCarimbado);
+                    }
+                    return;
+                }
+            }
+
             insertedPaper = playerHand.DropItem();
             insertedPaper.SetActive(true);
             currentPlayerHand = playerHand;
@@ -248,6 +263,14 @@ public class FaxMachine : Interactable
             Debug.Log("Falha na transmissão.");
         }
         Door.CartaSent = true;
+        if (insertedPaper != null)
+        {
+            PhysicalPaperInput paperToStamp = insertedPaper.GetComponent<PhysicalPaperInput>();
+            if (paperToStamp != null)
+            {
+                paperToStamp.AplicarCarimbo();
+            }
+        }
 
         StartCoroutine(RetirarEVoltarMaoRoutine());
     }
