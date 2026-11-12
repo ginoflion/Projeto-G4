@@ -112,7 +112,7 @@ public class FaxMachine : Interactable
         PhysicalPaperInput paperInput = insertedPaper.GetComponent<PhysicalPaperInput>();
         if (paperInput != null)
         {
-            paperInput.HideText();
+            paperInput.SetDefaultLayer();
         }
 
         EnterFaxView();
@@ -482,7 +482,7 @@ public class FaxMachine : Interactable
         PhysicalPaperInput paperInput = insertedPaper.GetComponent<PhysicalPaperInput>();
         if (paperInput != null)
         {
-            paperInput.ShowText();
+            paperInput.SetIgnoreCRTLayer();
         }
 
         insertedPaper.SetActive(true);

@@ -263,11 +263,7 @@ public class PhysicalPaperInput : MonoBehaviour, IUsable
     {
         int layer = LayerMask.NameToLayer(layerName);
         if (layer < 0) return;
-
-        if (visual != null)
-        {
-            visual.layer = layer;
-        }
+        
 
         foreach (var sim in simbolos)
         {
@@ -275,11 +271,6 @@ public class PhysicalPaperInput : MonoBehaviour, IUsable
             {
                 sim.writtenText.gameObject.layer = layer;
             }
-        }
-
-        if (visualCarimbo != null)
-        {
-            visualCarimbo.layer = layer;
         }
     }
 }
