@@ -14203,6 +14203,7 @@ MonoBehaviour:
   somInserirPapel: {fileID: 8300000, guid: bc18cd15356dc3547a667dc7b2e617a3, type: 3}
   somRetirarPapel: {fileID: 8300000, guid: 172f8d00b25f00041b73569f09b4fd2a, type: 3}
   transmitir: {fileID: 8300000, guid: e1e547f2971900b48a192740e72d8437, type: 3}
+  somErroCarimbado: {fileID: 8300000, guid: 7995e33432331cf469de0c839125e03f, type: 3}
 --- !u!65 &981836565
 BoxCollider:
   m_ObjectHideFlags: 0
