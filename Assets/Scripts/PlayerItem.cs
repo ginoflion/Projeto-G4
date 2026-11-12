@@ -130,4 +130,9 @@ public class PlayerItem : MonoBehaviour
             return "";
         }
     }
+    
+    public GameObject GetCurrentItem()
+    {
+        return currentItem;
+    }
 }
