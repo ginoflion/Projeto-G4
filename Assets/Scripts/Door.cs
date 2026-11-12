@@ -96,11 +96,17 @@ public class Door : Interactable
     {
         CartaSent = false;
         RadioManager.jaSpawnouHoje = false;
+        if (playerController != null)
+        {
+            playerController.enableMovementControl = false;
+        }
+
         RadioManager radioManager = FindFirstObjectByType<RadioManager>();
         if (radioManager != null)
         {
             radioManager.ResetarDigitosParaZero();
         }
+
         if (fadeImage != null)
         {
             fadeImage.gameObject.SetActive(true);
@@ -117,21 +123,33 @@ public class Door : Interactable
             CartasManager.Instance.SpawnarCarta();
         }
 
-        if (spawn != null && playerItem != null)
+        Transform targetTransform = (playerController != null) 
+            ? playerController.transform 
+            : (playerItem != null ? playerItem.transform : null);
+
+        if (spawn != null && targetTransform != null)
         {
-            CharacterController cc = playerItem.GetComponent<CharacterController>();
-            if (cc != null) cc.enabled = false;
+            Rigidbody rb = targetTransform.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+                rb.Sleep();
+            }
 
-            playerItem.transform.position = spawn.position;
-            playerItem.transform.rotation = spawn.rotation;
-
-            if (cc != null) cc.enabled = true;
+            targetTransform.position = spawn.position;
+            targetTransform.rotation = spawn.rotation;
+            Physics.SyncTransforms();
         }
 
         if (fadeImage != null)
         {
             yield return StartCoroutine(Fade(1f, 0f));
             fadeImage.gameObject.SetActive(false);
+        }
+        if (playerController != null)
+        {
+            playerController.enableMovementControl = true;
         }
     }
 

@@ -25358,6 +25358,10 @@ PrefabInstance:
       propertyPath: footstepSoundSet.Array.data[0]._Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6817638361354391146, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6817638361354391147, guid: 32fce1012f8c24c43af86f00f457f500, type: 3}
       propertyPath: m_Name
       value: Super First Person Controller
@@ -26225,13 +26229,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895376662}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6431684, y: 0.087919496, z: 0.10066623, w: 0.7539701}
+  m_LocalRotation: {x: 0.6346796, y: 0.035635103, z: 0.14484751, w: 0.75824213}
   m_LocalPosition: {x: 8.1469, y: 2.139, z: 0.8514}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 614550977}
-  m_LocalEulerAnglesHint: {x: 72.205, y: 59.041, z: 60.087}
+  m_LocalEulerAnglesHint: {x: 72.205, y: 51.12, z: 60.087}
 --- !u!114 &1895376664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26268,8 +26272,8 @@ Light:
   m_Color: {r: 1, g: 0.92327535, b: 0.4764151, a: 1}
   m_Intensity: 4
   m_Range: 4.5
-  m_SpotAngle: 113.909134
-  m_InnerSpotAngle: 104.059814
+  m_SpotAngle: 104.059814
+  m_InnerSpotAngle: 69.13298
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
@@ -27687,7 +27691,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2040486109}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a5eb6ac6e7059c940a26b4826f80663d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
