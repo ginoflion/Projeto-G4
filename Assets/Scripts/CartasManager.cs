@@ -233,4 +233,8 @@ public class CartasManager : MonoBehaviour
             cartaTransform.localRotation = rotacoes[posicoes.Length - 1];
         }
     }
+    public string GetUltimaEscolha()
+    {
+        return ultimaEscolhaRecebida;
+    }
 }

@@ -7642,21 +7642,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Door
   helper: {fileID: 1406896189}
+  isLocked: 0
   spawn: {fileID: 1551067566}
   fadeImage: {fileID: 923897788}
   fadeDuration: 1
   audioSource: {fileID: 582772245}
-  doorunlock: {fileID: 8300000, guid: 91d18fa915067864a90c1d76b1498024, type: 3}
-  doorlock: {fileID: 8300000, guid: 5d1e2e88011f2984990e68f06813e63d, type: 3}
+  somPortaAbrirComSucesso: {fileID: 8300000, guid: 91d18fa915067864a90c1d76b1498024, type: 3}
+  somTentativaFalhadaInteract: {fileID: 8300000, guid: 5d1e2e88011f2984990e68f06813e63d, type: 3}
   Game: {fileID: 477264751}
+  somTrancar: {fileID: 8300000, guid: 93f3ce8efba57654cba7d3fa89b149f0, type: 3}
+  somDestrancar: {fileID: 8300000, guid: 05ccfdf8fdcea9643ad865de911c8966, type: 3}
   diaFinal: 5
+  tempoEsperaParaFinalTrancada: 3
   playerCamera: {fileID: 1830414276}
   playerController: {fileID: 1830414275}
   salaPretaCameraPosition: {fileID: 37789163}
   interactionSystem: {fileID: 1830414278}
-  somAposFadePreto: {fileID: 8300000, guid: d3b5ff303d2fbfc42a22cee85c1c1481, type: 3}
-  somAposChegarObjeto: {fileID: 8300000, guid: 72f01f064b731f8498d41f70a339ac94, type: 3}
-  objetoFinal: {fileID: 884222023}
+  somAposFadePretoFinal1: {fileID: 8300000, guid: d3b5ff303d2fbfc42a22cee85c1c1481, type: 3}
+  somAposChegarObjetoFinal1: {fileID: 8300000, guid: 72f01f064b731f8498d41f70a339ac94, type: 3}
+  objetoFinal1: {fileID: 884222023}
+  somAposFadePretoFinal2: {fileID: 8300000, guid: 8829fedc92bad5b4fa2f35a09cd95bff, type: 3}
+  somAposChegarObjetoFinal2: {fileID: 8300000, guid: 72f01f064b731f8498d41f70a339ac94, type: 3}
+  objetoFinal2: {fileID: 884222023}
   pontoInicialObjeto: {fileID: 1018373842}
   pontoFinalObjeto: {fileID: 17823678}
   duracaoAproximacao: 3
@@ -19333,7 +19340,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: d8ab817e46d19204cbd829bb54989448, type: 3}
     - target: {fileID: 6360178014415601180, guid: abf0999ad7e4ccf47b63c1a045ef2028, type: 3}
       propertyPath: duracaoDesativadoCollider
-      value: 4.5
+      value: 4.2
       objectReference: {fileID: 0}
     - target: {fileID: 6360178014415601180, guid: abf0999ad7e4ccf47b63c1a045ef2028, type: 3}
       propertyPath: frequenciasDosDias.Array.size

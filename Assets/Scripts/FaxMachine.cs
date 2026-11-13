@@ -263,6 +263,7 @@ public class FaxMachine : Interactable
             Debug.Log("Falha na transmissão.");
         }
         Door.CartaSent = true;
+        Debug.Log("Carta enviada.");
         if (insertedPaper != null)
         {
             PhysicalPaperInput paperToStamp = insertedPaper.GetComponent<PhysicalPaperInput>();
