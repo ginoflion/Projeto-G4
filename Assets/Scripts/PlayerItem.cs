@@ -9,6 +9,7 @@ public class PlayerItem : MonoBehaviour
     
     public InputActionReference useAction;
     public GameObject lanternSpot;
+    private InteractionSystem interactionSystem;
     
     void OnEnable()
     {
@@ -20,11 +21,23 @@ public class PlayerItem : MonoBehaviour
         if (useAction != null) useAction.action.Disable();
     }
 
+    void Awake()
+    {
+        interactionSystem = GetComponent<InteractionSystem>();
+    }
+
     void Update()
     {
         if (useAction != null && useAction.action.WasPressedThisFrame())
         {
-            UseCurrentItem();
+            if (HasItem())
+            {
+                UseCurrentItem();
+            }
+            else if (interactionSystem != null && interactionSystem.enabled)
+            {
+                interactionSystem.UseHoveredObject();
+            }
         }
     }
     private void UseCurrentItem()

@@ -3,7 +3,7 @@ using SUPERCharacter;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Door : Interactable
+public class Door : Interactable , IUsable
 {
     [Header("Configuração de Estado")]
     public static bool CartaSent = false;
@@ -279,5 +279,10 @@ public class Door : Interactable
 
         color.a = endAlpha;
         fadeImage.color = color;
+    }
+    
+    public void Use()
+    {
+        Debug.Log("PICA");
     }
 }

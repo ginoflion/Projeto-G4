@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -38,6 +39,14 @@ public class InteractionSystem : MonoBehaviour
             }
         }
     }
+    
+    public void UseHoveredObject()
+    {
+        if (currentHoveredObject != null && currentHoveredObject is IUsable usable && currentHoveredObject.itemName == "Door")
+        {
+            usable.Use();
+        }
+    }
 
     private void HandleHover()
     {
@@ -61,7 +70,16 @@ public class InteractionSystem : MonoBehaviour
                 FaxMachine fax = currentHoveredObject.GetComponent<FaxMachine>();
                 UVLanternSpot lanternSpot = currentHoveredObject.GetComponent<UVLanternSpot>();
                 CorkboardSpot corkboardSpot = currentHoveredObject.GetComponent<CorkboardSpot>();
-
+                Door door = currentHoveredObject.GetComponent<Door>();
+                
+                if (door != null)
+                {
+                    if (playerItem != null && !playerItem.HasItem())
+                    {
+                        helper.GetComponent<TextMeshProUGUI>().text = "Mouse 1 to lock\nPress E to Interact";
+                        shouldShowHelper = true;
+                    }
+                }
                 if (fax != null)
                 {
                     if (playerItem != null && playerItem.HasItem() && playerItem.GetItemName() == "Answer")
@@ -108,6 +126,7 @@ public class InteractionSystem : MonoBehaviour
             if (currentHoveredObject != null)
             {
                 if (helper != null) helper.SetActive(false);
+                helper.GetComponent<TextMeshProUGUI>().text = "Press E to Interact";
                 currentHoveredObject.OnHoverExit();
                 currentHoveredObject = null;
             }
