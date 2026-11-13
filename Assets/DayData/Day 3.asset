@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dayName: Dia 3
   paperAnswers:
-  - 06:12
-  - Dumpsite
   - Run Over
+  - Dumpsite
+  - 06:12
   correctFaxStationIndex: 2
-  dayStatus: Not Finished
+  dayStatus: Failure

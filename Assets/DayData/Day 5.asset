@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dayName: Dia 5
   paperAnswers:
-  - 00:25
-  - Office
   - Shot
+  - 01:25
+  - Office
   correctFaxStationIndex: 3
-  dayStatus: Not Finished
+  dayStatus: Failure

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dayName: Dia 2
   paperAnswers:
-  - 23:36
   - Pub
+  - 23:36
   - Poison
   correctFaxStationIndex: 1
-  dayStatus: Not Finished
+  dayStatus: Failure

@@ -291,7 +291,7 @@ public class FaxMachine : Interactable
         if (input == "garbage") input = "dumpsite";
         if (input == "car") input = "run over";
         if (input == "disco") input = "nightclub";
-        if (input == "hanged" || input == "suffocated" || input == "suffocate") input = "hanging";
+        if (input == "hanged" || input == "suffocated" || input == "suffocate" || input == "rope") input = "hanging";
         if (input == "work") input = "office";
         if (input == "gun" || input == "shot at") input = "shot";
 

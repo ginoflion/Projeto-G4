@@ -15,7 +15,7 @@ MonoBehaviour:
   dayName: Dia 4
   paperAnswers:
   - 02:23
-  - Nightclub
   - Hanging
+  - Nightclub
   correctFaxStationIndex: 0
-  dayStatus: Not Finished
+  dayStatus: Failure
